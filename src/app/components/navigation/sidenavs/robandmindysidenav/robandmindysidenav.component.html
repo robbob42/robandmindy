@@ -1,0 +1,33 @@
+<!-- <div class="content-container">
+  <nav class="sidenav">
+    <section class="sidenav-content">
+        <section class="nav-group">
+            <input id="tabexample2" type="checkbox">
+            <label for="tabexample2">Olsens</label>
+            <ul class="nav-list">
+                <li><a class="nav-link" [routerLink]="[{outlets: {primary: ['/olsens/aboutus'], sidenav: ['olsens']}}]" >About Us</a></li>
+            </ul>
+        </section>
+    </section>
+  </nav>
+  <router-outlet></router-outlet>
+</div> -->
+
+
+<div class="content-container">
+  <nav class="sidenav">
+    <section class="sidenav-content">
+      <section class="nav-group">
+        <input id="tabexample2" type="checkbox">
+        <label for="tabexample2">RobAndMindy.com</label>
+        <ul class="nav-list">
+          <li><a class="nav-link" routerLink="/robandmindy/aboutus" routerLinkActive="active" >About Us</a></li>
+          <li><a class="nav-link" routerLink="/robandmindy/history" routerLinkActive="active" >History</a></li>
+        </ul>
+      </section>
+    </section>
+  </nav>
+  <div class="content-area">
+    <router-outlet></router-outlet>
+  </div>
+</div>
