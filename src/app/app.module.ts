@@ -11,6 +11,10 @@ import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.co
 import { AboutusComponent } from './components/robandmindy/aboutus/aboutus.component';
 import { RobandmindysidenavComponent } from './components/navigation/sidenavs/robandmindysidenav/robandmindysidenav.component';
 import { HistoryComponent } from './components/robandmindy/history/history.component';
+import { RobsidenavComponent } from './components/navigation/sidenavs/robsidenav/robsidenav.component';
+import { CkeditorComponent } from './components/rob/ckeditor/ckeditor.component';
+import { CKEditorModule } from 'ckeditor4-angular';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,13 +24,17 @@ import { HistoryComponent } from './components/robandmindy/history/history.compo
     PagenotfoundComponent,
     AboutusComponent,
     RobandmindysidenavComponent,
-    HistoryComponent
+    HistoryComponent,
+    RobsidenavComponent,
+    CkeditorComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ClarityModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    CKEditorModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

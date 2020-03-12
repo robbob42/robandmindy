@@ -1,0 +1,11 @@
+<form method="post" (ngSubmit)="printToPDF()">
+  <label for="name">Name: </label>
+  <input type="text" [(ngModel)]="model.name" name="name">
+  <ckeditor
+    name="editorData"
+    [(ngModel)]="model.editorData"
+    [config]="{ filebrowserBrowseUrl: 'http://robandmindy.com/ckeditor/uploader/images/browse.php', filebrowserUploadUrl: 'http://robandmindy.com/ckeditor/uploader/upload.php' }"
+  >
+  </ckeditor>
+  <p><button type="submit" id="submit">Save to PDF</button></p>
+</form>
