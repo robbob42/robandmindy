@@ -15,6 +15,7 @@ import { RobsidenavComponent } from './components/navigation/sidenavs/robsidenav
 import { CkeditorComponent } from './components/rob/ckeditor/ckeditor.component';
 import { CKEditorModule } from 'ckeditor4-angular';
 import { FormsModule } from '@angular/forms';
+import { WobertidleComponent } from './components/rob/wobertidle/wobertidle.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { FormsModule } from '@angular/forms';
     RobandmindysidenavComponent,
     HistoryComponent,
     RobsidenavComponent,
-    CkeditorComponent
+    CkeditorComponent,
+    WobertidleComponent
   ],
   imports: [
     BrowserModule,

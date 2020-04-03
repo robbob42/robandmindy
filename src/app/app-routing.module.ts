@@ -6,6 +6,7 @@ import { RobandmindysidenavComponent } from './components/navigation/sidenavs/ro
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 import { RobsidenavComponent } from './components/navigation/sidenavs/robsidenav/robsidenav.component';
 import { CkeditorComponent } from './components/rob/ckeditor/ckeditor.component';
+import { WobertidleComponent } from './components/rob/wobertidle/wobertidle.component';
 
 
 const routes: Routes = [
@@ -41,12 +42,16 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/rob/ckeditor',
+        redirectTo: '/rob/wobertidle',
         pathMatch: 'full'
       },
       {
         path: 'ckeditor',
         component: CkeditorComponent
+      },
+      {
+        path: 'wobertidle',
+        component: WobertidleComponent
       }
     ]
   },
