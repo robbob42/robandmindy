@@ -1,7 +1,7 @@
-<div *ngFor="let activity of activities">
+<div *ngFor="let activity of rawActivities">
   <h3 *ngIf="activity.active">{{activity.name}} {{activity.produces}}</h3>
   <div *ngIf="activity.active" style="width: 150px; height: 20px; border: 1px solid gray;">
-    <div [@fade]="animState" (@fade.done)="onAnimationEvent($event, activity)" [ngStyle]="{'background-color': activity.color, 'height': '100%'}"></div>
+    <div [@fade]="{value: animState, params: {actionTime: activity.actionTime}}" (@fade.done)="onAnimationEvent($event, activity)" [ngStyle]="{'background-color': activity.color, 'height': '100%'}"></div>
   </div>
 </div>
 
@@ -9,8 +9,8 @@
   <div>{{item.item}}: {{item.amount}}</div>
 </div>
 
-<div *ngFor="let activity of activities">
-  <button type="button" (click)="startActivity(activity)">Start {{activity.name}}</button>
-  <button type="button" (click)="stopActivity(activity)">Stop {{activity.name}}</button>
+<div *ngFor="let activity of rawActivities">
+  <button *ngIf="!activity.active" type="button" (click)="startActivity(activity)">Start {{activity.name}}</button>
+  <button *ngIf="activity.active" type="button" (click)="stopActivity(activity)">Stop {{activity.name}}</button>
 </div>
 

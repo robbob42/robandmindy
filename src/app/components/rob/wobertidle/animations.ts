@@ -20,10 +20,10 @@ export let fade = trigger('fade', [
   state('beginAnim', style({
     width: 0,
   })),
-  transition('* => endAnim', [
-    animate(1500)
-  ]),
   transition('* => beginAnim', [
     animate(0)
-  ])
+  ]),
+  transition('* => endAnim', [
+    animate('{{actionTime}}'),
+  ],  {params: {actionTime: 1000}})
 ]);

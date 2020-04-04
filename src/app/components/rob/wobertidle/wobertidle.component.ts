@@ -12,18 +12,30 @@ import { AnimationEvent } from '@angular/animations';
 })
 export class WobertidleComponent implements OnInit {
   public animState = 'beginAnim';
-  public activities = [
+  public rawActivities = [
     {
       name: 'Mining',
       active: false,
       color: '#555555',
-      produces: 'Rocks'
+      produces: 'Rocks',
+      actionTime: '1000ms',
+      decrements: null
     },
     {
       name: 'Chopping',
       active: false,
       color: '#425f0b',
-      produces: 'Trees'
+      produces: 'Trees',
+      actionTime: '2000ms',
+      decrements: null
+    },
+    {
+      name: 'Fishing',
+      active: true,
+      color: '#84b0f1',
+      produces: 'Fish',
+      actionTime: '5000ms',
+      decrements: null
     }
   ];
   public inventory = [
@@ -33,6 +45,18 @@ export class WobertidleComponent implements OnInit {
     },
     {
       item: 'Trees',
+      amount: 0
+    },
+    {
+      item: 'Fish',
+      amount: 0
+    },
+    {
+      item: 'Cakes',
+      amount: 0
+    },
+    {
+      item: 'Poops',
       amount: 0
     }
   ];
@@ -72,7 +96,7 @@ export class WobertidleComponent implements OnInit {
   }
 
   startActivity(startActivity) {
-    this.activities.forEach(activity => {
+    this.rawActivities.forEach(activity => {
       if (activity.name === startActivity.name) {
         activity.active = true;
       } else {
@@ -81,7 +105,7 @@ export class WobertidleComponent implements OnInit {
     });
   }
   stopActivity(stopActivity) {
-    this.activities.forEach(activity => {
+    this.rawActivities.forEach(activity => {
       if (activity.name === stopActivity.name) {
         activity.active = false;
       }
