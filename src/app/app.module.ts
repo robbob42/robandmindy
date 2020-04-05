@@ -15,7 +15,8 @@ import { RobsidenavComponent } from './components/navigation/sidenavs/robsidenav
 import { CkeditorComponent } from './components/rob/ckeditor/ckeditor.component';
 import { CKEditorModule } from 'ckeditor4-angular';
 import { FormsModule } from '@angular/forms';
-import { WobertidleComponent } from './components/rob/wobertidle/wobertidle.component';
+import { LayoutComponent } from './components/rob/wobertidle/components/layout/layout.component';
+import { HomeComponent } from './components/rob/wobertidle/components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { WobertidleComponent } from './components/rob/wobertidle/wobertidle.comp
     HistoryComponent,
     RobsidenavComponent,
     CkeditorComponent,
-    WobertidleComponent
+    LayoutComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

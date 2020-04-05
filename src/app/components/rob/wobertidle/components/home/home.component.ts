@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { loadBasic, loadAdvanced, slide } from './animations';
 import { AnimationEvent } from '@angular/animations';
-import { ItemService } from './services/item.service';
-import { Item } from './models/item';
-import { Activitybasic } from './models/activitybasic';
-import { ActivityService } from './services/activity.service';
-import { Activityadvanced } from './models/activityadvanced';
+import { ItemService } from '../../services/item.service';
+import { Item } from '../../models/item';
+import { Activitybasic } from '../../models/activitybasic';
+import { ActivityService } from '../../services/activity.service';
+import { Activityadvanced } from '../../models/activityadvanced';
 
 @Component({
-  selector: 'app-wobertidle',
-  templateUrl: './wobertidle.component.html',
-  styleUrls: ['./wobertidle.component.scss'],
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
   animations: [
     loadBasic, loadAdvanced, slide
   ]
 })
-export class WobertidleComponent implements OnInit {
+export class HomeComponent implements OnInit {
   public animStateBasic = 'beginAnim';
   public animStateAdvanced = 'beginAnim';
   public inventory: Item[] = [];

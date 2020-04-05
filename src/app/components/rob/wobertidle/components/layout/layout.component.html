@@ -1,0 +1,19 @@
+<div class="main-container">
+  <header class="header header-1">
+    <div class="branding">
+        Wobert Idle
+    </div>
+  </header>
+  <div class="content-container">
+      <div class="content-area">
+        <app-home *ngIf="navigation === 'home'"></app-home>
+      </div>
+      <nav class="sidenav">
+        <section class="nav-group">
+          <ul class="nav-list">
+            <li><a class="nav-link" (click)="setNav('home')">Home</a></li>
+          </ul>
+        </section>
+      </nav>
+  </div>
+</div>

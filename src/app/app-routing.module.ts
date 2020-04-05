@@ -6,7 +6,7 @@ import { RobandmindysidenavComponent } from './components/navigation/sidenavs/ro
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 import { RobsidenavComponent } from './components/navigation/sidenavs/robsidenav/robsidenav.component';
 import { CkeditorComponent } from './components/rob/ckeditor/ckeditor.component';
-import { WobertidleComponent } from './components/rob/wobertidle/wobertidle.component';
+import { LayoutComponent } from './components/rob/wobertidle/components/layout/layout.component';
 
 
 const routes: Routes = [
@@ -51,7 +51,7 @@ const routes: Routes = [
       },
       {
         path: 'wobertidle',
-        component: WobertidleComponent
+        component: LayoutComponent
       }
     ]
   },
