@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
   public inventory: Item[] = [];
   public basicActivities: Activitybasic[] = [];
   public advancedActivities: Activityadvanced[] = [];
+  public numOfWorkers = 1;
 
   constructor(itemService: ItemService, private activityService: ActivityService) {
     this.inventory = itemService.getItemInventory();
@@ -37,6 +38,10 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  setNumOfWorkers() {
+    console.log(this.numOfWorkers);
   }
 
   onAnimationEvent(event: AnimationEvent, activity, type) {

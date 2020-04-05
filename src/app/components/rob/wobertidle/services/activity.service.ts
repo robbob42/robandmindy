@@ -50,7 +50,8 @@ export class ActivityService {
         active: false,
         color: '#555555',
         produces: 'Rocks',
-        actionTime: '1000ms'
+        actionTime: '1000ms',
+        visible: true
       },
       {
         id: 2,
@@ -58,7 +59,8 @@ export class ActivityService {
         active: false,
         color: '#425f0b',
         produces: 'Trees',
-        actionTime: '2000ms'
+        actionTime: '2000ms',
+        visible: false
       },
       {
         id: 3,
@@ -66,7 +68,8 @@ export class ActivityService {
         active: false,
         color: '#84b0f1',
         produces: 'Fish',
-        actionTime: '5000ms'
+        actionTime: '5000ms',
+        visible: false
       }
     ];
 
@@ -91,7 +94,8 @@ export class ActivityService {
         produceAmount: 1,
         actionTime: '5000ms',
         decrements: 'Rocks',
-        decrementAmount: 5
+        decrementAmount: 5,
+        visible: false
       },
       {
         id: 2,
@@ -102,7 +106,8 @@ export class ActivityService {
         produceAmount: 1,
         actionTime: '10000ms',
         decrements: 'Trees',
-        decrementAmount: 3
+        decrementAmount: 3,
+        visible: false
       },
       {
         id: 3,
@@ -113,7 +118,8 @@ export class ActivityService {
         produceAmount: 1,
         actionTime: '15000ms',
         decrements: 'Fish',
-        decrementAmount: 2
+        decrementAmount: 2,
+        visible: false
       }
     ];
 

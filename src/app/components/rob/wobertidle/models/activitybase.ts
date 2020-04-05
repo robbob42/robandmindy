@@ -5,6 +5,7 @@ export class Activitybase {
   color: string;
   produces: string;
   actionTime: string;
+  visible: boolean;
 
   constructor(options: {
     id: number,
@@ -12,7 +13,8 @@ export class Activitybase {
     active?: boolean,
     color: string,
     produces: string,
-    actionTime: string
+    actionTime: string,
+    visible?: boolean
   }) {
     this.id = options.id;
     this.name = options.name;
@@ -20,5 +22,6 @@ export class Activitybase {
     this.color = options.color;
     this.produces = options.produces;
     this.actionTime = options.actionTime;
+    this.visible = options.visible || false;
   }
 }

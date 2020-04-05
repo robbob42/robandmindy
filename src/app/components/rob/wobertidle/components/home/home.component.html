@@ -2,20 +2,26 @@
   <div class="clr-col-4">
     <div class="clr-row">
       <div class="clr-col-12">
+        <label>Number of Workers</label>
+        <input [(ngModel)]="numOfWorkers">
+      </div>
+      <div class="clr-col-12">
         <div class="card">
           <div class="card-header">Obtain Raw Materials</div>
           <div class="card-block">
             <div class="card-text">
               <div *ngFor="let activity of basicActivities">
-                <button
-                  [@slide]="{value: activity.active ? 'right' : 'left', params: {activityColor: activity.color}}"
-                  type="button"
-                  class="btn"
-                  (click)="toggleBasicActivity(activity.id)">
-                  <span *ngIf="activity.active">Stop</span>
-                  <span *ngIf="!activity.active">Start</span>
-                  {{activity.name}}
-                </button>
+                <ng-container *ngIf="activity.visible">
+                  <button
+                    [@slide]="{value: activity.active ? 'right' : 'left', params: {activityColor: activity.color}}"
+                    type="button"
+                    class="btn"
+                    (click)="toggleBasicActivity(activity.id)">
+                    <span *ngIf="activity.active">Stop</span>
+                    <span *ngIf="!activity.active">Start</span>
+                    {{activity.name}}
+                  </button>
+                </ng-container>
               </div>
             </div>
           </div>
@@ -27,25 +33,27 @@
           <div class="card-block">
             <div class="card-text">
               <div *ngFor="let activity of advancedActivities">
-                <button
-                  [@slide]="{value: activity.active ? 'right' : 'left', params: {activityColor: activity.color}}"
-                  type="button"
-                  class="btn"
-                  (click)="toggleAdvancedActivity(activity.id)">
-                  <span *ngIf="activity.active">Stop</span>
-                  <span *ngIf="!activity.active">Start</span>
-                  {{activity.name}}
-                    <span *ngIf="!activity.active">
-                      (
-                      <span *ngFor="let item of inventory">
-                        <ng-container *ngIf="item.name == activity.decrements">
-                          <clr-icon attr.shape="{{item.icon}}" shape="" size="20" [ngStyle]="{'color': item.color}"></clr-icon>
-                        </ng-container>
+                <ng-container *ngIf="activity.visible">
+                  <button
+                    [@slide]="{value: activity.active ? 'right' : 'left', params: {activityColor: activity.color}}"
+                    type="button"
+                    class="btn"
+                    (click)="toggleAdvancedActivity(activity.id)">
+                    <span *ngIf="activity.active">Stop</span>
+                    <span *ngIf="!activity.active">Start</span>
+                    {{activity.name}}
+                      <span *ngIf="!activity.active">
+                        (
+                        <span *ngFor="let item of inventory">
+                          <ng-container *ngIf="item.name == activity.decrements">
+                            <clr-icon attr.shape="{{item.icon}}" shape="" size="20" [ngStyle]="{'color': item.color}"></clr-icon>
+                          </ng-container>
+                        </span>
+                        X {{activity.decrementsAmount}}
+                        )
                       </span>
-                      X {{activity.decrementsAmount}}
-                      )
-                    </span>
-                </button>
+                  </button>
+                </ng-container>
               </div>
             </div>
           </div>
@@ -106,8 +114,9 @@
       <div class="card-block">
         <div class="card-text">
           <div *ngFor="let item of inventory">
-            <div><clr-icon attr.shape="{{item.icon}}" shape="" size="24" [ngStyle]="{'color': item.color}"></clr-icon>: {{item.amount}}</div>
-
+            <ng-container *ngIf="item.visible">
+              <div><clr-icon attr.shape="{{item.icon}}" shape="" size="24" [ngStyle]="{'color': item.color}"></clr-icon>: {{item.amount}}</div>
+            </ng-container>
           </div>
         </div>
       </div>
