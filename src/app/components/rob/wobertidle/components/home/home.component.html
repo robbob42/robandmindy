@@ -35,8 +35,17 @@
                   <span *ngIf="activity.active">Stop</span>
                   <span *ngIf="!activity.active">Start</span>
                   {{activity.name}}
+                    <span *ngIf="!activity.active">
+                      (
+                      <span *ngFor="let item of inventory">
+                        <ng-container *ngIf="item.name == activity.decrements">
+                          <clr-icon attr.shape="{{item.icon}}" shape="" size="20" [ngStyle]="{'color': item.color}"></clr-icon>
+                        </ng-container>
+                      </span>
+                      X {{activity.decrementsAmount}}
+                      )
+                    </span>
                 </button>
-                <span *ngIf="!activity.active">{{activity.decrements}} X {{activity.decrementsAmount}}</span>
               </div>
             </div>
           </div>
