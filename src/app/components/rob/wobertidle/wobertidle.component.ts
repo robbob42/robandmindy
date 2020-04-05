@@ -1,75 +1,48 @@
 import { Component, OnInit } from '@angular/core';
-import { fade } from './animations';
+import { loadBasic, loadAdvanced, slide } from './animations';
 import { AnimationEvent } from '@angular/animations';
+import { ItemService } from './services/item.service';
+import { Item } from './models/item';
+import { Activitybasic } from './models/activitybasic';
+import { ActivityService } from './services/activity.service';
+import { Activityadvanced } from './models/activityadvanced';
 
 @Component({
   selector: 'app-wobertidle',
   templateUrl: './wobertidle.component.html',
   styleUrls: ['./wobertidle.component.scss'],
   animations: [
-    fade
+    loadBasic, loadAdvanced, slide
   ]
 })
 export class WobertidleComponent implements OnInit {
-  public animState = 'beginAnim';
-  public rawActivities = [
-    {
-      name: 'Mining',
-      active: false,
-      color: '#555555',
-      produces: 'Rocks',
-      actionTime: '1000ms',
-      decrements: null
-    },
-    {
-      name: 'Chopping',
-      active: false,
-      color: '#425f0b',
-      produces: 'Trees',
-      actionTime: '2000ms',
-      decrements: null
-    },
-    {
-      name: 'Fishing',
-      active: true,
-      color: '#84b0f1',
-      produces: 'Fish',
-      actionTime: '5000ms',
-      decrements: null
-    }
-  ];
-  public inventory = [
-    {
-      item: 'Rocks',
-      amount: 0
-    },
-    {
-      item: 'Trees',
-      amount: 0
-    },
-    {
-      item: 'Fish',
-      amount: 0
-    },
-    {
-      item: 'Cakes',
-      amount: 0
-    },
-    {
-      item: 'Poops',
-      amount: 0
-    }
-  ];
+  public animStateBasic = 'beginAnim';
+  public animStateAdvanced = 'beginAnim';
+  public inventory: Item[] = [];
+  public basicActivities: Activitybasic[] = [];
+  public advancedActivities: Activityadvanced[] = [];
 
-  constructor() { }
+  constructor(itemService: ItemService, private activityService: ActivityService) {
+    this.inventory = itemService.getItemInventory();
+
+    activityService.subscribeBasic().subscribe((activities) => {
+      this.basicActivities = activities;
+    });
+    activityService.getBasicActivities();
+
+    activityService.subscribeAdvanced().subscribe((activites) => {
+      this.advancedActivities = activites;
+    });
+    activityService.getAdvancedActivities();
+  }
 
   ngOnInit() {
   }
 
-  onAnimationEvent(event: AnimationEvent, activity) {
+  onAnimationEvent(event: AnimationEvent, activity, type) {
     let invenItem;
     this.inventory.forEach(inventoryItem => {
-      if (inventoryItem.item === activity.produces) {
+      if (inventoryItem.name === activity.produces) {
         invenItem = inventoryItem;
       }
     });
@@ -92,22 +65,31 @@ export class WobertidleComponent implements OnInit {
       default:
         break;
     }
-    this.animState = nextState;
+    if (type === 'basic') {
+      this.animStateBasic = nextState;
+    } else {
+      this.animStateAdvanced = nextState;
+    }
   }
 
-  startActivity(startActivity) {
-    this.rawActivities.forEach(activity => {
-      if (activity.name === startActivity.name) {
-        activity.active = true;
-      } else {
-        activity.active = false;
-      }
-    });
+  advancedAnimationStart(event: AnimationEvent, activity: Activityadvanced) {
+    if (event.toState === 'endAnim') {
+      this.inventory.forEach(item => {
+        if (item.name === activity.decrements) {
+          if (item.amount < activity.decrementsAmount) {
+            activity.active = false;
+          } else {
+            item.amount -= activity.decrementsAmount;
+          }
+        }
+      });
+    }
   }
-  stopActivity(stopActivity) {
-    this.rawActivities.forEach(activity => {
-      if (activity.name === stopActivity.name) {
-        activity.active = false;
-      }
-    });
-  }}
+
+  toggleBasicActivity(activityId) {
+    this.activityService.toggleBasicActivity(activityId);
+  }
+  toggleAdvancedActivity(activityId) {
+    this.activityService.toggleAdvancedActivity(activityId);
+  }
+}
