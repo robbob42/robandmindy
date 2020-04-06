@@ -2,7 +2,7 @@
   <div class="clr-col-4">
     <div class="clr-row">
       <div class="clr-col-12">
-        <button *ngIf="advanceStorylineVisible" type="button" (click)="advanceStoryline()">Advance Storyline</button>
+        <button *ngIf="advanceStorylineVisible" class="btn btn-primary" type="button" (click)="advanceStoryline()">Next ></button>
         <!-- <label>Number of Workers</label>
         <input [(ngModel)]="numOfWorkers"> -->
       </div>
@@ -37,7 +37,7 @@
     </div>
   </div>
 
-  <div class="clr-col-6">
+  <div class="clr-col-5">
     <div class="clr-row">
       <div class="clr-col-12">
         <div class="card" *ngIf="activityObtainVisible">
@@ -68,7 +68,7 @@
     </div>
   </div>
 
-  <div class="clr-col-2">
+  <div class="clr-col-3">
     <div class="card" *ngIf="inventoryVisible">
       <div class="card-header">
         Inventory
@@ -85,11 +85,25 @@
     </div>
     <div class="card" *ngIf="inventoryVisible">
       <div class="card-header">
-        Unsuspecting Humans
+        Demigod Powers
       </div>
       <div class="card-block">
+        <div class="card-title">
+            Mind Control
+        </div>
+        <div class="card-text" style="text-indent:1em;">
+          <div>Proficiency (MCP): {{mcProficiency}}</div>
+          <div>Unsuspecting Humans: {{numOfWorkers}}</div>
+        </div>
+        <div class="card-title">
+            Activities
+        </div>
         <div class="card-text">
-          {{numOfWorkers}}
+          <div *ngFor="let activity of basicActivities" style="text-indent:1em;">
+            <ng-container *ngIf="activity.visible">
+              {{activity.name}} {{activity.produces}}
+            </ng-container>
+          </div>
         </div>
       </div>
     </div>

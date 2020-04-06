@@ -6,6 +6,7 @@ export class Activitybase {
   color: string;
   produces: string;
   actionTime: string;
+  mcProficiency: number;
   visible: boolean;
 
   constructor(options: {
@@ -16,6 +17,7 @@ export class Activitybase {
     color: string,
     produces: string,
     actionTime: string,
+    mcProficiency?: number,
     visible?: boolean
   }) {
     this.id = options.id;
@@ -25,6 +27,7 @@ export class Activitybase {
     this.color = options.color;
     this.produces = options.produces;
     this.actionTime = options.actionTime;
+    this.mcProficiency = options.mcProficiency || 1;
     this.visible = options.visible || false;
   }
 }

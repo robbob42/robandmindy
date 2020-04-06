@@ -22,6 +22,11 @@ export class HomeComponent implements OnInit {
   public activityRefineVisible = false;
   public inventoryVisible = false;
   public advanceStorylineVisible = true;
+  public mcProficiency = 0;
+
+  private secondItemTriggerAmount = 5;
+  private secondItemDiscoverAmount = 10;
+  private secondItemDiscovered = false;
 
   constructor(
     itemService: ItemService,
@@ -32,6 +37,16 @@ export class HomeComponent implements OnInit {
       items.forEach(item => {
         if (item.visible) {
           this.inventoryVisible = true;
+        }
+        if (item.id === 900) {
+          if (item.amount === this.secondItemTriggerAmount && !this.secondItemDiscovered) {
+            messageService.processTrigger(901);
+          }
+          if (item.amount === this.secondItemDiscoverAmount && !this.secondItemDiscovered) {
+            this.secondItemDiscovered = true;
+            messageService.processTrigger(901);
+          }
+          this.mcProficiency = item.amount;
         }
       });
       this.inventory = items;

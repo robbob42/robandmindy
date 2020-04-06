@@ -16,19 +16,26 @@ export class MessageService {
   private storyline: Message[] = [
     new Message('In this game, you are a DEMIGOD!'),
     new Message('...'),
-    new Message('Well, a very week demigod...'),
+    new Message('Well, a very weak demigod...'),
     new Message('...'),
-    new Message('A very VERY week demigod.'),
+    new Message('A very VERY weak demigod.'),
     new Message('Actually, you only have one power.'),
     new Message('The power to CONTROL THE MINDS OF HUMANS!'),
     new Message('Er, just mind.'),
     new Message('Singular.'),
     new Message('You can control the mind of a single human.'),
     new Message('But you can make him do ANYTHING YOU WANT!'),
-    new Message('Just kidding, you can only make him do one thing.'),
+    new Message('Just kidding, your Mind Control Proficiency(MCP) is at 0.'),
+    new Message('That means you can only make him do one thing.'),
     new Message('But you can make him do it AS MUCH AS YOU WANT!'),
     new Message('BWAH HAH HAH!'),
-    new Message('Why don\'t you go ahead and snap up an unsuspecting victim now.', 1),
+    new Message('Go take your new mindless human and make him do his one activity.', 1),
+    new Message('Hmmm.'),
+    new Message('Although initially entertaining, you soon grow bored of watching your human do just one thing.'),
+    new Message(`Perhaps if you get your MCP up to 30,
+      you'll have gained enough knowledge to force your human to do something else!`, 900),
+    new Message(`You did it! Now that your MCP is at 30,
+      you should be able to get that human to do something new. Try to collect some of this new thing. END GAME FOR NOW...`, 2),
   ];
 
   constructor(private itemService: ItemService, private activityService: ActivityService) { }
@@ -81,9 +88,21 @@ export class MessageService {
   processTrigger(triggerId) {
     switch (triggerId) {
       case 1:
-        this.toggleAdvanceVisible();
         this.activityService.toggleVisible(1, 'basic');
         this.itemService.toggleVisible(1);
+        this.processTrigger(900);
+        break;
+      case 2:
+        this.activityService.toggleVisible(2, 'basic');
+        this.itemService.toggleVisible(2);
+        this.processTrigger(900);
+        break;
+      case 900:
+        this.toggleAdvanceVisible();
+        break;
+      case 901:
+        this.advanceStoryline();
+        this.processTrigger(900);
         break;
       default:
         break;

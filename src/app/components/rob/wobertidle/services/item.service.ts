@@ -19,6 +19,14 @@ export class ItemService {
 
     const inventoryCollection = [
       {
+        id: 900,
+        name: 'MC Proficiency',
+        icon: '',
+        color: '',
+        amount: 0,
+        visible: false
+      },
+      {
         id: 1,
         name: 'Rocks',
         icon: 'data-cluster',
@@ -75,12 +83,16 @@ export class ItemService {
     this.sub.next(this.inventory);
   }
 
+  incrementItem(itemId, amount, mcp = 0) {
+    this.inventory.find(item => item.id === itemId).amount += amount;
+    if (mcp) {
+      this.inventory.find(item => item.id === 900).amount += mcp;
+    }
+    this.sub.next(this.inventory);
+  }
+
   toggleVisible(itemId: number) {
-    this.inventory.forEach(item => {
-      if (item.id === itemId) {
-        item.visible = !item.visible;
-      }
-    });
+    this.inventory.find(item => item.id === itemId).visible = !this.inventory.find(item => item.id === itemId).visible;
     this.sub.next(this.inventory);
   }
 }

@@ -35,12 +35,8 @@ export class ActivityService {
     });
 
     setTimeout(() => {
-      activities.forEach(activity => {
-        if (activity.id === activityId) {
-          activity.active = active;
-          sub.next(activities);
-        }
-      });
+      activities.find(activity => activity.id === activityId).active = active;
+      sub.next(activities);
     }, 1);
   }
 
@@ -53,6 +49,7 @@ export class ActivityService {
         color: '#555555',
         produces: 'Rocks',
         actionTime: '1000ms',
+        mcProficiency: 1,
         visible: false
       },
       {
@@ -62,6 +59,7 @@ export class ActivityService {
         color: '#425f0b',
         produces: 'Trees',
         actionTime: '2000ms',
+        mcProficiency: 5,
         visible: false
       },
       {
@@ -71,6 +69,7 @@ export class ActivityService {
         color: '#84b0f1',
         produces: 'Fish',
         actionTime: '5000ms',
+        mcProficiency: 15,
         visible: false
       }
     ];
@@ -93,6 +92,7 @@ export class ActivityService {
         actionTime: '5000ms',
         decrements: 'Rocks',
         decrementAmount: 5,
+        mcProficiency: 30,
         visible: false
       },
       {
@@ -105,6 +105,7 @@ export class ActivityService {
         actionTime: '10000ms',
         decrements: 'Trees',
         decrementAmount: 3,
+        mcProficiency: 60,
         visible: false
       },
       {
@@ -117,6 +118,7 @@ export class ActivityService {
         actionTime: '15000ms',
         decrements: 'Fish',
         decrementAmount: 2,
+        mcProficiency: 100,
         visible: false
       }
     ];
@@ -131,11 +133,7 @@ export class ActivityService {
     const activities = type === 'basic' ? this.basicActivities : this.advancedActivities;
     const sub = type === 'basic' ? this.subBasic : this.subAdvanced;
 
-    activities.forEach(activity => {
-      if (activity.id === activityId) {
-        activity.visible = !activity.visible;
-      }
-    });
+    activities.find(activity => activity.id === activityId).visible = !activities.find(activity => activity.id === activityId).visible;
     sub.next(activities);
   }
 }

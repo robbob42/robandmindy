@@ -4,6 +4,7 @@ import { Activitybasic } from '../../models/activitybasic';
 import { Activityadvanced } from '../../models/activityadvanced';
 import { activityLoader } from './animations';
 import { Item } from '../../models/item';
+import { ItemService } from '../../services/item.service';
 
 @Component({
   selector: 'app-activity-slider',
@@ -18,20 +19,20 @@ export class ActivitySliderComponent implements OnInit {
   @Input() inventory: Item[];
   public animState = 'beginAnim';
 
-  constructor() { }
+  constructor(private itemService: ItemService) { }
 
   ngOnInit(): void {
   }
 
-  onAnimationEvent(event: AnimationEvent, activity) {
-    let invenItem;
+  onAnimationEvent(event: AnimationEvent, activity: Activitybasic | Activityadvanced) {
+    let invenItem: Item;
     this.inventory.forEach(inventoryItem => {
       if (inventoryItem.name === activity.produces) {
         invenItem = inventoryItem;
       }
     });
     if (event.toState === 'endAnim' && event.fromState === 'beginAnim') {
-      invenItem.amount++;
+      this.itemService.incrementItem(invenItem.id, 1, activity.mcProficiency);
     }
 
     let nextState: string;
@@ -43,7 +44,7 @@ export class ActivitySliderComponent implements OnInit {
         nextState = 'endAnim';
         break;
       case 'void':
-        invenItem.amount--;
+        this.itemService.incrementItem(invenItem.id, -1, -activity.mcProficiency);
         nextState = 'beginAnim';
         break;
       default:
