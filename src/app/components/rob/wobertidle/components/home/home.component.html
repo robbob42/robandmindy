@@ -69,16 +69,10 @@
           <div class="card-header">Your Activity</div>
           <div class="card-block">
             <div class="card-text">
-              <div *ngFor="let activity of basicActivities">
-                <div class="card-title" *ngIf="activity.active">{{activity.name}} {{activity.produces}}</div>
-                <div *ngIf="activity.active" style="width: 150px; height: 20px; border: 1px solid gray;">
-                  <div
-                    [@loadBasic]="{value: animStateBasic, params: {actionTime: activity.actionTime}}"
-                    (@loadBasic.done)="onAnimationEvent($event, activity, 'basic')"
-                    [ngStyle]="{'background-color': activity.color, 'height': '100%'}">
-                  </div>
-                </div>
-              </div>
+              <app-activity-slider
+                *ngFor="let activity of basicActivities"
+                [activity]="activity"
+                [inventory]="inventory"></app-activity-slider>
             </div>
           </div>
         </div>
@@ -88,17 +82,10 @@
           <div class="card-header">Assistant Activity</div>
           <div class="card-block">
             <div class="card-text">
-              <div *ngFor="let activity of advancedActivities">
-                <div class="card-title" *ngIf="activity.active">{{activity.name}} {{activity.produces}}</div>
-                <div *ngIf="activity.active" style="width: 150px; height: 20px; border: 1px solid gray;">
-                  <div
-                    [@loadAdvanced]="{value: animStateAdvanced, params: {actionTime: activity.actionTime}}"
-                    (@loadAdvanced.start)="advancedAnimationStart($event, activity)"
-                    (@loadAdvanced.done)="onAnimationEvent($event, activity, 'advanced')"
-                    [ngStyle]="{'background-color': activity.color, 'height': '100%'}">
-                  </div>
-                </div>
-              </div>
+              <app-activity-slider
+                *ngFor="let activity of advancedActivities"
+                [activity]="activity"
+                [inventory]="inventory"></app-activity-slider>
             </div>
           </div>
         </div>

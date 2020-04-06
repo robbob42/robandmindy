@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { loadBasic, loadAdvanced, slide } from './animations';
-import { AnimationEvent } from '@angular/animations';
+import { slide } from './animations';
 import { ItemService } from '../../services/item.service';
 import { Item } from '../../models/item';
 import { Activitybasic } from '../../models/activitybasic';
@@ -12,12 +11,10 @@ import { Activityadvanced } from '../../models/activityadvanced';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   animations: [
-    loadBasic, loadAdvanced, slide
+    slide
   ]
 })
 export class HomeComponent implements OnInit {
-  public animStateBasic = 'beginAnim';
-  public animStateAdvanced = 'beginAnim';
   public inventory: Item[] = [];
   public basicActivities: Activitybasic[] = [];
   public advancedActivities: Activityadvanced[] = [];
@@ -42,53 +39,6 @@ export class HomeComponent implements OnInit {
 
   setNumOfWorkers() {
     console.log(this.numOfWorkers);
-  }
-
-  onAnimationEvent(event: AnimationEvent, activity, type) {
-    let invenItem;
-    this.inventory.forEach(inventoryItem => {
-      if (inventoryItem.name === activity.produces) {
-        invenItem = inventoryItem;
-      }
-    });
-    if (event.toState === 'endAnim' && event.fromState === 'beginAnim') {
-      invenItem.amount++;
-    }
-
-    let nextState: string;
-    switch (event.toState) {
-      case 'endAnim':
-        nextState = 'beginAnim';
-        break;
-      case 'beginAnim':
-        nextState = 'endAnim';
-        break;
-      case 'void':
-        invenItem.amount--;
-        nextState = 'beginAnim';
-        break;
-      default:
-        break;
-    }
-    if (type === 'basic') {
-      this.animStateBasic = nextState;
-    } else {
-      this.animStateAdvanced = nextState;
-    }
-  }
-
-  advancedAnimationStart(event: AnimationEvent, activity: Activityadvanced) {
-    if (event.toState === 'endAnim') {
-      this.inventory.forEach(item => {
-        if (item.name === activity.decrements) {
-          if (item.amount < activity.decrementsAmount) {
-            activity.active = false;
-          } else {
-            item.amount -= activity.decrementsAmount;
-          }
-        }
-      });
-    }
   }
 
   toggleBasicActivity(activityId) {

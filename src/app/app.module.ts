@@ -17,6 +17,7 @@ import { CKEditorModule } from 'ckeditor4-angular';
 import { FormsModule } from '@angular/forms';
 import { LayoutComponent } from './components/rob/wobertidle/components/layout/layout.component';
 import { HomeComponent } from './components/rob/wobertidle/components/home/home.component';
+import { ActivitySliderComponent } from './components/rob/wobertidle/components/activity-slider/activity-slider.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { HomeComponent } from './components/rob/wobertidle/components/home/home.
     RobsidenavComponent,
     CkeditorComponent,
     LayoutComponent,
-    HomeComponent
+    HomeComponent,
+    ActivitySliderComponent
   ],
   imports: [
     BrowserModule,

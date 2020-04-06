@@ -6,42 +6,6 @@ import {
   transition
 } from '@angular/animations';
 
-export let loadBasic = trigger('loadBasic', [
-  state('void', style({
-    width: 0,
-  })),
-  state('endAnim', style({
-    width: '100%',
-  })),
-  state('beginAnim', style({
-    width: 0,
-  })),
-  transition('* => beginAnim', [
-    animate(0)
-  ]),
-  transition('* => endAnim', [
-    animate('{{actionTime}}'),
-  ],  {params: {actionTime: 1000}})
-]);
-
-export let loadAdvanced = trigger('loadAdvanced', [
-  state('void', style({
-    width: 0,
-  })),
-  state('endAnim', style({
-    width: '100%',
-  })),
-  state('beginAnim', style({
-    width: 0,
-  })),
-  transition('* => beginAnim', [
-    animate(0)
-  ]),
-  transition('* => endAnim', [
-    animate('{{actionTime}}'),
-  ],  {params: {actionTime: 1000}})
-]);
-
 export let slide = trigger('slide', [
   state('left', style({
     transform: 'translateX(0)',
