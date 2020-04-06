@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { slide } from './animations';
 import { ItemService } from '../../services/item.service';
 import { Item } from '../../models/item';
 import { Activitybasic } from '../../models/activitybasic';
@@ -9,10 +8,7 @@ import { Activityadvanced } from '../../models/activityadvanced';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
-  animations: [
-    slide
-  ]
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
   public inventory: Item[] = [];
@@ -39,12 +35,5 @@ export class HomeComponent implements OnInit {
 
   setNumOfWorkers() {
     console.log(this.numOfWorkers);
-  }
-
-  toggleBasicActivity(activityId) {
-    this.activityService.toggleBasicActivity(activityId);
-  }
-  toggleAdvancedActivity(activityId) {
-    this.activityService.toggleAdvancedActivity(activityId);
   }
 }

@@ -23,8 +23,10 @@ export class ActivityService {
     return this.subAdvanced;
   }
 
-  toggleActivity(sub: Subject<any>, activities: any, activityId: number) {
+  toggleActivity(activityId: number, type: string) {
     let active: boolean;
+    const activities = type === 'basic' ? this.basicActivities : this.advancedActivities;
+    const sub = type === 'basic' ? this.subBasic : this.subAdvanced;
     activities.forEach(activity => {
       if (activity.id === activityId) {
         active = !activity.active;
@@ -79,10 +81,6 @@ export class ActivityService {
     this.subBasic.next(this.basicActivities);
   }
 
-  toggleBasicActivity(activityId) {
-    this.toggleActivity(this.subBasic, this.basicActivities, activityId);
-  }
-
   getAdvancedActivities() {
     const advancedActivitySetup = [
       {
@@ -128,9 +126,4 @@ export class ActivityService {
     });
     this.subAdvanced.next(this.advancedActivities);
   }
-
-  toggleAdvancedActivity(activityId) {
-    this.toggleActivity(this.subAdvanced, this.advancedActivities, activityId);
-  }
-
 }

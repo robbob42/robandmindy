@@ -12,15 +12,7 @@
             <div class="card-text">
               <div *ngFor="let activity of basicActivities">
                 <ng-container *ngIf="activity.visible">
-                  <button
-                    [@slide]="{value: activity.active ? 'right' : 'left', params: {activityColor: activity.color}}"
-                    type="button"
-                    class="btn"
-                    (click)="toggleBasicActivity(activity.id)">
-                    <span *ngIf="activity.active">Stop</span>
-                    <span *ngIf="!activity.active">Start</span>
-                    {{activity.name}}
-                  </button>
+                  <app-activity-button [activity]="activity" [inventory]="inventory"></app-activity-button>
                 </ng-container>
               </div>
             </div>
@@ -34,25 +26,7 @@
             <div class="card-text">
               <div *ngFor="let activity of advancedActivities">
                 <ng-container *ngIf="activity.visible">
-                  <button
-                    [@slide]="{value: activity.active ? 'right' : 'left', params: {activityColor: activity.color}}"
-                    type="button"
-                    class="btn"
-                    (click)="toggleAdvancedActivity(activity.id)">
-                    <span *ngIf="activity.active">Stop</span>
-                    <span *ngIf="!activity.active">Start</span>
-                    {{activity.name}}
-                      <span *ngIf="!activity.active">
-                        (
-                        <span *ngFor="let item of inventory">
-                          <ng-container *ngIf="item.name == activity.decrements">
-                            <clr-icon attr.shape="{{item.icon}}" shape="" size="20" [ngStyle]="{'color': item.color}"></clr-icon>
-                          </ng-container>
-                        </span>
-                        X {{activity.decrementsAmount}}
-                        )
-                      </span>
-                  </button>
+                  <app-activity-button [activity]="activity" [inventory]="inventory"></app-activity-button>
                 </ng-container>
               </div>
             </div>

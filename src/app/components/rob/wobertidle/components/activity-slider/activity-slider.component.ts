@@ -1,10 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { AnimationEvent } from '@angular/animations';
 import { Activitybasic } from '../../models/activitybasic';
 import { Activityadvanced } from '../../models/activityadvanced';
 import { activityLoader } from './animations';
-import { ItemService } from '../../services/item.service';
 import { Item } from '../../models/item';
-import { AnimationEvent } from '@angular/animations';
 
 @Component({
   selector: 'app-activity-slider',

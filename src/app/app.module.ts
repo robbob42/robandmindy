@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { LayoutComponent } from './components/rob/wobertidle/components/layout/layout.component';
 import { HomeComponent } from './components/rob/wobertidle/components/home/home.component';
 import { ActivitySliderComponent } from './components/rob/wobertidle/components/activity-slider/activity-slider.component';
+import { ActivityButtonComponent } from './components/rob/wobertidle/components/activity-button/activity-button.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ActivitySliderComponent } from './components/rob/wobertidle/components/
     CkeditorComponent,
     LayoutComponent,
     HomeComponent,
-    ActivitySliderComponent
+    ActivitySliderComponent,
+    ActivityButtonComponent
   ],
   imports: [
     BrowserModule,

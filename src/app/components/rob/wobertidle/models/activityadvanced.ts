@@ -1,6 +1,7 @@
 import { Activitybase } from './activitybase';
 
 export class Activityadvanced extends Activitybase {
+  type = 'advanced';
   produceAmount: number;
   decrements: string;
   decrementsAmount: number;

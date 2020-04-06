@@ -1,6 +1,8 @@
 import { Activitybase } from './activitybase';
 
 export class Activitybasic extends Activitybase {
+  type = 'basic';
+
   constructor(options: {
     id: number,
     name: string,

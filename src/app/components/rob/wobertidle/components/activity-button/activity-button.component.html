@@ -1,0 +1,19 @@
+<button
+  [@slide]="{value: activity.active ? 'right' : 'left', params: {activityColor: activity.color}}"
+  type="button"
+  class="btn"
+  (click)="toggleActivity(activity.id, activity.type)">
+  <span *ngIf="activity.active">Stop</span>
+  <span *ngIf="!activity.active">Start</span>
+  {{activity.name}}
+    <span *ngIf="!activity.active && activity.type=='advanced'">
+      (
+      <span *ngFor="let item of inventory">
+        <ng-container *ngIf="item.name == activity.decrements">
+          <clr-icon attr.shape="{{item.icon}}" shape="" size="20" [ngStyle]="{'color': item.color}"></clr-icon>
+        </ng-container>
+      </span>
+      X {{activity.decrementsAmount}}
+      )
+    </span>
+</button>
