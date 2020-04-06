@@ -1,7 +1,11 @@
 <div class="main-container">
   <header class="header header-1">
     <div class="branding">
-        Wobert Idle
+      <div>
+        <div *ngFor="let message of messages" class="messages">
+          ><span class="messages">{{message.text}}</span>
+        </div>
+      </div>
     </div>
   </header>
   <div class="content-container">

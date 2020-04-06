@@ -1,13 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Item } from '../models/item';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ItemService {
+  private sub = new Subject<Item[]>();
   private inventory: Item[] = [];
 
   constructor() { }
+
+  subscriber() {
+    return this.sub;
+  }
 
   getItemInventory() {
 
@@ -18,7 +24,7 @@ export class ItemService {
         icon: 'data-cluster',
         color: '#555555',
         amount: 0,
-        visible: true
+        visible: false
       },
       {
         id: 2,
@@ -66,6 +72,15 @@ export class ItemService {
       this.inventory.push(new Item(inventoryItem));
     });
 
-    return this.inventory;
+    this.sub.next(this.inventory);
+  }
+
+  toggleVisible(itemId: number) {
+    this.inventory.forEach(item => {
+      if (item.id === itemId) {
+        item.visible = !item.visible;
+      }
+    });
+    this.sub.next(this.inventory);
   }
 }

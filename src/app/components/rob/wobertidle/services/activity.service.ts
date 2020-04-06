@@ -53,7 +53,7 @@ export class ActivityService {
         color: '#555555',
         produces: 'Rocks',
         actionTime: '1000ms',
-        visible: true
+        visible: false
       },
       {
         id: 2,
@@ -125,5 +125,17 @@ export class ActivityService {
       this.advancedActivities.push(new Activityadvanced(activity));
     });
     this.subAdvanced.next(this.advancedActivities);
+  }
+
+  toggleVisible(activityId: number, type: string) {
+    const activities = type === 'basic' ? this.basicActivities : this.advancedActivities;
+    const sub = type === 'basic' ? this.subBasic : this.subAdvanced;
+
+    activities.forEach(activity => {
+      if (activity.id === activityId) {
+        activity.visible = !activity.visible;
+      }
+    });
+    sub.next(activities);
   }
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MessageService } from '../../services/message.service';
+import { Message } from '../../models/message';
 
 @Component({
   selector: 'app-layout',
@@ -7,7 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutComponent implements OnInit {
   public navigation: string;
-  constructor() { }
+  public messages: Message[] = [];
+
+  constructor(messageService: MessageService) {
+    messageService.subscribeMessages().subscribe((subscribedMessages) => {
+      this.messages = [];
+      for (let i = 0; i < 3; i++) {
+        if (typeof subscribedMessages[i] !== 'undefined') {
+          this.messages.push(subscribedMessages[i]);
+        }
+      }
+    });
+    messageService.getMessages();
+  }
 
   ngOnInit(): void {
     this.navigation = 'home';
