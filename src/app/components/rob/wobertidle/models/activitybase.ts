@@ -7,6 +7,11 @@ export class Activitybase {
   produces: string;
   actionTime: string;
   mcProficiency: number;
+  mcpTriggerAmount: number;
+  trigger: number;
+  triggered: boolean;
+  mcpDiscoverAmount: number;
+  discovered: boolean;
   visible: boolean;
 
   constructor(options: {
@@ -18,6 +23,11 @@ export class Activitybase {
     produces: string,
     actionTime: string,
     mcProficiency?: number,
+    mcpTriggerAmount: number,
+    trigger?: number,
+    triggered: boolean,
+    mcpDiscoverAmount: number,
+    discovered: boolean,
     visible?: boolean
   }) {
     this.id = options.id;
@@ -28,6 +38,11 @@ export class Activitybase {
     this.produces = options.produces;
     this.actionTime = options.actionTime;
     this.mcProficiency = options.mcProficiency || 1;
+    this.mcpTriggerAmount = options.mcpTriggerAmount;
+    this.trigger = options.trigger || 0;
+    this.triggered = options.triggered;
+    this.mcpDiscoverAmount = options.mcpDiscoverAmount;
+    this.discovered = options.discovered;
     this.visible = options.visible || false;
   }
 }

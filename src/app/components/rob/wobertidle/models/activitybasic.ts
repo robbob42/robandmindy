@@ -9,7 +9,11 @@ export class Activitybasic extends Activitybase {
     active?: boolean,
     color: string,
     produces: string,
-    actionTime: string
+    actionTime: string,
+    mcpTriggerAmount: number,
+    triggered: boolean,
+    mcpDiscoverAmount: number,
+    discovered: boolean
   }) {
     super(options);
   }

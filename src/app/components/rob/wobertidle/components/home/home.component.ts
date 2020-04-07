@@ -15,18 +15,19 @@ export class HomeComponent implements OnInit {
   public inventory: Item[] = [];
   public basicActivities: Activitybasic[] = [];
   public advancedActivities: Activityadvanced[] = [];
-  public numOfWorkers = 1;
+  public numOfWorkers = 0;
   public obtainRawVisible = false;
   public refineVisible = false;
   public activityObtainVisible = false;
   public activityRefineVisible = false;
   public inventoryVisible = false;
+  public powersVisible = false;
   public advanceStorylineVisible = true;
   public mcProficiency = 0;
-
-  private secondItemTriggerAmount = 5;
-  private secondItemDiscoverAmount = 10;
-  private secondItemDiscovered = false;
+  public mcpItem = {
+    icon: '',
+    color: ''
+  };
 
   constructor(
     itemService: ItemService,
@@ -39,17 +40,26 @@ export class HomeComponent implements OnInit {
           this.inventoryVisible = true;
         }
         if (item.id === 900) {
-          if (item.amount === this.secondItemTriggerAmount && !this.secondItemDiscovered) {
-            messageService.processTrigger(901);
-          }
-          if (item.amount === this.secondItemDiscoverAmount && !this.secondItemDiscovered) {
-            this.secondItemDiscovered = true;
-            messageService.processTrigger(901);
-          }
+          this.mcpItem = item;
           this.mcProficiency = item.amount;
         }
       });
       this.inventory = items;
+
+      this.basicActivities.forEach(activity => {
+        if (this.mcProficiency === activity.mcpTriggerAmount && activity.trigger && !activity.triggered) {
+          activity.triggered = true;
+          this.messageService.processTrigger(activity.trigger);
+        }
+        if (this.mcProficiency >= activity.mcpDiscoverAmount && !activity.discovered) {
+          activity.discovered = true;
+          this.inventory.find(item => item.name === activity.produces).visible = true;
+        }
+        if (this.mcProficiency < activity.mcpDiscoverAmount && activity.discovered) {
+          activity.discovered = false;
+          this.inventory.find(item => item.name === activity.produces).visible = false;
+        }
+      });
     });
     itemService.getItemInventory();
 
@@ -81,20 +91,17 @@ export class HomeComponent implements OnInit {
     });
     activityService.getAdvancedActivities();
 
-    messageService.subscribeAdvance().subscribe((subscribedAdvanceVis) => {
-      this.advanceStorylineVisible = subscribedAdvanceVis;
+    messageService.subscribeMessages().subscribe((message) => {
+      const latestMessage = message[0];
+      if (latestMessage.triggerId === 1001) {
+        this.numOfWorkers = 1;
+      }
+      if (latestMessage.triggerId === 1000) {
+        this.powersVisible = true;
+      }
     });
-    messageService.getAdvanceVisible();
   }
 
   ngOnInit() {
-  }
-
-  setNumOfWorkers() {
-    console.log(this.numOfWorkers);
-  }
-
-  advanceStoryline() {
-    this.messageService.advanceStoryline();
   }
 }

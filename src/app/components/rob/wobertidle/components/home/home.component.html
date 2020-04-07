@@ -2,18 +2,16 @@
   <div class="clr-col-4">
     <div class="clr-row">
       <div class="clr-col-12">
-        <button *ngIf="advanceStorylineVisible" class="btn btn-primary" type="button" (click)="advanceStoryline()">Next ></button>
-        <!-- <label>Number of Workers</label>
-        <input [(ngModel)]="numOfWorkers"> -->
-      </div>
-      <div class="clr-col-12">
         <div class="card" *ngIf="obtainRawVisible">
           <div class="card-header">Obtain Raw Materials</div>
           <div class="card-block">
             <div class="card-text">
               <div *ngFor="let activity of basicActivities">
-                <ng-container *ngIf="activity.visible">
+                <ng-container *ngIf="activity.discovered">
                   <app-activity-button [activity]="activity" [inventory]="inventory"></app-activity-button>
+                </ng-container>
+                <ng-container *ngIf="mcProficiency >= activity.mcpTriggerAmount && mcProficiency < activity.mcpDiscoverAmount">
+                  <button class="btn btn-outline" disabled>@MCP{{activity.mcpDiscoverAmount}}</button>
                 </ng-container>
               </div>
             </div>
@@ -83,7 +81,7 @@
         </div>
       </div>
     </div>
-    <div class="card" *ngIf="inventoryVisible">
+    <div class="card" *ngIf="powersVisible || inventoryVisible">
       <div class="card-header">
         Demigod Powers
       </div>
@@ -92,7 +90,11 @@
             Mind Control
         </div>
         <div class="card-text" style="text-indent:1em;">
-          <div>Proficiency (MCP): {{mcProficiency}}</div>
+          <div>
+            MCP
+            <clr-icon attr.shape="{{mcpItem.icon}}" size="18" [ngStyle]="{'color': mcpItem.color}"></clr-icon>
+            : {{mcProficiency}}
+          </div>
           <div>Unsuspecting Humans: {{numOfWorkers}}</div>
         </div>
         <div class="card-title">
@@ -100,7 +102,7 @@
         </div>
         <div class="card-text">
           <div *ngFor="let activity of basicActivities" style="text-indent:1em;">
-            <ng-container *ngIf="activity.visible">
+            <ng-container *ngIf="activity.discovered">
               {{activity.name}} {{activity.produces}}
             </ng-container>
           </div>

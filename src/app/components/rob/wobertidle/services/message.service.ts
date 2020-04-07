@@ -16,26 +16,31 @@ export class MessageService {
   private storyline: Message[] = [
     new Message('In this game, you are a DEMIGOD!'),
     new Message('...'),
-    new Message('Well, a very weak demigod...'),
+    new Message('Well, actually a very weak demigod...'),
     new Message('...'),
     new Message('A very VERY weak demigod.'),
-    new Message('Actually, you only have one power.'),
+    new Message('Named Wobert.'),
+    new Message('To be honest, you only have one power.'),
     new Message('The power to CONTROL THE MINDS OF HUMANS!'),
-    new Message('Er, just mind.'),
+    new Message('Er, mind.'),
     new Message('Singular.'),
     new Message('You can control the mind of a single human.'),
     new Message('But you can make him do ANYTHING YOU WANT!'),
-    new Message('Just kidding, your Mind Control Proficiency(MCP) is at 0.'),
+    new Message('Just kidding, your Mind Control Proficiency(MCP) is at 0.', 1000),
     new Message('That means you can only make him do one thing.'),
     new Message('But you can make him do it AS MUCH AS YOU WANT!'),
     new Message('BWAH HAH HAH!'),
-    new Message('Go take your new mindless human and make him do his one activity.', 1),
-    new Message('Hmmm.'),
-    new Message('Although initially entertaining, you soon grow bored of watching your human do just one thing.'),
-    new Message(`Perhaps if you get your MCP up to 30,
-      you'll have gained enough knowledge to force your human to do something else!`, 900),
-    new Message(`You did it! Now that your MCP is at 30,
-      you should be able to get that human to do something new. Try to collect some of this new thing. END GAME FOR NOW...`, 2),
+    new Message('But you don\'t have a human yet.'),
+    new Message('Better go get one (Just hit \'Next\', that should do the trick).'),
+    new Message('Got him!', 1001),
+    new Message('Now go take your new mindless human and make him do his one activity.', 1),
+    new Message('If you press the \'Start\' button, you\'ll notice you start obtaining materials.'),
+    new Message('Isn\'t that nice of that mindless human!'),
+    new Message('Also, your Mind Control Proficiency(MCP) will go up by a certain amount each time your mindless human gathers materials.'),
+    new Message('That amount is shown next to an activity while it\'s stopped.'),
+    new Message('The harder it is to force a human to perform an activity, the more MCP you\'ll gain!'),
+    new Message('You\'ll learn more tasks as you gain MCP.  Harder tasks => better reward!'),
+    new Message('It\'s now up to you to grow and become THE ULTIMATE DEMIGOD!', 903),
   ];
 
   constructor(private itemService: ItemService, private activityService: ActivityService) { }
@@ -69,6 +74,12 @@ export class MessageService {
     this.advanceVisible = !this.advanceVisible;
     this.subAdvanceVisible.next(this.advanceVisible);
   }
+  toggleAdvanceOn() {
+    this.subAdvanceVisible.next(true);
+  }
+  toggleAdvanceOff() {
+    this.subAdvanceVisible.next(false);
+  }
 
   addMessage(message) {
     this.messages.unshift(new Message(message));
@@ -88,21 +99,22 @@ export class MessageService {
   processTrigger(triggerId) {
     switch (triggerId) {
       case 1:
-        this.activityService.toggleVisible(1, 'basic');
-        this.itemService.toggleVisible(1);
-        this.processTrigger(900);
-        break;
-      case 2:
-        this.activityService.toggleVisible(2, 'basic');
-        this.itemService.toggleVisible(2);
-        this.processTrigger(900);
+        this.activityService.toggleVisible(true, 1, 'basic');
+        this.itemService.toggleVisible(true, 1);
         break;
       case 900:
-        this.toggleAdvanceVisible();
+        this.toggleAdvanceOn();
         break;
       case 901:
         this.advanceStoryline();
         this.processTrigger(900);
+        break;
+      case 903:
+        this.toggleAdvanceOff();
+        break;
+      case 904:
+        this.advanceStoryline();
+        this.processTrigger(903);
         break;
       default:
         break;

@@ -21,8 +21,8 @@ export class ItemService {
       {
         id: 900,
         name: 'MC Proficiency',
-        icon: '',
-        color: '',
+        icon: 'crown',
+        color: '#621f8f',
         amount: 0,
         visible: false
       },
@@ -91,8 +91,8 @@ export class ItemService {
     this.sub.next(this.inventory);
   }
 
-  toggleVisible(itemId: number) {
-    this.inventory.find(item => item.id === itemId).visible = !this.inventory.find(item => item.id === itemId).visible;
+  toggleVisible(visible: boolean, itemId: number) {
+    this.inventory.find(item => item.id === itemId).visible = visible;
     this.sub.next(this.inventory);
   }
 }

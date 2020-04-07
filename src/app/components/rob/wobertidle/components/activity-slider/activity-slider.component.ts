@@ -26,13 +26,16 @@ export class ActivitySliderComponent implements OnInit {
 
   onAnimationEvent(event: AnimationEvent, activity: Activitybasic | Activityadvanced) {
     let invenItem: Item;
+    let incrementAmount = 0;
+    let mcpIncrementAmount = 0;
     this.inventory.forEach(inventoryItem => {
       if (inventoryItem.name === activity.produces) {
         invenItem = inventoryItem;
       }
     });
     if (event.toState === 'endAnim' && event.fromState === 'beginAnim') {
-      this.itemService.incrementItem(invenItem.id, 1, activity.mcProficiency);
+      incrementAmount += 1;
+      mcpIncrementAmount += activity.mcProficiency;
     }
 
     let nextState: string;
@@ -44,12 +47,14 @@ export class ActivitySliderComponent implements OnInit {
         nextState = 'endAnim';
         break;
       case 'void':
-        this.itemService.incrementItem(invenItem.id, -1, -activity.mcProficiency);
+        incrementAmount = -1;
+        mcpIncrementAmount = -activity.mcProficiency;
         nextState = 'beginAnim';
         break;
       default:
         break;
     }
+    this.itemService.incrementItem(invenItem.id, incrementAmount, mcpIncrementAmount);
     this.animState = nextState;
   }
 

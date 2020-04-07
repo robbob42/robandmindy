@@ -1,13 +1,4 @@
-<div class="main-container">
-  <header class="header header-1">
-    <div class="branding">
-      <div>
-        <div *ngFor="let message of messages" class="messages">
-          ><span class="messages">{{message.text}}</span>
-        </div>
-      </div>
-    </div>
-  </header>
+<div class="card">
   <div class="content-container">
       <div class="content-area">
         <app-home *ngIf="navigation === 'home'"></app-home>
@@ -16,8 +7,36 @@
         <section class="nav-group">
           <ul class="nav-list">
             <li><a class="nav-link" (click)="setNav('home')">Home</a></li>
+            <li><a class="nav-link" (click)="showLog()">Log</a></li>
           </ul>
         </section>
       </nav>
+  </div>
+  <div
+    class="alert alert-info"
+    role="alert"
+    [ngStyle]="{'width': '500px', 'position': 'absolute', 'top': alertTop, 'left': alertLeft}"
+    *ngIf="logVisible">
+    <div class="alert-items">
+      <div class="alert-item static">
+        <div class="alert-text">
+          <p *ngFor="let message of messages; let i = index" [className]="'message-'+i">- {{message.text}}</p>
+        </div>
+        <div class="alert-actions">
+          <div *ngIf="advanceStorylineVisible" class="alert-action dropdown bottom-right open">
+            <button class="dropdown-toggle">
+              <span (click)="advanceStoryline()">Next</span>
+              <clr-icon shape="caret down" (click)="advanceDropdownOpen = !advanceDropdownOpen"></clr-icon>
+            </button>
+            <div class="dropdown-menu" *ngIf="advanceDropdownOpen">
+              <a class="dropdown-item" (click)="skipIntro()">Skip Introduction</a>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+    <button type="button" class="close" aria-label="Close" (click)="hideLog()" style="padding-right: 20px;">
+      <clr-icon aria-hidden="true" shape="close"></clr-icon>
+    </button>
   </div>
 </div>

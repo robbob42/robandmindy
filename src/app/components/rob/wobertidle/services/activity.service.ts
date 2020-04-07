@@ -50,6 +50,10 @@ export class ActivityService {
         produces: 'Rocks',
         actionTime: '1000ms',
         mcProficiency: 1,
+        mcpTriggerAmount: 0,
+        triggered: true,
+        mcpDiscoverAmount: 0,
+        discovered: true,
         visible: false
       },
       {
@@ -60,6 +64,10 @@ export class ActivityService {
         produces: 'Trees',
         actionTime: '2000ms',
         mcProficiency: 5,
+        mcpTriggerAmount: 5,
+        triggered: false,
+        mcpDiscoverAmount: 10,
+        discovered: false,
         visible: false
       },
       {
@@ -70,6 +78,10 @@ export class ActivityService {
         produces: 'Fish',
         actionTime: '5000ms',
         mcProficiency: 15,
+        mcpTriggerAmount: 30,
+        triggered: false,
+        mcpDiscoverAmount: 50,
+        discovered: false,
         visible: false
       }
     ];
@@ -90,9 +102,13 @@ export class ActivityService {
         produces: 'Gems',
         produceAmount: 1,
         actionTime: '5000ms',
+        mcProficiency: 30,
+        mcpTriggerAmount: 2000,
+        triggered: false,
+        mcpDiscoverAmount: 5000,
+        discovered: false,
         decrements: 'Rocks',
         decrementAmount: 5,
-        mcProficiency: 30,
         visible: false
       },
       {
@@ -103,9 +119,13 @@ export class ActivityService {
         produces: 'Boards',
         produceAmount: 1,
         actionTime: '10000ms',
+        mcProficiency: 60,
+        mcpTriggerAmount: 20000,
+        triggered: false,
+        mcpDiscoverAmount: 50000,
+        discovered: false,
         decrements: 'Trees',
         decrementAmount: 3,
-        mcProficiency: 60,
         visible: false
       },
       {
@@ -116,9 +136,13 @@ export class ActivityService {
         produces: 'Cooked Fish',
         produceAmount: 1,
         actionTime: '15000ms',
+        mcProficiency: 100,
+        mcpTriggerAmount: 200000,
+        triggered: false,
+        mcpDiscoverAmount: 500000,
+        discovered: false,
         decrements: 'Fish',
         decrementAmount: 2,
-        mcProficiency: 100,
         visible: false
       }
     ];
@@ -129,11 +153,11 @@ export class ActivityService {
     this.subAdvanced.next(this.advancedActivities);
   }
 
-  toggleVisible(activityId: number, type: string) {
+  toggleVisible(visible: boolean, activityId: number, type: string) {
     const activities = type === 'basic' ? this.basicActivities : this.advancedActivities;
     const sub = type === 'basic' ? this.subBasic : this.subAdvanced;
 
-    activities.find(activity => activity.id === activityId).visible = !activities.find(activity => activity.id === activityId).visible;
+    activities.find(activity => activity.id === activityId).visible = visible;
     sub.next(activities);
   }
 }
