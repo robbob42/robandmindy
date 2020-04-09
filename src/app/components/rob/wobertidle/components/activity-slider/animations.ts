@@ -20,6 +20,6 @@ export let activityLoader = trigger('activityLoader', [
     animate(0)
   ]),
   transition('* => endAnim', [
-    animate('{{actionTime}}'),
+    animate('{{actionTime}}ms'),
   ],  {params: {actionTime: 1000}})
 ]);

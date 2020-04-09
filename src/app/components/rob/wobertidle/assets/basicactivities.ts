@@ -1,0 +1,50 @@
+export default [
+  {
+    id: 1,
+    name: 'Mining',
+    active: false,
+    color: '#555555',
+    produces: 'Rocks',
+    producesId: 1,
+    produceAmount: 1,
+    actionTime: '1000',
+    mcProficiency: 1,
+    mcpTriggerAmount: 0,
+    triggered: true,
+    mcpDiscoverAmount: 0,
+    discovered: true,
+    visible: false
+  },
+  {
+    id: 2,
+    name: 'Chopping',
+    active: false,
+    color: '#425f0b',
+    produces: 'Trees',
+    producesId: 2,
+    produceAmount: 1,
+    actionTime: '2000',
+    mcProficiency: 5,
+    mcpTriggerAmount: 5,
+    triggered: false,
+    mcpDiscoverAmount: 10,
+    discovered: false,
+    visible: false
+  },
+  {
+    id: 3,
+    name: 'Fishing',
+    active: false,
+    color: '#84b0f1',
+    produces: 'Fish',
+    producesId: 3,
+    produceAmount: 1,
+    actionTime: '5000',
+    mcProficiency: 15,
+    mcpTriggerAmount: 30,
+    triggered: false,
+    mcpDiscoverAmount: 50,
+    discovered: false,
+    visible: false
+  }
+];

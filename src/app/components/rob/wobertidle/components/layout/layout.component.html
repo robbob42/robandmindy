@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card my-card">
   <div class="content-container">
       <div class="content-area">
         <app-home *ngIf="navigation === 'home'"></app-home>
@@ -7,7 +7,7 @@
         <section class="nav-group">
           <ul class="nav-list">
             <li><a class="nav-link" (click)="setNav('home')">Home</a></li>
-            <li><a class="nav-link" (click)="showLog()">Log</a></li>
+            <li><a class="nav-link" (click)="showLog()">Intro</a></li>
           </ul>
         </section>
       </nav>
@@ -15,7 +15,7 @@
   <div
     class="alert alert-info"
     role="alert"
-    [ngStyle]="{'width': '500px', 'position': 'absolute', 'top': alertTop, 'left': alertLeft}"
+    [ngStyle]="{'width': '500px', 'position': 'absolute', 'top': messagesTop, 'left': messagesLeft}"
     *ngIf="logVisible">
     <div class="alert-items">
       <div class="alert-item static">
@@ -26,13 +26,16 @@
           <div *ngIf="advanceStorylineVisible" class="alert-action dropdown bottom-right open">
             <button class="dropdown-toggle">
               <span (click)="advanceStoryline()">Next</span>
-              <clr-icon shape="caret down" (click)="advanceDropdownOpen = !advanceDropdownOpen"></clr-icon>
             </button>
+            <clr-icon shape="caret down" (click)="advanceDropdownOpen = !advanceDropdownOpen"></clr-icon>
             <div class="dropdown-menu" *ngIf="advanceDropdownOpen">
               <a class="dropdown-item" (click)="skipIntro()">Skip Introduction</a>
             </div>
+          </div>
         </div>
-        </div>
+        <button *ngIf="!advanceStorylineVisible" class="dropdown-toggle">
+          <span (click)="skipIntro()">Close</span>
+        </button>
       </div>
     </div>
     <button type="button" class="close" aria-label="Close" (click)="hideLog()" style="padding-right: 20px;">
@@ -40,3 +43,13 @@
     </button>
   </div>
 </div>
+<clr-icon
+  [@pulse]="{value: 'bounced', params: {top: alertTop, left: alertLeft, bounceLeft: alertLeftBounce}}"
+  (@pulse.done)="delayHideAlert()"
+  *ngIf="highlightArrow"
+  shape="arrow"
+  size="24"
+  class="highlightArrow"
+  [ngStyle]="{'left': alertLeft, 'top': alertTop}"
+>
+</clr-icon>

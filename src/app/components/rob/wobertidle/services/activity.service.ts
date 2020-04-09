@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Activitybasic } from '../models/activitybasic';
 import { Subject } from 'rxjs';
+import { Activitybasic } from '../models/activitybasic';
 import { Activityadvanced } from '../models/activityadvanced';
+import { Improvementbasic } from '../models/improvementbasic';
+import basicActivitySetup from '../assets/basicactivities';
+import advancedActivitySetup from '../assets/advancedactivities';
+import basicImprovementSetup from '../assets/basicimprovements';
+import { ItemService } from './item.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +18,10 @@ export class ActivityService {
   private subAdvanced = new Subject<Activityadvanced[]>();
   private advancedActivities: Activityadvanced[] = [];
 
-  constructor() { }
+  private subBasicImprovements = new Subject<Improvementbasic[]>();
+  private basicImprovements: Improvementbasic[] = [];
+
+  constructor(private itemService: ItemService) { }
 
   subscribeBasic() {
     return this.subBasic;
@@ -21,6 +29,10 @@ export class ActivityService {
 
   subscribeAdvanced() {
     return this.subAdvanced;
+  }
+
+  subscribeBasicImprovement() {
+    return this.subBasicImprovements;
   }
 
   toggleActivity(activityId: number, type: string) {
@@ -41,51 +53,6 @@ export class ActivityService {
   }
 
   getBasicActivities() {
-    const basicActivitySetup = [
-      {
-        id: 1,
-        name: 'Mining',
-        active: false,
-        color: '#555555',
-        produces: 'Rocks',
-        actionTime: '1000ms',
-        mcProficiency: 1,
-        mcpTriggerAmount: 0,
-        triggered: true,
-        mcpDiscoverAmount: 0,
-        discovered: true,
-        visible: false
-      },
-      {
-        id: 2,
-        name: 'Chopping',
-        active: false,
-        color: '#425f0b',
-        produces: 'Trees',
-        actionTime: '2000ms',
-        mcProficiency: 5,
-        mcpTriggerAmount: 5,
-        triggered: false,
-        mcpDiscoverAmount: 10,
-        discovered: false,
-        visible: false
-      },
-      {
-        id: 3,
-        name: 'Fishing',
-        active: false,
-        color: '#84b0f1',
-        produces: 'Fish',
-        actionTime: '5000ms',
-        mcProficiency: 15,
-        mcpTriggerAmount: 30,
-        triggered: false,
-        mcpDiscoverAmount: 50,
-        discovered: false,
-        visible: false
-      }
-    ];
-
     basicActivitySetup.forEach(activity => {
       this.basicActivities.push(new Activitybasic(activity));
     });
@@ -93,60 +60,6 @@ export class ActivityService {
   }
 
   getAdvancedActivities() {
-    const advancedActivitySetup = [
-      {
-        id: 1,
-        name: 'Refining',
-        active: false,
-        color: '#AA5555',
-        produces: 'Gems',
-        produceAmount: 1,
-        actionTime: '5000ms',
-        mcProficiency: 30,
-        mcpTriggerAmount: 2000,
-        triggered: false,
-        mcpDiscoverAmount: 5000,
-        discovered: false,
-        decrements: 'Rocks',
-        decrementAmount: 5,
-        visible: false
-      },
-      {
-        id: 2,
-        name: 'Milling',
-        active: false,
-        color: '#423821',
-        produces: 'Boards',
-        produceAmount: 1,
-        actionTime: '10000ms',
-        mcProficiency: 60,
-        mcpTriggerAmount: 20000,
-        triggered: false,
-        mcpDiscoverAmount: 50000,
-        discovered: false,
-        decrements: 'Trees',
-        decrementAmount: 3,
-        visible: false
-      },
-      {
-        id: 3,
-        name: 'Cooking',
-        active: false,
-        color: '#be6868',
-        produces: 'Cooked Fish',
-        produceAmount: 1,
-        actionTime: '15000ms',
-        mcProficiency: 100,
-        mcpTriggerAmount: 200000,
-        triggered: false,
-        mcpDiscoverAmount: 500000,
-        discovered: false,
-        decrements: 'Fish',
-        decrementAmount: 2,
-        visible: false
-      }
-    ];
-
     advancedActivitySetup.forEach(activity => {
       this.advancedActivities.push(new Activityadvanced(activity));
     });
@@ -159,5 +72,39 @@ export class ActivityService {
 
     activities.find(activity => activity.id === activityId).visible = visible;
     sub.next(activities);
+  }
+
+  getBasicImprovements() {
+    basicImprovementSetup.forEach(improvement => {
+      this.basicImprovements.push(new Improvementbasic(improvement));
+    });
+    this.subBasicImprovements.next(this.basicImprovements);
+  }
+
+  buyImprovement(type: string, improvementId: number) {
+    const improvements = type === 'basic' ? this.basicImprovements : this.basicImprovements;
+    const improvement = improvements.find(imp => imp.id === improvementId);
+    const impSub = type === 'basic' ? this.subBasicImprovements : this.subBasicImprovements;
+    let sufficientFunds = true;
+    improvement.itemsCost.forEach(impCostItem => {
+      if (!this.itemService.sufficientFunds(impCostItem.itemId, impCostItem.itemAmount)) {
+        sufficientFunds = false;
+      }
+    });
+
+    if (sufficientFunds) {
+      const activities = type === 'basic' ? this.basicActivities : this.advancedActivities;
+      const activity = activities.find(act => act.id === improvement.activityId);
+      const sub = type === 'basic' ? this.subBasic : this.subAdvanced;
+      activity[improvement.improves] = (activity[improvement.improves] * improvement.improvesBy).toFixed(0);
+
+      improvement.itemsCost.forEach(impCostItem => {
+        this.itemService.incrementItem(impCostItem.itemId, -impCostItem.itemAmount);
+        impCostItem.itemAmount = impCostItem.itemAmount * improvement.costMultiplyer;
+      });
+
+      impSub.next(improvements);
+      sub.next(activities);
+    }
   }
 }

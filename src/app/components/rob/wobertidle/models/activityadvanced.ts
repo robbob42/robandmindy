@@ -12,6 +12,7 @@ export class Activityadvanced extends Activitybase {
     active?: boolean,
     color: string,
     produces: string,
+    producesId: number,
     actionTime: string,
     mcProficiency?: number,
     mcpTriggerAmount: number,

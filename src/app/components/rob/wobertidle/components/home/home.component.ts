@@ -5,6 +5,8 @@ import { Activitybasic } from '../../models/activitybasic';
 import { ActivityService } from '../../services/activity.service';
 import { Activityadvanced } from '../../models/activityadvanced';
 import { MessageService } from '../../services/message.service';
+import { Improvementbasic } from '../../models/improvementbasic';
+import itemsModel from '../../assets/items';
 
 @Component({
   selector: 'app-home',
@@ -13,9 +15,12 @@ import { MessageService } from '../../services/message.service';
 })
 export class HomeComponent implements OnInit {
   public inventory: Item[] = [];
+
   public basicActivities: Activitybasic[] = [];
   public advancedActivities: Activityadvanced[] = [];
-  public numOfWorkers = 0;
+
+  public basicImprovements: Improvementbasic[] = [];
+
   public obtainRawVisible = false;
   public refineVisible = false;
   public activityObtainVisible = false;
@@ -23,16 +28,27 @@ export class HomeComponent implements OnInit {
   public inventoryVisible = false;
   public powersVisible = false;
   public advanceStorylineVisible = true;
-  public mcProficiency = 0;
+  public improvementsVisible = false;
   public mcpItem = {
     icon: '',
-    color: ''
+    color: '',
+    amount: 0,
+    name: ''
   };
+  public humanItem = {
+    icon: '',
+    color: '',
+    amount: 0,
+    name: ''
+  };
+  public itemsModel = itemsModel;
 
   constructor(
     itemService: ItemService,
-    activityService: ActivityService,
+    private activityService: ActivityService,
     private messageService: MessageService) {
+
+    // Item subscriptions
     itemService.subscriber().subscribe((items) => {
       this.inventoryVisible = false;
       items.forEach(item => {
@@ -41,21 +57,26 @@ export class HomeComponent implements OnInit {
         }
         if (item.id === 900) {
           this.mcpItem = item;
-          this.mcProficiency = item.amount;
+          if (item.amount > 49) {
+            this.improvementsVisible = true;
+          }
+        }
+        if (item.id === 901) {
+          this.humanItem = item;
         }
       });
       this.inventory = items;
 
       this.basicActivities.forEach(activity => {
-        if (this.mcProficiency === activity.mcpTriggerAmount && activity.trigger && !activity.triggered) {
+        if (this.mcpItem.amount === activity.mcpTriggerAmount && activity.trigger && !activity.triggered) {
           activity.triggered = true;
           this.messageService.processTrigger(activity.trigger);
         }
-        if (this.mcProficiency >= activity.mcpDiscoverAmount && !activity.discovered) {
+        if (this.mcpItem.amount >= activity.mcpDiscoverAmount && !activity.discovered) {
           activity.discovered = true;
           this.inventory.find(item => item.name === activity.produces).visible = true;
         }
-        if (this.mcProficiency < activity.mcpDiscoverAmount && activity.discovered) {
+        if (this.mcpItem.amount < activity.mcpDiscoverAmount && activity.discovered) {
           activity.discovered = false;
           this.inventory.find(item => item.name === activity.produces).visible = false;
         }
@@ -63,6 +84,7 @@ export class HomeComponent implements OnInit {
     });
     itemService.getItemInventory();
 
+    // Activity subscriptions
     activityService.subscribeBasic().subscribe((activities) => {
       this.obtainRawVisible = false;
       this.activityObtainVisible = false;
@@ -91,10 +113,16 @@ export class HomeComponent implements OnInit {
     });
     activityService.getAdvancedActivities();
 
+    activityService.subscribeBasicImprovement().subscribe((improvements) => {
+      this.basicImprovements = improvements;
+    });
+    activityService.getBasicImprovements();
+
+    // Message subscriptions
     messageService.subscribeMessages().subscribe((message) => {
       const latestMessage = message[0];
       if (latestMessage.triggerId === 1001) {
-        this.numOfWorkers = 1;
+        itemService.forceSetAmount(901, 1);
       }
       if (latestMessage.triggerId === 1000) {
         this.powersVisible = true;
@@ -103,5 +131,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  buyBasicImprovement(improvementId: number) {
+    this.activityService.buyImprovement('basic', improvementId);
   }
 }

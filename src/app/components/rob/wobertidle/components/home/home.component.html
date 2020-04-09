@@ -10,7 +10,7 @@
                 <ng-container *ngIf="activity.discovered">
                   <app-activity-button [activity]="activity" [inventory]="inventory"></app-activity-button>
                 </ng-container>
-                <ng-container *ngIf="mcProficiency >= activity.mcpTriggerAmount && mcProficiency < activity.mcpDiscoverAmount">
+                <ng-container *ngIf="mcpItem.amount >= activity.mcpTriggerAmount && mcpItem.amount < activity.mcpDiscoverAmount">
                   <button class="btn btn-outline" disabled>@MCP{{activity.mcpDiscoverAmount}}</button>
                 </ng-container>
               </div>
@@ -90,21 +90,59 @@
             Mind Control
         </div>
         <div class="card-text" style="text-indent:1em;">
-          <div>
-            MCP
-            <clr-icon attr.shape="{{mcpItem.icon}}" size="18" [ngStyle]="{'color': mcpItem.color}"></clr-icon>
-            : {{mcProficiency}}
+          <div id="mcpDiv">
+            <span>
+              <clr-icon attr.shape="{{mcpItem.icon}}" size="18" [ngStyle]="{'color': mcpItem.color, 'margin-bottom': '6px'}"></clr-icon>
+              {{mcpItem.name}} : {{mcpItem.amount}}
+            </span>
           </div>
-          <div>Unsuspecting Humans: {{numOfWorkers}}</div>
+          <div id="humanDiv">
+            <span>
+              <clr-icon attr.shape="{{humanItem.icon}}" size="18" [ngStyle]="{'color': humanItem.color, 'margin-bottom': '6px'}"></clr-icon>
+              {{humanItem.name}} : {{humanItem.amount}}
+            </span>
+          </div>
         </div>
         <div class="card-title">
-            Activities
+          Activities
         </div>
         <div class="card-text">
           <div *ngFor="let activity of basicActivities" style="text-indent:1em;">
             <ng-container *ngIf="activity.discovered">
-              {{activity.name}} {{activity.produces}}
+              {{activity.name}} {{activity.produces}} ({{activity.actionTime / 1000.0}}s)
             </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" *ngIf="improvementsVisible">
+      <div class="card-header">
+        Improvements
+      </div>
+      <div class="card-block">
+        <div class="card-title">
+          Activities
+        </div>
+        <div class="card-text">
+          <div *ngFor="let improvement of basicImprovements">
+            {{improvement.name}}
+            <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm tooltip-top-left">
+              <clr-icon shape="info-circle" size="24"></clr-icon>
+              <span class="tooltip-content my-tooltip-content">
+                <span *ngFor="let costItem of improvement.itemsCost">
+                  <span *ngFor="let item of itemsModel">
+                    <ng-container *ngIf="item.id == costItem.itemId">
+                      <clr-icon attr.shape="{{item.icon}}" size="16" [ngStyle]="{'color': item.color}"></clr-icon>
+                    </ng-container>
+                  </span>
+                  x {{costItem.itemAmount}}<br />
+                </span>
+              </span>
+            </a>
+
+
+            <button class="btn btn-sm btn-link" (click)="buyBasicImprovement(improvement.id)">Buy</button>
           </div>
         </div>
       </div>

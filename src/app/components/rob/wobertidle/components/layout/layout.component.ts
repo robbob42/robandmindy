@@ -1,21 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from '../../services/message.service';
 import { Message } from '../../models/message';
+import { pulse } from './animations';
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss']
+  styleUrls: ['./layout.component.scss'],
+  animations: [
+    pulse
+  ]
 })
 export class LayoutComponent implements OnInit {
   public navigation: string;
   public messages: Message[] = [];
-  public alertTop = '-3em';
-  public alertLeft = '24em';
+  public messagesTop = '-3em';
+  public messagesLeft = '24em';
+  public alertTop = '9em';
+  public alertLeft = '30em';
+  public alertLeftBounce = '31em';
   public logVisible = true;
   public advanceStorylineVisible = true;
   public advanceDropdownOpen = false;
   public canSkip = true;
+  public highlightArrow = false;
 
   constructor(private messageService: MessageService) {
     messageService.subscribeMessages().subscribe((subscribedMessages) => {
@@ -27,16 +35,26 @@ export class LayoutComponent implements OnInit {
       }
       const latestMessage = subscribedMessages[0];
       if (latestMessage.triggerId === 1000) {
-        this.alertTop = '9em';
-        this.alertLeft = '30em';
+        setTimeout(() => {
+          const rect = document.getElementById('mcpDiv').getBoundingClientRect();
+          this.alertTop = `${rect.top}px`;
+          this.alertLeft = `${rect.left - 10}px`;
+          this.alertLeftBounce = `${rect.left}px`;
+          this.highlightArrow = true;
+        }, 10);
       }
       if (latestMessage.triggerId === 1001) {
-        this.alertTop = '12em';
-        this.alertLeft = '30em';
+        setTimeout(() => {
+          const rect = document.getElementById('humanDiv').getBoundingClientRect();
+          this.alertTop = `${rect.top}px`;
+          this.alertLeft = `${rect.left - 10}px`;
+          this.alertLeftBounce = `${rect.left}px`;
+          this.highlightArrow = true;
+        }, 10);
       }
       if (latestMessage.triggerId === 1) {
-        this.alertTop = '16em';
-        this.alertLeft = '11em';
+        this.messagesTop = '19em';
+        this.messagesLeft = '11em';
       }
     });
     messageService.getMessages();
@@ -64,6 +82,12 @@ export class LayoutComponent implements OnInit {
   }
   hideLog() {
     this.logVisible = false;
+  }
+
+  delayHideAlert() {
+    setTimeout(() => {
+      this.highlightArrow = false;
+    }, 2000);
   }
 
   skipIntro() {
