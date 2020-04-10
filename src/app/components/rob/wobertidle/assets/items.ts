@@ -9,7 +9,7 @@ export default [
   },
   {
     id: 901,
-    name: 'Unsuspecting Humans',
+    name: 'Humans',
     icon: 'user',
     color: '#4e4e40',
     amount: 0,
@@ -21,7 +21,7 @@ export default [
     icon: 'data-cluster',
     color: '#555555',
     amount: 0,
-    visible: false
+    visible: true
   },
   {
     id: 2,

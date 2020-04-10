@@ -1,0 +1,29 @@
+<div class="clr-row">
+  <div class="clr-col-8">
+    <div class="card">
+      <div class="card-header">
+        Improvements
+      </div>
+      <div class="card-block">
+        <div class="card-title">
+          Activities
+        </div>
+        <div class="card-text">
+          <div *ngFor="let improvement of basicImprovements">
+            {{improvement.name}} |
+            <span *ngFor="let costItem of improvement.itemsCost">
+              <span *ngFor="let item of itemsModel">
+                <ng-container *ngIf="item.id == costItem.itemId">
+                  <clr-icon attr.shape="{{item.icon}}" size="16" [ngStyle]="{'color': item.color}"></clr-icon>
+                </ng-container>
+              </span>
+              x {{costItem.itemAmount}} |
+            </span>
+            <button class="btn btn-sm btn-link" (click)="buyBasicImprovement(improvement.id)">Buy</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clr-col-4"></div>
+</div>

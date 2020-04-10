@@ -1,10 +1,8 @@
-
-<div class="card-title" *ngIf="activity.active">{{activity.name}} {{activity.produces}}</div>
-<div *ngIf="activity.active" style="width: 150px; height: 20px; border: 1px solid gray;">
-  <div
-    [@activityLoader]="{value: animState, params: {actionTime: activity.actionTime}}"
-    (@activityLoader.start)="animationStart($event, activity)"
-    (@activityLoader.done)="onAnimationEvent($event, activity)"
-    [ngStyle]="{'background-color': activity.color, 'height': '100%'}">
-  </div>
+<div *ngIf="activity && activity.discovered">
+  <clr-icon *ngIf="!activity.active" shape="play" style="cursor: pointer;" (click)="startActivity(activity.id, 'basic')"></clr-icon>
+  <clr-icon *ngIf="activity.active" shape="stop" style="cursor: pointer;" (click)="startActivity(activity.id, 'basic')"></clr-icon>
+  {{activity.name}} {{activity.produces}} ({{actionTime}}s)
+</div>
+<div *ngIf="activity && activity.active" style="width: 150px; height: 20px; border: 1px solid gray; margin-left: 20px;">
+  <div [ngStyle]="{'background-color': activity.color, 'height': '100%', 'width': activityWidth}"></div>
 </div>

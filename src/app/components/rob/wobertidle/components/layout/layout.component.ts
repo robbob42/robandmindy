@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { MessageService } from '../../services/message.service';
 import { Message } from '../../models/message';
 import { pulse } from './animations';
+import { ActivityService } from '../../services/activity.service';
+import { ItemService } from '../../services/item.service';
+import { Activitybasic } from '../../models/activitybasic';
 
 @Component({
   selector: 'app-layout',
@@ -11,7 +14,7 @@ import { pulse } from './animations';
     pulse
   ]
 })
-export class LayoutComponent implements OnInit {
+export class LayoutComponent implements OnInit, AfterViewInit {
   public navigation: string;
   public messages: Message[] = [];
   public messagesTop = '-3em';
@@ -24,8 +27,27 @@ export class LayoutComponent implements OnInit {
   public advanceDropdownOpen = false;
   public canSkip = true;
   public highlightArrow = false;
+  public basicActivities = [new Activitybasic({
+    id: 0,
+    name: '',
+    active: false,
+    color: '',
+    produces: '',
+    producesId: 0,
+    actionTime: '',
+    mcpTriggerAmount: 0,
+    triggered: false,
+    mcpDiscoverAmount: 0,
+    discovered: false
+  })];
+  public inventory;
 
-  constructor(private messageService: MessageService) {
+  constructor(
+    private messageService: MessageService,
+    private activityService: ActivityService,
+    private itemService: ItemService
+  ) {
+    this.messageService.initializeMessages();
     messageService.subscribeMessages().subscribe((subscribedMessages) => {
       this.messages = [];
       for (let i = 0; i < 4; i++) {
@@ -38,8 +60,8 @@ export class LayoutComponent implements OnInit {
         setTimeout(() => {
           const rect = document.getElementById('mcpDiv').getBoundingClientRect();
           this.alertTop = `${rect.top}px`;
-          this.alertLeft = `${rect.left - 10}px`;
-          this.alertLeftBounce = `${rect.left}px`;
+          this.alertLeft = `${rect.left - 20}px`;
+          this.alertLeftBounce = `${rect.left - 10}px`;
           this.highlightArrow = true;
         }, 10);
       }
@@ -47,14 +69,13 @@ export class LayoutComponent implements OnInit {
         setTimeout(() => {
           const rect = document.getElementById('humanDiv').getBoundingClientRect();
           this.alertTop = `${rect.top}px`;
-          this.alertLeft = `${rect.left - 10}px`;
-          this.alertLeftBounce = `${rect.left}px`;
+          this.alertLeft = `${rect.left - 20}px`;
+          this.alertLeftBounce = `${rect.left - 10}px`;
           this.highlightArrow = true;
         }, 10);
       }
       if (latestMessage.triggerId === 1) {
-        this.messagesTop = '19em';
-        this.messagesLeft = '11em';
+        this.messagesTop = '14em';
       }
     });
     messageService.getMessages();
@@ -63,10 +84,27 @@ export class LayoutComponent implements OnInit {
       this.advanceStorylineVisible = subscribedAdvanceVis;
     });
     messageService.getAdvanceVisible();
+
   }
 
   ngOnInit(): void {
     this.navigation = 'home';
+    this.activityService.initializeAdvancedActivities();
+    this.activityService.initializeBasicImprovements();
+
+    setTimeout(() => {
+      this.activityService.initializeBasicActivities();
+      this.activityService.subscribeBasic().subscribe((activities) => {
+        this.basicActivities = activities;
+      });
+      this.itemService.initializeItems();
+      this.itemService.subscriber().subscribe((items) => {
+        this.inventory = items;
+      });
+    });
+  }
+
+  ngAfterViewInit() {
   }
 
   setNav(nav) {

@@ -1,16 +1,19 @@
 <div class="card my-card">
+  <nav class="subnav">
+    <ul class="nav">
+      <li class="nav-item"><a class="nav-link" (click)="setNav('home')">Home</a></li>
+      <li class="nav-item"><a class="nav-link" (click)="showLog()">Intro</a></li>
+      <li class="nav-item"><a class="nav-link" (click)="setNav('shop')">Shop</a></li>
+    </ul>
+  </nav>
   <div class="content-container">
-      <div class="content-area">
-        <app-home *ngIf="navigation === 'home'"></app-home>
-      </div>
-      <nav class="sidenav">
-        <section class="nav-group">
-          <ul class="nav-list">
-            <li><a class="nav-link" (click)="setNav('home')">Home</a></li>
-            <li><a class="nav-link" (click)="showLog()">Intro</a></li>
-          </ul>
-        </section>
-      </nav>
+    <nav class="sidenav my-sidenav">
+      <app-my-sidenav></app-my-sidenav>
+    </nav>
+    <div class="content-area">
+      <app-home *ngIf="navigation === 'home'"></app-home>
+      <app-shop *ngIf="navigation === 'shop'"></app-shop>
+    </div>
   </div>
   <div
     class="alert alert-info"

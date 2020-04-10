@@ -8,7 +8,9 @@
             <div class="card-text">
               <div *ngFor="let activity of basicActivities">
                 <ng-container *ngIf="activity.discovered">
-                  <app-activity-button [activity]="activity" [inventory]="inventory"></app-activity-button>
+                  <app-activity-button
+                    [activityId]="activity.id"
+                    [type]="'basic'"></app-activity-button>
                 </ng-container>
                 <ng-container *ngIf="mcpItem.amount >= activity.mcpTriggerAmount && mcpItem.amount < activity.mcpDiscoverAmount">
                   <button class="btn btn-outline" disabled>@MCP{{activity.mcpDiscoverAmount}}</button>
@@ -18,134 +20,20 @@
           </div>
         </div>
       </div>
-      <div class="clr-col-12">
+      <!-- <div class="clr-col-12">
         <div class="card" *ngIf="refineVisible">
           <div class="card-header">Refine Materials</div>
           <div class="card-block">
             <div class="card-text">
               <div *ngFor="let activity of advancedActivities">
                 <ng-container *ngIf="activity.visible">
-                  <app-activity-button [activity]="activity" [inventory]="inventory"></app-activity-button>
+                  <app-activity-button [activityId]="activity.id" [type]="'advanced'"></app-activity-button>
                 </ng-container>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="clr-col-5">
-    <div class="clr-row">
-      <div class="clr-col-12">
-        <div class="card" *ngIf="activityObtainVisible">
-          <div class="card-header">Obtain Raw Activity</div>
-          <div class="card-block">
-            <div class="card-text">
-              <app-activity-slider
-                *ngFor="let activity of basicActivities"
-                [activity]="activity"
-                [inventory]="inventory"></app-activity-slider>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="clr-col-12">
-        <div class="card" *ngIf="activityRefineVisible">
-          <div class="card-header">Refine Activity</div>
-          <div class="card-block">
-            <div class="card-text">
-              <app-activity-slider
-                *ngFor="let activity of advancedActivities"
-                [activity]="activity"
-                [inventory]="inventory"></app-activity-slider>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="clr-col-3">
-    <div class="card" *ngIf="inventoryVisible">
-      <div class="card-header">
-        Inventory
-      </div>
-      <div class="card-block">
-        <div class="card-text">
-          <div *ngFor="let item of inventory">
-            <ng-container *ngIf="item.visible">
-              <div><clr-icon attr.shape="{{item.icon}}" shape="" size="24" [ngStyle]="{'color': item.color}"></clr-icon>: {{item.amount}}</div>
-            </ng-container>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="card" *ngIf="powersVisible || inventoryVisible">
-      <div class="card-header">
-        Demigod Powers
-      </div>
-      <div class="card-block">
-        <div class="card-title">
-            Mind Control
-        </div>
-        <div class="card-text" style="text-indent:1em;">
-          <div id="mcpDiv">
-            <span>
-              <clr-icon attr.shape="{{mcpItem.icon}}" size="18" [ngStyle]="{'color': mcpItem.color, 'margin-bottom': '6px'}"></clr-icon>
-              {{mcpItem.name}} : {{mcpItem.amount}}
-            </span>
-          </div>
-          <div id="humanDiv">
-            <span>
-              <clr-icon attr.shape="{{humanItem.icon}}" size="18" [ngStyle]="{'color': humanItem.color, 'margin-bottom': '6px'}"></clr-icon>
-              {{humanItem.name}} : {{humanItem.amount}}
-            </span>
-          </div>
-        </div>
-        <div class="card-title">
-          Activities
-        </div>
-        <div class="card-text">
-          <div *ngFor="let activity of basicActivities" style="text-indent:1em;">
-            <ng-container *ngIf="activity.discovered">
-              {{activity.name}} {{activity.produces}} ({{activity.actionTime / 1000.0}}s)
-            </ng-container>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" *ngIf="improvementsVisible">
-      <div class="card-header">
-        Improvements
-      </div>
-      <div class="card-block">
-        <div class="card-title">
-          Activities
-        </div>
-        <div class="card-text">
-          <div *ngFor="let improvement of basicImprovements">
-            {{improvement.name}}
-            <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm tooltip-top-left">
-              <clr-icon shape="info-circle" size="24"></clr-icon>
-              <span class="tooltip-content my-tooltip-content">
-                <span *ngFor="let costItem of improvement.itemsCost">
-                  <span *ngFor="let item of itemsModel">
-                    <ng-container *ngIf="item.id == costItem.itemId">
-                      <clr-icon attr.shape="{{item.icon}}" size="16" [ngStyle]="{'color': item.color}"></clr-icon>
-                    </ng-container>
-                  </span>
-                  x {{costItem.itemAmount}}<br />
-                </span>
-              </span>
-            </a>
-
-
-            <button class="btn btn-sm btn-link" (click)="buyBasicImprovement(improvement.id)">Buy</button>
-          </div>
-        </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

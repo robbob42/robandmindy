@@ -24,7 +24,7 @@ export class MessageService {
     return this.subAdvanceVisible;
   }
 
-  getMessages() {
+  initializeMessages() {
     const messageSetup = [
       {
         text: 'Welcome to Wobert Idle, Wobert!'
@@ -34,6 +34,9 @@ export class MessageService {
     messageSetup.forEach(message => {
       this.messages.push(new Message(message.text));
     });
+    this.subMessages.next(this.messages);
+  }
+  getMessages() {
     this.subMessages.next(this.messages);
   }
 

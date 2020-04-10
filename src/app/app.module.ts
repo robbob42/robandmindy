@@ -19,6 +19,8 @@ import { LayoutComponent } from './components/rob/wobertidle/components/layout/l
 import { HomeComponent } from './components/rob/wobertidle/components/home/home.component';
 import { ActivitySliderComponent } from './components/rob/wobertidle/components/activity-slider/activity-slider.component';
 import { ActivityButtonComponent } from './components/rob/wobertidle/components/activity-button/activity-button.component';
+import { ShopComponent } from './components/rob/wobertidle/components/shop/shop.component';
+import { MySidenavComponent } from './components/rob/wobertidle/components/my-sidenav/my-sidenav.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { ActivityButtonComponent } from './components/rob/wobertidle/components/
     LayoutComponent,
     HomeComponent,
     ActivitySliderComponent,
-    ActivityButtonComponent
+    ActivityButtonComponent,
+    ShopComponent,
+    MySidenavComponent
   ],
   imports: [
     BrowserModule,

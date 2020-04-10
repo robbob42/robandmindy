@@ -1,76 +1,80 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { AnimationEvent } from '@angular/animations';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Activitybasic } from '../../models/activitybasic';
 import { Activityadvanced } from '../../models/activityadvanced';
-import { activityLoader } from './animations';
 import { Item } from '../../models/item';
 import { ItemService } from '../../services/item.service';
+import { Subscription } from 'rxjs';
+import { ActivityService } from '../../services/activity.service';
 
 @Component({
   selector: 'app-activity-slider',
   templateUrl: './activity-slider.component.html',
-  styleUrls: ['./activity-slider.component.scss'],
-  animations: [
-    activityLoader
-  ]
+  styleUrls: ['./activity-slider.component.scss']
 })
-export class ActivitySliderComponent implements OnInit {
-  @Input() activity: Activitybasic | Activityadvanced;
-  @Input() inventory: Item[];
-  public animState = 'beginAnim';
+export class ActivitySliderComponent implements OnInit, OnDestroy {
+  @Input() activityId: number;
+  @Input() type: string;
 
-  constructor(private itemService: ItemService) { }
+  public inventory: Item[];
+  public advancedActivities: Activityadvanced[];
+
+  public subscriptions: Subscription[] = [];
+
+  public activity: Activitybasic;
+
+  public actionTime: number;
+  public activityWidthNum = 0;
+  public activityWidth = this.activityWidthNum.toString() + '%';
+  public invenItem: Item;
+  public activityInterval: number;
+
+  constructor(
+    private itemService: ItemService,
+    private activityService: ActivityService
+  ) {
+  }
 
   ngOnInit(): void {
-  }
-
-  onAnimationEvent(event: AnimationEvent, activity: Activitybasic | Activityadvanced) {
-    let invenItem: Item;
-    let incrementAmount = 0;
-    let mcpIncrementAmount = 0;
-    this.inventory.forEach(inventoryItem => {
-      if (inventoryItem.name === activity.produces) {
-        invenItem = inventoryItem;
-      }
-    });
-    if (event.toState === 'endAnim' && event.fromState === 'beginAnim') {
-      incrementAmount += 1;
-      mcpIncrementAmount += activity.mcProficiency;
-    }
-
-    let nextState: string;
-    switch (event.toState) {
-      case 'endAnim':
-        nextState = 'beginAnim';
-        break;
-      case 'beginAnim':
-        nextState = 'endAnim';
-        break;
-      case 'void':
-        incrementAmount = -1;
-        mcpIncrementAmount = -activity.mcProficiency;
-        nextState = 'beginAnim';
-        break;
-      default:
-        break;
-    }
-    this.itemService.incrementItem(invenItem.id, incrementAmount, mcpIncrementAmount);
-    this.animState = nextState;
-  }
-
-  animationStart(event: AnimationEvent, activity: any) {
-    if (event.toState === 'endAnim') {
-      this.inventory.forEach(item => {
-        if (activity.hasOwnProperty('decrements') && item.name === activity.decrements) {
-          if (item.amount < activity.decrementsAmount) {
-            activity.active = false;
-          } else {
-            item.amount -= activity.decrementsAmount;
-          }
+    this.activityService.getBasicActivities();
+    setTimeout(() => {
+      this.subscriptions.push(this.activityService.subscribeBasic().subscribe((activities) => {
+        this.activity = activities.find(act => act.id === this.activityId);
+        if (this.activity) {
+          this.actionTime = parseInt(this.activity.actionTime, 10) / 1000;
         }
-      });
-    }
+        clearInterval(this.activityInterval);
+        this.activityInterval = window.setInterval(() => {
+          if (this.activity && this.activity.active) {
+            this.activityWidthNum += 1000 / parseInt(this.activity.actionTime, 10);
+            if (this.activityWidthNum >= 100) {
+              this.activityWidthNum = 0;
+              this.itemService.incrementItem(this.invenItem.id, 1, this.activity.mcProficiency);
+            }
+            this.activityWidth = this.activityWidthNum.toString() + '%';
+          }
+        }, 10);
+      }));
+      this.subscriptions.push(this.activityService.subscribeAdvanced().subscribe((activities) => {
+        this.advancedActivities = activities;
+      }));
+      this.subscriptions.push(this.itemService.subscriber().subscribe((items) => {
+        this.inventory = items;
+        items.forEach(inventoryItem => {
+          if (this.activity && inventoryItem.name === this.activity.produces) {
+            this.invenItem = inventoryItem;
+          }
+        });
+      }));
+    });
   }
 
+  startActivity(activityId: number, type: string) {
+    this.activityService.toggleActivity(activityId, type);
+  }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => {
+      subscription.unsubscribe();
+    });
+  }
 }

@@ -16,11 +16,14 @@ export class ItemService {
     return this.sub;
   }
 
-  getItemInventory() {
+  initializeItems() {
     items.forEach((inventoryItem) => {
       this.inventory.push(new Item(inventoryItem));
     });
+    this.sub.next(this.inventory);
+  }
 
+  getItemInventory() {
     this.sub.next(this.inventory);
   }
 
