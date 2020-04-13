@@ -1,62 +1,97 @@
 <div class="clr-row">
-  <div class="clr-col-7">
-    <div class="clr-row">
-      <div class="clr-col-12">
-        <div class="card" *ngIf="obtainRawVisible">
-          <div class="card-header">Obtain Raw Materials</div>
-          <div class="card-block">
-            <div class="card-text">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>Activity</th>
-                    <th colspan="2">Produces</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let activity of activities">
-                    <ng-container *ngIf="activity.discovered">
-                      <td>
-                        <app-activity-button
-                          [activityId]="activity.id"
-                          [type]="'basic'"></app-activity-button>
-                      </td>
-                      <td>
-                        {{activity.produceAmount}} x
-                        <ng-container *ngFor="let item of initialItems">
-                          <clr-icon *ngIf="activity.producesId == item.id" attr.shape="{{item.icon}}" size="18" [ngStyle]="{'color': item.color}"></clr-icon>
-                        </ng-container>
-                      </td>
-                      <td>
-                        {{activity.mcProficiency}} x <clr-icon shape="crown" size="18" [ngStyle]="{'color': '#621f8f'}"></clr-icon>
-                      </td>
+  <div class="clr-col-9">
+    <div class="card" *ngIf="obtainRawVisible">
+      <div class="card-header">Obtain Raw Materials</div>
+      <div class="card-block">
+        <div class="card-text">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Activity</th>
+                <th colspan="2">Produces</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let activity of activities">
+                <ng-container *ngIf="activity.discovered && activity.type == 'raw'">
+                  <td>
+                    <app-activity-button [activityId]="activity.id"></app-activity-button>
+                  </td>
+                  <td>
+                    {{activity.produceAmount}} x
+                    <ng-container *ngFor="let item of initialItems">
+                      <clr-icon *ngIf="activity.producesId == item.id" attr.shape="{{item.icon}}" size="18" [ngStyle]="{'color': item.color}"></clr-icon>
                     </ng-container>
-                  </tr>
-                  <tr *ngFor="let activity of activities">
-                    <td colspan="3" *ngIf="mcpItem.amount >= activity.mcpTriggerAmount && mcpItem.amount < activity.mcpDiscoverAmount">
-                      <button class="btn btn-outline" disabled>@MCP{{activity.mcpDiscoverAmount}}</button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+                  </td>
+                  <td>
+                    {{activity.mcProficiency}} x <clr-icon shape="crown" size="18" [ngStyle]="{'color': '#621f8f'}"></clr-icon>
+                  </td>
+                </ng-container>
+              </tr>
+              <tr *ngFor="let activity of activities">
+                <td colspan="3" *ngIf="mcpItem.amount >= activity.mcpTriggerAmount && mcpItem.amount < activity.mcpDiscoverAmount && activity.type == 'raw'">
+                  <button class="btn btn-outline" disabled>@MCP {{activity.mcpDiscoverAmount}}</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-      <!-- <div class="clr-col-12">
-        <div class="card" *ngIf="refineVisible">
-          <div class="card-header">Refine Materials</div>
-          <div class="card-block">
-            <div class="card-text">
-              <div *ngFor="let activity of advancedActivities">
-                <ng-container *ngIf="activity.visible">
-                  <app-activity-button [activityId]="activity.id" [type]="'advanced'"></app-activity-button>
+    </div>
+  </div>
+</div>
+
+<div class="clr-row">
+  <div class="clr-col-9">
+    <div class="card" *ngIf="!refineVisible">
+      <div class="card-header">
+        <button class="btn btn-outline" disabled>@MCP {{utilsService.formatNumber(refineVisibleAmt)}}</button>
+      </div>
+    </div>
+    <div class="card" *ngIf="refineVisible">
+      <div class="card-header">Refine Materials</div>
+      <div class="card-block">
+        <div class="card-text">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Activity</th>
+                <th>Needs</th>
+                <th colspan="2">Produces</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let activity of activities">
+                <ng-container *ngIf="activity.discovered && activity.type == 'refine'">
+                  <td>
+                    <app-activity-button [activityId]="activity.id"></app-activity-button>
+                  </td>
+                  <td>
+                    {{activity.decrementAmount}} x
+                    <ng-container *ngFor="let item of initialItems">
+                      <clr-icon *ngIf="activity.decrementId == item.id" attr.shape="{{item.icon}}" size="18" [ngStyle]="{'color': item.color}"></clr-icon>
+                    </ng-container>
+                  </td>
+                  <td>
+                    {{activity.produceAmount}} x
+                    <ng-container *ngFor="let item of initialItems">
+                      <clr-icon *ngIf="activity.producesId == item.id" attr.shape="{{item.icon}}" size="18" [ngStyle]="{'color': item.color}"></clr-icon>
+                    </ng-container>
+                  </td>
+                  <td>
+                    {{activity.mcProficiency}} x <clr-icon shape="crown" size="18" [ngStyle]="{'color': '#621f8f'}"></clr-icon>
+                  </td>
                 </ng-container>
-              </div>
-            </div>
-          </div>
+              </tr>
+              <tr *ngFor="let activity of activities">
+                <td colspan="3" *ngIf="mcpItem.amount >= activity.mcpTriggerAmount && mcpItem.amount < activity.mcpDiscoverAmount && activity.type == 'refine'">
+                  <button class="btn btn-outline" disabled>@MCP{{activity.mcpDiscoverAmount}}</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-      </div> -->
+      </div>
     </div>
   </div>
 </div>

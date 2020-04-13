@@ -12,8 +12,9 @@
 
     <clr-accordion-panel [(clrAccordionPanelOpen)]="activitiesOpen" [clrAccordionPanelDisabled]="true">
       <clr-accordion-title>Inventory</clr-accordion-title>
-      <div *ngIf="coinsItem"><clr-icon attr.shape="{{coinsItem.icon}}" shape="" size="24" [ngStyle]="{'color': coinsItem.color}"></clr-icon>
-        : <app-pulsing-text [text]="formatCurrency(coinsItem.amount)"></app-pulsing-text>
+      <div *ngIf="moneyImprovementsVisible">
+        <clr-icon attr.shape="{{coinsItem.icon}}" shape="" size="24" [ngStyle]="{'color': coinsItem.color}"></clr-icon>
+        : <app-pulsing-text [text]="formatCurrency(coinsItem.amount)" [initialPulse]="true"></app-pulsing-text>
       </div>
       <div *ngFor="let item of inventory">
         <ng-container *ngIf="item.visible">

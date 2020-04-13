@@ -36,4 +36,8 @@ export class UtilsService {
       minimumFractionDigits: 2
     }).format(amt);
   }
+
+  formatNumber(amt: number): string {
+    return Intl.NumberFormat(this.languageCode).format(amt);
+  }
 }

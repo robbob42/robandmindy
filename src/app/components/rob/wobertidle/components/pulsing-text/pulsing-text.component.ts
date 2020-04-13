@@ -7,6 +7,7 @@ import { Component, OnChanges, Input, OnInit } from '@angular/core';
 })
 export class PulsingTextComponent implements OnInit, OnChanges {
   @Input() text: string;
+  @Input() initialPulse = false;
 
   constructor() { }
 
@@ -15,7 +16,7 @@ export class PulsingTextComponent implements OnInit, OnChanges {
   };
 
   ngOnInit() {
-    this.pulsingText.pulsing = false;
+    this.pulsingText.pulsing = this.initialPulse;
   }
 
   ngOnChanges(changes) {

@@ -6,6 +6,7 @@ import { Improvement } from '../../models/improvement';
 import itemsModel from '../../assets/items';
 import { UtilsService } from '../../services/utils.service';
 import { ImprovementService } from '../../services/improvement.service';
+import { Globals } from '../../assets/globals';
 
 @Component({
   selector: 'app-shop',
@@ -19,10 +20,27 @@ export class ShopComponent implements OnInit, OnDestroy {
   public subscriptions: Subscription[] = [];
   public itemsModel = itemsModel;
 
+  public speedImprovementsVisible = false;
+  public speedImprovementsVisibleAmt = Globals.speedImprovementsVisibleAmt;
+
+  public moneyImprovementsVisible = false;
+  public moneyImprovementsAmt = Globals.moneyImprovementsAmt;
+
+  public mcpItem = new Item({
+    id: 0,
+    name: '',
+    icon: '',
+    color: '',
+    value: 0,
+    amount: 0,
+    limit: 0,
+    visible: false
+  });
+
   constructor(
     private improvementService: ImprovementService,
     private itemService: ItemService,
-    private utilsService: UtilsService
+    public utilsService: UtilsService
     ) {
     // Activity subscriptions
     this.subscriptions.push(improvementService.subscriber().subscribe((improvements) => {
@@ -31,6 +49,13 @@ export class ShopComponent implements OnInit, OnDestroy {
 
     // Item subscriptions
     this.itemService.subscriber().subscribe((items) => {
+      items.forEach(item => {
+        if (item.id === 900) {
+          this.mcpItem = item;
+          this.speedImprovementsVisible = item.amount >= this.speedImprovementsVisibleAmt;
+          this.moneyImprovementsVisible = item.amount >= this.moneyImprovementsAmt;
+        }
+      });
       this.inventory = items;
     });
   }

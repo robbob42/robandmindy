@@ -28,7 +28,7 @@ export class ItemService {
     this.sub.next(this.inventory);
   }
 
-  incrementItem(itemId, amount, mcp = 0) {
+  incrementItem(itemId: number, amount: number, decrementId = 0, decrementAmt = 0, mcp = 0) {
     const incItem = this.inventory.find(item => item.id === itemId);
     incItem.amount += amount;
     if (mcp) {
@@ -37,10 +37,13 @@ export class ItemService {
     if (incItem.amount > incItem.limit) {
       incItem.amount = incItem.limit;
     }
+    if (decrementId && decrementAmt) {
+      this.inventory.find(item => item.id === decrementId).amount -= decrementAmt;
+    }
     this.sub.next(this.inventory);
   }
 
-  forceSetAmount(itemId, amount) {
+  forceSetAmount(itemId: number, amount: number) {
     this.inventory.find(item => item.id === itemId).amount = amount;
     this.sub.next(this.inventory);
   }
@@ -70,6 +73,14 @@ export class ItemService {
   limitReached(itemId: number) {
     const item = this.inventory.find(invItem => invItem.id === itemId);
     return item.amount >= item.limit;
+  }
+
+  amountAvailable(itemId: number, amt: number) {
+    if (!itemId) {
+      return true;
+    }
+    const item = this.inventory.find(invItem => invItem.id === itemId);
+    return item.amount >= amt;
   }
 
   buyItemImprovement(improvement: Improvement) {

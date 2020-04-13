@@ -2,7 +2,7 @@
   [@slide]="{value: activity.active ? 'right' : 'left', params: {activityColor: activity.color}}"
   type="button"
   class="btn"
-  (click)="toggleActivity(activity.id, activity.type)">
+  (click)="toggleActivity(activity.id)">
   <span *ngIf="activity.active">Stop</span>
   <span *ngIf="!activity.active">{{activity.name}}</span>
 </button>

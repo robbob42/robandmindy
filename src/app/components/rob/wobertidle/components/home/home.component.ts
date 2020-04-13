@@ -5,6 +5,8 @@ import { Activity } from '../../models/activity';
 import { ActivityService } from '../../services/activity.service';
 import { Subscription } from 'rxjs';
 import initialItems from '../../assets/items';
+import { UtilsService } from '../../services/utils.service';
+import { Globals } from '../../assets/globals';
 
 @Component({
   selector: 'app-home',
@@ -19,6 +21,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   public obtainRawVisible = false;
   public refineVisible = false;
+  public refineVisibleAmt = Globals.refineVisibleAmt;
   public mcpItem: Item;
   public humanItem: Item;
 
@@ -26,13 +29,17 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private itemService: ItemService,
-    private activityService: ActivityService) {
+    private activityService: ActivityService,
+    public utilsService: UtilsService) {
 
     // Item subscriptions
     this.subscriptions.push(this.itemService.subscriber().subscribe((items) => {
       items.forEach(item => {
         if (item.id === 900) {
           this.mcpItem = item;
+          if (item.amount >= this.refineVisibleAmt) {
+            this.refineVisible = true;
+          }
         }
         if (item.id === 901) {
           this.humanItem = item;

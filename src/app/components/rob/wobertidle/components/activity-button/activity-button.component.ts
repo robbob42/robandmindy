@@ -15,7 +15,6 @@ import initialItems from '../../assets/items';
 })
 export class ActivityButtonComponent implements OnInit, OnChanges, OnDestroy {
   @Input() activityId: number;
-  @Input() type: string;
 
   public activities: Activity[] = [];
 
@@ -58,7 +57,7 @@ export class ActivityButtonComponent implements OnInit, OnChanges, OnDestroy {
     this.activityService.getActivities();
   }
 
-  toggleActivity(activityId, type) {
+  toggleActivity(activityId) {
     this.activityService.toggleActivity(activityId);
   }
 

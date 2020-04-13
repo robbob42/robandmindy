@@ -6,8 +6,8 @@ export class Activity {
   color: string;
   produces: string;
   produceAmount: number;
-  decrements: string;
-  decrementsAmount: number;
+  decrementId: number;
+  decrementAmount: number;
   producesId: number;
   actionTime: number;
   mcProficiency: number;
@@ -26,8 +26,8 @@ export class Activity {
     color: string,
     produces: string,
     produceAmount: number,
-    decrements?: string,
-    decrementsAmount?: number,
+    decrementId?: number,
+    decrementAmount?: number,
     producesId: number,
     actionTime: number,
     mcProficiency?: number,
@@ -45,8 +45,9 @@ export class Activity {
     this.color = options.color;
     this.produces = options.produces;
     this.produceAmount = options.produceAmount;
-    this.decrements = options.decrements || '';
-    this.decrementsAmount = options.decrementsAmount || 0;
+    this.decrementId = options.decrementId || 0
+    ;
+    this.decrementAmount = options.decrementAmount || 0;
     this.producesId = options.producesId;
     this.actionTime = options.actionTime;
     this.mcProficiency = options.mcProficiency || 1;

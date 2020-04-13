@@ -7,6 +7,7 @@ import { ItemService } from '../../services/item.service';
 import { Activity } from '../../models/activity';
 import { UtilsService } from '../../services/utils.service';
 import { ImprovementService } from '../../services/improvement.service';
+import { Item } from '../../models/item';
 
 @Component({
   selector: 'app-layout',
@@ -44,6 +45,16 @@ export class LayoutComponent implements OnInit, AfterViewInit {
     discovered: false
   })];
   public inventory;
+  public mcpItem = new Item({
+    id: 0,
+    name: '',
+    icon: '',
+    color: '',
+    value: 0,
+    amount: 0,
+    limit: 0,
+    visible: false
+  });
 
   constructor(
     private messageService: MessageService,
@@ -105,6 +116,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
       this.itemService.initializeItems();
       this.itemService.subscriber().subscribe((items) => {
         this.inventory = items;
+        this.mcpItem = items.find(invenItem => invenItem.id === 900);
       });
     });
 

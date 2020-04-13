@@ -38,11 +38,22 @@ export class ActivitySliderComponent implements OnInit, OnDestroy {
         }
         clearInterval(this.activityInterval);
         this.activityInterval = window.setInterval(() => {
-          if (this.activity && this.activity.active && !this.itemService.limitReached(this.activity.producesId)) {
+          if (
+            this.activity &&
+            this.activity.active &&
+            !this.itemService.limitReached(this.activity.producesId) &&
+            this.itemService.amountAvailable(this.activity.decrementId, this.activity.decrementAmount)
+          ) {
             this.activityWidthNum += 1000 / this.activity.actionTime;
             if (this.activityWidthNum >= 100) {
               this.activityWidthNum = 0;
-              this.itemService.incrementItem(this.activity.producesId, this.activity.produceAmount, this.activity.mcProficiency);
+              this.itemService.incrementItem(
+                this.activity.producesId,
+                this.activity.produceAmount,
+                this.activity.decrementId,
+                this.activity.decrementAmount,
+                this.activity.mcProficiency
+              );
             }
             this.activityWidth = this.activityWidthNum.toString() + '%';
           }

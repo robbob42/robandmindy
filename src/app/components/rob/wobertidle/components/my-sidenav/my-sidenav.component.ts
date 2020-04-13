@@ -6,6 +6,7 @@ import { ActivityService } from '../../services/activity.service';
 import { Activity } from '../../models/activity';
 import { UtilsService } from '../../services/utils.service';
 import { ImprovementService } from '../../services/improvement.service';
+import { Globals } from '../../assets/globals';
 
 @Component({
   selector: 'app-my-sidenav',
@@ -25,6 +26,9 @@ export class MySidenavComponent implements OnInit, OnDestroy {
   public humanItem: Item;
   public coinsItem: Item;
   public tester = 0;
+
+  public moneyImprovementsVisible = false;
+  public moneyImprovementsAmt = Globals.moneyImprovementsAmt;
 
   public subscriptions: Subscription[] = [];
 
@@ -55,6 +59,7 @@ export class MySidenavComponent implements OnInit, OnDestroy {
           }
           if (item.id === 900) {
             this.mcpItem = item;
+            this.moneyImprovementsVisible = item.amount >= this.moneyImprovementsAmt;
             if (item.amount > 49) {
               this.improvementsVisible = true;
             }
