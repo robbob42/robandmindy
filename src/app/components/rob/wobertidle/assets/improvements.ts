@@ -2,6 +2,7 @@ export default [
   {
     id: 1,
     name: 'Mining++',
+    type: 'raw',
     improveeId: 1,
     itemsCost: [{
       itemId: 1,
@@ -15,6 +16,7 @@ export default [
   {
     id: 2,
     name: 'Chopping++',
+    type: 'raw',
     improveeId: 2,
     itemsCost: [
       {
@@ -34,6 +36,7 @@ export default [
   {
     id: 3,
     name: 'Fishing++',
+    type: 'raw',
     improveeId: 3,
     itemsCost: [
       {
@@ -57,6 +60,7 @@ export default [
   {
     id: 4,
     name: 'Mining x 2',
+    type: 'raw',
     improveeId: 1,
     itemsCost: [
       {
@@ -72,6 +76,7 @@ export default [
   {
     id: 5,
     name: 'Chopping x 2',
+    type: 'raw',
     improveeId: 2,
     itemsCost: [
       {
@@ -87,6 +92,7 @@ export default [
   {
     id: 6,
     name: 'Fishing x 2',
+    type: 'raw',
     improveeId: 3,
     itemsCost: [
       {
@@ -102,6 +108,7 @@ export default [
   {
     id: 7,
     name: 'Rock Limit x 2',
+    type: 'raw',
     improveeId: 1,
     itemsCost: [
       {
@@ -117,6 +124,7 @@ export default [
   {
     id: 8,
     name: 'Tree Limit x 2',
+    type: 'raw',
     improveeId: 2,
     itemsCost: [
       {
@@ -132,6 +140,7 @@ export default [
   {
     id: 9,
     name: 'Fish Limit x 2',
+    type: 'raw',
     improveeId: 3,
     itemsCost: [
       {

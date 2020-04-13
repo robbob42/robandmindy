@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ItemService } from '../../services/item.service';
 import { Item } from '../../models/item';
 import { Subscription } from 'rxjs';
-import { Improvementbasic } from '../../models/improvementbasic';
+import { Improvement } from '../../models/improvement';
 import itemsModel from '../../assets/items';
 import { UtilsService } from '../../services/utils.service';
 import { ImprovementService } from '../../services/improvement.service';
@@ -14,7 +14,7 @@ import { ImprovementService } from '../../services/improvement.service';
 })
 export class ShopComponent implements OnInit, OnDestroy {
   public inventory: Item[] = [];
-  public basicImprovements: Improvementbasic[] = [];
+  public basicImprovements: Improvement[] = [];
 
   public subscriptions: Subscription[] = [];
   public itemsModel = itemsModel;
@@ -25,7 +25,7 @@ export class ShopComponent implements OnInit, OnDestroy {
     private utilsService: UtilsService
     ) {
     // Activity subscriptions
-    this.subscriptions.push(improvementService.subscribeBasicImprovement().subscribe((improvements) => {
+    this.subscriptions.push(improvementService.subscriber().subscribe((improvements) => {
       this.basicImprovements = improvements;
     }));
 
@@ -36,12 +36,12 @@ export class ShopComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.improvementService.getBasicImprovements();
+    this.improvementService.getImprovements();
     this.itemService.getItemInventory();
   }
 
   buyBasicImprovement(improvementId: number) {
-    this.improvementService.buyImprovement('basic', improvementId);
+    this.improvementService.buyImprovement(improvementId);
   }
 
   sell(itemId: number, percent: number) {

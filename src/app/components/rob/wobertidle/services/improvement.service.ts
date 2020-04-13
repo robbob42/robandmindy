@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import basicImprovementSetup from '../assets/basicimprovements';
-import { Improvementbasic } from '../models/improvementbasic';
+import improvementSetup from '../assets/improvements';
+import { Improvement } from '../models/improvement';
 import { Subject } from 'rxjs';
 import { ItemService } from './item.service';
 import { ActivityService } from './activity.service';
@@ -9,30 +9,28 @@ import { ActivityService } from './activity.service';
   providedIn: 'root'
 })
 export class ImprovementService {
-  private basicImprovements: Improvementbasic[] = [];
-  private subBasicImprovements = new Subject<Improvementbasic[]>();
+  private improvements: Improvement[] = [];
+  private sub = new Subject<Improvement[]>();
 
   constructor(private itemService: ItemService, private activityService: ActivityService) { }
 
-  subscribeBasicImprovement() {
-    return this.subBasicImprovements;
+  subscriber() {
+    return this.sub;
   }
 
-  initializeBasicImprovements() {
-    basicImprovementSetup.forEach(improvement => {
-      this.basicImprovements.push(new Improvementbasic(improvement));
+  initialize() {
+    improvementSetup.forEach(improvement => {
+      this.improvements.push(new Improvement(improvement));
     });
-    this.subBasicImprovements.next(this.basicImprovements);
+    this.sub.next(this.improvements);
   }
 
-  getBasicImprovements() {
-    this.subBasicImprovements.next(this.basicImprovements);
+  getImprovements() {
+    this.sub.next(this.improvements);
   }
 
-  buyImprovement(type: string, improvementId: number) {
-    const improvements = type === 'basic' ? this.basicImprovements : this.basicImprovements;
-    const improvement = improvements.find(imp => imp.id === improvementId);
-    const impSub = type === 'basic' ? this.subBasicImprovements : this.subBasicImprovements;
+  buyImprovement(improvementId: number) {
+    const improvement = this.improvements.find(imp => imp.id === improvementId);
     let sufficientFunds = true;
     improvement.itemsCost.forEach(impCostItem => {
       if (!this.itemService.sufficientFunds(impCostItem.itemId, impCostItem.itemAmount)) {
@@ -46,7 +44,7 @@ export class ImprovementService {
           this.activityService.buyActivityImprovement(improvement);
           break;
         case 'item':
-          this.itemService.buyItemImprovement(type, improvement);
+          this.itemService.buyItemImprovement(improvement);
           break;
         default:
           break;
@@ -58,7 +56,7 @@ export class ImprovementService {
         impCostItem.itemAmount = impCostItem.itemAmount * improvement.costMultiplyer;
       });
 
-      impSub.next(improvements);
+      this.sub.next(this.improvements);
     }
   }
 

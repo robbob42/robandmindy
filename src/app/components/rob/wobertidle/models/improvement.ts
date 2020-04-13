@@ -1,6 +1,7 @@
-export class ImprovementBase {
+export class Improvement {
   id: number;
   name: string;
+  type: string;
   improveeId: number;
   itemsCost: {
     itemId: number,
@@ -14,6 +15,7 @@ export class ImprovementBase {
   constructor(options: {
     id: number,
     name: string,
+    type: string,
     improveeId: number,
     itemsCost: {
       itemId: number,

@@ -3,7 +3,6 @@ import { ItemService } from '../../services/item.service';
 import { Item } from '../../models/item';
 import { Activity } from '../../models/activity';
 import { ActivityService } from '../../services/activity.service';
-import { Improvementbasic } from '../../models/improvementbasic';
 import { Subscription } from 'rxjs';
 import initialItems from '../../assets/items';
 
@@ -15,7 +14,6 @@ import initialItems from '../../assets/items';
 export class HomeComponent implements OnInit, OnDestroy {
   public inventory: Item[] = [];
   public activities: Activity[];
-  public basicImprovements: Improvementbasic[] = [];
 
   public subscriptions: Subscription[] = [];
 

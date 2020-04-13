@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Activity } from '../models/activity';
-import { Improvementbasic } from '../models/improvementbasic';
+import { Improvement } from '../models/improvement';
 import activitySetup from '../assets/activities';
 
 @Injectable({
@@ -74,7 +74,7 @@ export class ActivityService {
     this.sub.next(this.activities);
   }
 
-  buyActivityImprovement(improvement: Improvementbasic) {
+  buyActivityImprovement(improvement: Improvement) {
     this.activities.find(act => act.id === improvement.improveeId)[improvement.improves] *= improvement.improvesBy;
     this.sub.next(this.activities);
   }

@@ -38,7 +38,7 @@ export class MySidenavComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.activityService.getActivities();
-    this.improvementService.getBasicImprovements();
+    this.improvementService.getImprovements();
     setTimeout(() => {
       this.activityService.subscriber().subscribe((activities) => {
         this.activities = activities;

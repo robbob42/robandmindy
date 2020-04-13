@@ -94,7 +94,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.navigation = 'home';
-    this.improvementService.initializeBasicImprovements();
+    this.improvementService.initialize();
     this.utilsService.initialize();
 
     setTimeout(() => {

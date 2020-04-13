@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Item } from '../models/item';
 import items from '../assets/items';
-import { Improvementbasic } from '../models/improvementbasic';
+import { Improvement } from '../models/improvement';
 
 @Injectable({
   providedIn: 'root'
@@ -72,7 +72,7 @@ export class ItemService {
     return item.amount >= item.limit;
   }
 
-  buyItemImprovement(type: string, improvement: Improvementbasic) {
+  buyItemImprovement(improvement: Improvement) {
     const item = this.inventory.find(invItem => invItem.id === improvement.improveeId);
     item[improvement.improves] = item[improvement.improves] * improvement.improvesBy;
 
