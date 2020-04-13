@@ -1,29 +1,126 @@
 <div class="clr-row">
-  <div class="clr-col-8">
+  <div class="clr-col-9">
     <div class="card">
       <div class="card-header">
-        Improvements
+        Speed Improvements
       </div>
       <div class="card-block">
-        <div class="card-title">
-          Activities
-        </div>
+
         <div class="card-text">
-          <div *ngFor="let improvement of basicImprovements">
-            {{improvement.name}} |
-            <span *ngFor="let costItem of improvement.itemsCost">
-              <span *ngFor="let item of itemsModel">
-                <ng-container *ngIf="item.id == costItem.itemId">
-                  <clr-icon attr.shape="{{item.icon}}" size="16" [ngStyle]="{'color': item.color}"></clr-icon>
-                </ng-container>
-              </span>
-              x {{costItem.itemAmount}} |
-            </span>
-            <button class="btn btn-sm btn-link" (click)="buyBasicImprovement(improvement.id)">Buy</button>
-          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Improvment</th>
+                <th>Cost</th>
+                <th>Improves Speed By</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let improvement of basicImprovements">
+                <tr *ngIf="improvement.improves == 'actionTime'">
+                  <td>{{improvement.name}}</td>
+                  <td>
+                    <span *ngFor="let costItem of improvement.itemsCost">
+                      <span *ngFor="let item of itemsModel">
+                        <ng-container *ngIf="item.id == costItem.itemId">
+                          <clr-icon attr.shape="{{item.icon}}" size="16" [ngStyle]="{'color': item.color}"></clr-icon>
+                        </ng-container>
+                      </span>
+                      x {{costItem.itemAmount}}<br />
+                    </span>
+                  </td>
+                  <td>(x {{improvement.improvesBy}})</td>
+                  <td>
+                    <button class="btn btn-sm btn-link" (click)="buyBasicImprovement(improvement.id)">Buy</button>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
-  <div class="clr-col-4"></div>
+  <div class="clr-col-3"></div>
+</div>
+
+<div class="clr-row">
+  <div class="clr-col-9">
+    <div class="card">
+      <div class="card-header">
+        Multiplier Improvements
+      </div>
+      <div class="card-block">
+
+        <div class="card-text">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Improvment</th>
+                <th>Cost</th>
+                <th>Improves Amount By</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let improvement of basicImprovements">
+                <tr *ngIf="improvement.improves == 'produceAmount'">
+                  <td>{{improvement.name}}</td>
+                  <td>
+                    <span *ngFor="let costItem of improvement.itemsCost">
+                      <span *ngFor="let item of itemsModel">
+                        <ng-container *ngIf="item.id == costItem.itemId">
+                          <clr-icon attr.shape="{{item.icon}}" size="16" [ngStyle]="{'color': item.color}"></clr-icon>
+                        </ng-container>
+                      </span>
+                      {{formatCurrency(costItem.itemAmount)}}<br />
+                    </span>
+                  </td>
+                  <td>(x {{improvement.improvesBy}})</td>
+                  <td>
+                    <button class="btn btn-sm btn-link" (click)="buyBasicImprovement(improvement.id)">Buy</button>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clr-col-3"></div>
+</div>
+
+<div class="clr-row">
+  <div class="clr-col-9">
+    <div class="card">
+      <div class="card-header">
+        The Exchange
+      </div>
+      <div class="card-block">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th colspan="3">Sell</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let item of inventory">
+              <tr *ngIf="item.visible && item.value">
+                <td><clr-icon attr.shape="{{item.icon}}" shape="" size="24" [ngStyle]="{'color': item.color}"></clr-icon></td>
+                <td><button class="btn btn-link" (click)="sell(item.id, 10)">10%</button></td>
+                <td><button class="btn btn-link" (click)="sell(item.id, 50)">50%</button></td>
+                <td><button class="btn btn-link" (click)="sell(item.id, 100)">100%</button></td>
+                <td>{{formatCurrency(item.value.toFixed(2))}}</td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="clr-col-3"></div>
 </div>

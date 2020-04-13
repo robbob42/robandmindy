@@ -13,13 +13,13 @@ export class Activityadvanced extends Activitybase {
     color: string,
     produces: string,
     producesId: number,
-    actionTime: string,
+    produceAmount: number;
+    actionTime: number,
     mcProficiency?: number,
     mcpTriggerAmount: number,
     triggered: boolean,
     mcpDiscoverAmount: number,
     discovered: boolean,
-    produceAmount: number,
     decrements: string,
     decrementAmount: number
   }) {

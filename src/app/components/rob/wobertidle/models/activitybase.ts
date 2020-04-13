@@ -5,8 +5,9 @@ export class Activitybase {
   active: boolean;
   color: string;
   produces: string;
+  produceAmount: number;
   producesId: number;
-  actionTime: string;
+  actionTime: number;
   mcProficiency: number;
   mcpTriggerAmount: number;
   trigger: number;
@@ -22,8 +23,9 @@ export class Activitybase {
     active?: boolean,
     color: string,
     produces: string,
+    produceAmount: number,
     producesId: number,
-    actionTime: string,
+    actionTime: number,
     mcProficiency?: number,
     mcpTriggerAmount: number,
     trigger?: number,
@@ -38,6 +40,7 @@ export class Activitybase {
     this.active = options.active || false;
     this.color = options.color;
     this.produces = options.produces;
+    this.produceAmount = options.produceAmount;
     this.producesId = options.producesId;
     this.actionTime = options.actionTime;
     this.mcProficiency = options.mcProficiency || 1;

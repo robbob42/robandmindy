@@ -5,6 +5,7 @@ import { pulse } from './animations';
 import { ActivityService } from '../../services/activity.service';
 import { ItemService } from '../../services/item.service';
 import { Activitybasic } from '../../models/activitybasic';
+import { UtilsService } from '../../services/utils.service';
 
 @Component({
   selector: 'app-layout',
@@ -33,8 +34,9 @@ export class LayoutComponent implements OnInit, AfterViewInit {
     active: false,
     color: '',
     produces: '',
+    produceAmount: 0,
     producesId: 0,
-    actionTime: '',
+    actionTime: 0,
     mcpTriggerAmount: 0,
     triggered: false,
     mcpDiscoverAmount: 0,
@@ -45,7 +47,8 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   constructor(
     private messageService: MessageService,
     private activityService: ActivityService,
-    private itemService: ItemService
+    private itemService: ItemService,
+    private utilsService: UtilsService
   ) {
     this.messageService.initializeMessages();
     messageService.subscribeMessages().subscribe((subscribedMessages) => {
@@ -91,6 +94,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
     this.navigation = 'home';
     this.activityService.initializeAdvancedActivities();
     this.activityService.initializeBasicImprovements();
+    this.utilsService.initialize();
 
     setTimeout(() => {
       this.activityService.initializeBasicActivities();

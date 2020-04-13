@@ -11,8 +11,16 @@ export default [
     id: 901,
     name: 'Humans',
     icon: 'user',
-    color: '#4e4e40',
+    color: '#b4a802',
     amount: 0,
+    visible: false
+  },
+  {
+    id: 902,
+    name: 'Coins',
+    icon: 'coin-bag',
+    color: '#aaaa00',
+    amount: 10,
     visible: false
   },
   {
@@ -20,6 +28,7 @@ export default [
     name: 'Rocks',
     icon: 'data-cluster',
     color: '#555555',
+    value: .01,
     amount: 0,
     visible: true
   },
@@ -28,6 +37,7 @@ export default [
     name: 'Trees',
     icon: 'tree',
     color: '#425f0b',
+    value: .1,
     amount: 0,
     visible: false
   },
@@ -36,6 +46,7 @@ export default [
     name: 'Fish',
     icon: 'fish',
     color: '#84b0f1',
+    value: .5,
     amount: 0,
     visible: false
   },
@@ -44,6 +55,7 @@ export default [
     name: 'Gems',
     icon: 'objects',
     color: '#aa5555',
+    value: 0,
     amount: 0,
     visible: false
   },
@@ -52,6 +64,7 @@ export default [
     name: 'Boards',
     icon: 'container',
     color: '#423821',
+    value: 0,
     amount: 0,
     visible: false
   },
@@ -60,6 +73,7 @@ export default [
     name: 'Cooked Fish',
     icon: 'fish',
     color: '#be6868',
+    value: 0,
     amount: 0,
     visible: false
   },

@@ -1,11 +1,10 @@
 import { Component, OnInit, Input, OnDestroy, OnChanges } from '@angular/core';
-import { ActivityService } from '../../services/activity.service';
-import { Item } from '../../models/item';
+import { Subscription } from 'rxjs';
 import { slide } from './animations';
+import { ActivityService } from '../../services/activity.service';
 import { Activitybasic } from '../../models/activitybasic';
 import { Activityadvanced } from '../../models/activityadvanced';
-import { ItemService } from '../../services/item.service';
-import { Subscription } from 'rxjs';
+import initialItems from '../../assets/items';
 
 @Component({
   selector: 'app-activity-button',
@@ -29,14 +28,17 @@ export class ActivityButtonComponent implements OnInit, OnChanges, OnDestroy {
     name: '',
     color: '',
     produces: '0',
+    produceAmount: 0,
     producesId: 0,
-    actionTime: '1000',
+    actionTime: 1000,
     mcpTriggerAmount: 0,
     triggered: false,
     mcpDiscoverAmount: 0,
     discovered: false,
     active: false
   });
+
+  public initialItems = initialItems;
 
   constructor(
     private activityService: ActivityService

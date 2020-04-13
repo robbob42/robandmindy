@@ -19,8 +19,9 @@ export class ActivityService {
     active: false,
     color: '',
     produces: '',
+    produceAmount: 0,
     producesId: 0,
-    actionTime: '',
+    actionTime: 0,
     mcpTriggerAmount: 0,
     triggered: false,
     mcpDiscoverAmount: 0,
@@ -36,15 +37,15 @@ export class ActivityService {
     active: false,
     color: '',
     produces: '',
+    produceAmount: 0,
     producesId: 0,
-    actionTime: '',
+    actionTime: 0,
     mcpTriggerAmount: 0,
     triggered: false,
     mcpDiscoverAmount: 0,
     discovered: false,
     decrementAmount: 0,
-    decrements: '',
-    produceAmount: 0
+    decrements: ''
   })]);
   private advancedActivities: Activityadvanced[] = [];
 
@@ -198,7 +199,7 @@ export class ActivityService {
         activity = activities.find(act => act.id === improvement.activityId);
         sub = this.subAdvanced;
       }
-      activity[improvement.improves] = (activity[improvement.improves] * improvement.improvesBy).toFixed(1);
+      activity[improvement.improves] = activity[improvement.improves] * improvement.improvesBy;
 
       improvement.itemsCost.forEach(impCostItem => {
         this.itemService.incrementItem(impCostItem.itemId, -impCostItem.itemAmount);

@@ -22,7 +22,7 @@ export class ActivitySliderComponent implements OnInit, OnDestroy {
 
   public activity: Activitybasic;
 
-  public actionTime: number;
+  public actionTime: string;
   public activityWidthNum = 0;
   public activityWidth = this.activityWidthNum.toString() + '%';
   public invenItem: Item;
@@ -40,15 +40,15 @@ export class ActivitySliderComponent implements OnInit, OnDestroy {
       this.subscriptions.push(this.activityService.subscribeBasic().subscribe((activities) => {
         this.activity = activities.find(act => act.id === this.activityId);
         if (this.activity) {
-          this.actionTime = parseInt(this.activity.actionTime, 10) / 1000;
+          this.actionTime = (this.activity.actionTime / 1000).toFixed(3);
         }
         clearInterval(this.activityInterval);
         this.activityInterval = window.setInterval(() => {
           if (this.activity && this.activity.active) {
-            this.activityWidthNum += 1000 / parseInt(this.activity.actionTime, 10);
+            this.activityWidthNum += 1000 / this.activity.actionTime;
             if (this.activityWidthNum >= 100) {
               this.activityWidthNum = 0;
-              this.itemService.incrementItem(this.invenItem.id, 1, this.activity.mcProficiency);
+              this.itemService.incrementItem(this.invenItem.id, this.activity.produceAmount, this.activity.mcProficiency);
             }
             this.activityWidth = this.activityWidthNum.toString() + '%';
           }
@@ -68,7 +68,7 @@ export class ActivitySliderComponent implements OnInit, OnDestroy {
     });
   }
 
-  startActivity(activityId: number, type: string) {
+  toggleActivity(activityId: number, type: string) {
     this.activityService.toggleActivity(activityId, type);
   }
 

@@ -3,6 +3,7 @@ export class Item {
   name: string;
   icon: string;
   color: string;
+  value: number;
   amount: number;
   visible: boolean;
 
@@ -11,6 +12,7 @@ export class Item {
     name: string,
     icon: string,
     color: string,
+    value?: number,
     amount?: number,
     visible?: boolean,
     }) {
@@ -18,6 +20,7 @@ export class Item {
     this.name = options.name;
     this.icon = options.icon;
     this.color = options.color;
+    this.value = options.value || 0;
     this.amount = options.amount || 0;
     this.visible = options.visible || false;
   }

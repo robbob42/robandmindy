@@ -10,7 +10,8 @@ export class Activitybasic extends Activitybase {
     color: string,
     produces: string,
     producesId: number,
-    actionTime: string,
+    produceAmount: number;
+    actionTime: number,
     mcpTriggerAmount: number,
     triggered: boolean,
     mcpDiscoverAmount: number,

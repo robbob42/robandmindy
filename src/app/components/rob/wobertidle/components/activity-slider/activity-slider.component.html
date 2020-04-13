@@ -1,7 +1,7 @@
 <div *ngIf="activity && activity.discovered">
-  <clr-icon *ngIf="!activity.active" shape="play" style="cursor: pointer;" (click)="startActivity(activity.id, 'basic')"></clr-icon>
-  <clr-icon *ngIf="activity.active" shape="stop" style="cursor: pointer;" (click)="startActivity(activity.id, 'basic')"></clr-icon>
-  {{activity.name}} {{activity.produces}} ({{actionTime}}s)
+  <clr-icon *ngIf="!activity.active" shape="play" style="cursor: pointer;" (click)="toggleActivity(activity.id, 'basic')"></clr-icon>
+  <clr-icon *ngIf="activity.active" shape="stop" style="cursor: pointer;" (click)="toggleActivity(activity.id, 'basic')"></clr-icon>
+  <span (click)="toggleActivity(activity.id, 'basic')">{{activity.name}} {{activity.produces}} ({{actionTime}}s)</span>
 </div>
 <div *ngIf="activity && activity.active" style="width: 150px; height: 20px; border: 1px solid gray; margin-left: 20px;">
   <div [ngStyle]="{'background-color': activity.color, 'height': '100%', 'width': activityWidth}"></div>

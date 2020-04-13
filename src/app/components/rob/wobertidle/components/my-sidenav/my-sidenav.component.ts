@@ -4,6 +4,7 @@ import { Item } from '../../models/item';
 import { ItemService } from '../../services/item.service';
 import { ActivityService } from '../../services/activity.service';
 import { Activitybasic } from '../../models/activitybasic';
+import { UtilsService } from '../../services/utils.service';
 
 @Component({
   selector: 'app-my-sidenav',
@@ -21,12 +22,14 @@ export class MySidenavComponent implements OnInit, OnDestroy {
   public activitiesDisabled = false;
   public mcpItem: Item;
   public humanItem: Item;
+  public coinsItem: Item;
 
   public subscriptions: Subscription[] = [];
 
   constructor(
     private itemService: ItemService,
     private activityService: ActivityService,
+    private utilsService: UtilsService
   ) {
   }
 
@@ -56,6 +59,9 @@ export class MySidenavComponent implements OnInit, OnDestroy {
           if (item.id === 901) {
             this.humanItem = item;
           }
+          if (item.id === 902) {
+            this.coinsItem = item;
+          }
         });
         this.inventory = items;
 
@@ -72,6 +78,10 @@ export class MySidenavComponent implements OnInit, OnDestroy {
         }
       }));
     });
+  }
+
+  formatCurrency(amt: number) {
+    return this.utilsService.formatCurrency(amt);
   }
 
   ngOnDestroy() {
