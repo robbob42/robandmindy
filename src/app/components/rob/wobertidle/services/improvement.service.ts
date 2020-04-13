@@ -43,7 +43,7 @@ export class ImprovementService {
     if (sufficientFunds) {
       switch (improvement.improvee) {
         case 'activity':
-          this.activityService.buyActivityImprovement(type, improvement);
+          this.activityService.buyActivityImprovement(improvement);
           break;
         case 'item':
           this.itemService.buyItemImprovement(type, improvement);

@@ -14,7 +14,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let activity of basicActivities">
+                  <tr *ngFor="let activity of activities">
                     <ng-container *ngIf="activity.discovered">
                       <td>
                         <app-activity-button
@@ -32,7 +32,7 @@
                       </td>
                     </ng-container>
                   </tr>
-                  <tr *ngFor="let activity of basicActivities">
+                  <tr *ngFor="let activity of activities">
                     <td colspan="3" *ngIf="mcpItem.amount >= activity.mcpTriggerAmount && mcpItem.amount < activity.mcpDiscoverAmount">
                       <button class="btn btn-outline" disabled>@MCP{{activity.mcpDiscoverAmount}}</button>
                     </td>

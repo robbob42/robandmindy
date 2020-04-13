@@ -1,7 +1,5 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { Activitybasic } from '../../models/activitybasic';
-import { Activityadvanced } from '../../models/activityadvanced';
-import { Item } from '../../models/item';
+import { Activity } from '../../models/activity';
 import { ItemService } from '../../services/item.service';
 import { Subscription } from 'rxjs';
 import { ActivityService } from '../../services/activity.service';
@@ -15,11 +13,9 @@ export class ActivitySliderComponent implements OnInit, OnDestroy {
   @Input() activityId: number;
   @Input() type: string;
 
-  public advancedActivities: Activityadvanced[];
-
   public subscriptions: Subscription[] = [];
 
-  public activity: Activitybasic;
+  public activity: Activity;
 
   public actionTime: string;
   public activityWidthNum = 0;
@@ -33,9 +29,9 @@ export class ActivitySliderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.activityService.getBasicActivities();
+    this.activityService.getActivities();
     setTimeout(() => {
-      this.subscriptions.push(this.activityService.subscribeBasic().subscribe((activities) => {
+      this.subscriptions.push(this.activityService.subscriber().subscribe((activities) => {
         this.activity = activities.find(act => act.id === this.activityId);
         if (this.activity) {
           this.actionTime = (this.activity.actionTime / 1000).toFixed(3);
@@ -52,14 +48,11 @@ export class ActivitySliderComponent implements OnInit, OnDestroy {
           }
         }, 10);
       }));
-      this.subscriptions.push(this.activityService.subscribeAdvanced().subscribe((activities) => {
-        this.advancedActivities = activities;
-      }));
     });
   }
 
   toggleActivity(activityId: number, type: string) {
-    this.activityService.toggleActivity(activityId, type);
+    this.activityService.toggleActivity(activityId);
   }
 
   ngOnDestroy() {

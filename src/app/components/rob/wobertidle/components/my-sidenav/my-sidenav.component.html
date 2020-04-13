@@ -2,9 +2,9 @@
   <clr-accordion [clrAccordionMultiPanel]="true">
     <clr-accordion-panel [(clrAccordionPanelOpen)]="activitiesOpen" [clrAccordionPanelDisabled]="activitiesDisabled">
       <clr-accordion-title>Activities</clr-accordion-title>
-      <ng-container *ngIf="basicActivities">
+      <ng-container *ngIf="activities">
         <app-activity-slider
-        *ngFor="let activity of basicActivities"
+        *ngFor="let activity of activities"
         [activityId]="activity.id"
         [type]="'basic'"></app-activity-slider>
       </ng-container>

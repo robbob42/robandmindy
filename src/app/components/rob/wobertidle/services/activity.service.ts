@@ -1,17 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Subject, BehaviorSubject } from 'rxjs';
-import { Activitybasic } from '../models/activitybasic';
-import { Activityadvanced } from '../models/activityadvanced';
+import { BehaviorSubject } from 'rxjs';
+import { Activity } from '../models/activity';
 import { Improvementbasic } from '../models/improvementbasic';
-import basicActivitySetup from '../assets/basicactivities';
-import advancedActivitySetup from '../assets/advancedactivities';
-import { Activitybase } from '../models/activitybase';
+import activitySetup from '../assets/activities';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ActivityService {
-  private subBasic = new BehaviorSubject<Activitybasic[]>([new Activitybasic({
+  private sub = new BehaviorSubject<Activity[]>([new Activity({
     id: 0,
     name: '',
     active: false,
@@ -26,52 +23,18 @@ export class ActivityService {
     discovered: false
   })]);
 
-  public basicActivitesData = this.subBasic.asObservable();
-  private basicActivities: Activitybasic[] = [];
-
-  private subAdvanced = new BehaviorSubject<Activityadvanced[]>([new Activityadvanced({
-    id: 0,
-    name: '',
-    active: false,
-    color: '',
-    produces: '',
-    produceAmount: 0,
-    producesId: 0,
-    actionTime: 0,
-    mcpTriggerAmount: 0,
-    triggered: false,
-    mcpDiscoverAmount: 0,
-    discovered: false,
-    decrementAmount: 0,
-    decrements: ''
-  })]);
-  private advancedActivities: Activityadvanced[] = [];
-
+  public activitesData = this.sub.asObservable();
+  private activities: Activity[] = [];
 
   constructor() { }
 
-  subscribeBasic() {
-    return this.subBasic;
+  subscriber() {
+    return this.sub;
   }
 
-  subscribeAdvanced() {
-    return this.subAdvanced;
-  }
-
-  toggleActivity(activityId: number, type: string) {
+  toggleActivity(activityId: number) {
     let active: boolean;
-    let activities: Activitybase[];
-    let sub: BehaviorSubject<Activitybase[]>;
-    if (type === 'basic') {
-      activities = this.basicActivities;
-      sub = this.subBasic;
-    }
-    if (type === 'advanced') {
-      activities = this.advancedActivities;
-      sub = this.subAdvanced;
-    }
-
-    activities.forEach(activity => {
+    this.activities.forEach(activity => {
       if (activity.id === activityId) {
         active = !activity.active;
       }
@@ -79,97 +42,40 @@ export class ActivityService {
     });
 
     setTimeout(() => {
-      activities.find(activity => activity.id === activityId).active = active;
-      sub.next(activities);
+      this.activities.find(activity => activity.id === activityId).active = active;
+      this.sub.next(this.activities);
     }, 1);
   }
 
-  initializeBasicActivities() {
-    this.basicActivities = [];
-    basicActivitySetup.forEach(activity => {
-      this.basicActivities.push(new Activitybasic(activity));
+  initializeActivities() {
+    this.activities = [];
+    activitySetup.forEach(activity => {
+      this.activities.push(new Activity(activity));
     });
-    this.subBasic.next(this.basicActivities);
+    this.sub.next(this.activities);
   }
 
-  getBasicActivities() {
-    this.subBasic.next(this.basicActivities);
+  getActivities() {
+    this.sub.next(this.activities);
   }
 
-  initializeAdvancedActivities() {
-    advancedActivitySetup.forEach(activity => {
-      this.advancedActivities.push(new Activityadvanced(activity));
-    });
-    this.subAdvanced.next(this.advancedActivities);
+  toggleVisible(visible: boolean, activityId: number) {
+    this.activities.find(activity => activity.id === activityId).visible = visible;
+    this.sub.next(this.activities);
   }
 
-  getAdvancedActivities() {
-    this.subAdvanced.next(this.advancedActivities);
+  triggerActivity(activityId: number) {
+    this.activities.find(activity => activity.id === activityId).triggered = true;
+    this.sub.next(this.activities);
   }
 
-  toggleVisible(visible: boolean, activityId: number, type: string) {
-    let activities: Activitybase[];
-    let sub: BehaviorSubject<Activitybase[]>;
-    if (type === 'basic') {
-      activities = this.basicActivities;
-      sub = this.subBasic;
-    }
-    if (type === 'advanced') {
-      activities = this.advancedActivities;
-      sub = this.subAdvanced;
-    }
-
-    activities.find(activity => activity.id === activityId).visible = visible;
-    sub.next(activities);
+  discoverActivity(activityId: number) {
+    this.activities.find(activity => activity.id === activityId).discovered = true;
+    this.sub.next(this.activities);
   }
 
-  triggerActivity(activityId: number, type: string) {
-    let activities: Activitybase[];
-    let sub: BehaviorSubject<Activitybase[]>;
-    if (type === 'basic') {
-      activities = this.basicActivities;
-      sub = this.subBasic;
-    }
-    if (type === 'advanced') {
-      activities = this.advancedActivities;
-      sub = this.subAdvanced;
-    }
-
-    activities.find(activity => activity.id === activityId).triggered = true;
-    sub.next(activities);
-  }
-
-  discoverActivity(activityId: number, type: string) {
-    let activities: Activitybase[];
-    let sub: BehaviorSubject<Activitybase[]>;
-    if (type === 'basic') {
-      activities = this.basicActivities;
-      sub = this.subBasic;
-    }
-    if (type === 'advanced') {
-      activities = this.advancedActivities;
-      sub = this.subAdvanced;
-    }
-
-    activities.find(activity => activity.id === activityId).discovered = true;
-    sub.next(activities);
-  }
-
-  buyActivityImprovement(type: string, improvement: Improvementbasic) {
-    let activities: Activitybase[];
-    let activity: Activitybase;
-    let sub: BehaviorSubject<Activitybase[]>;
-    if (type === 'basic') {
-      activities = this.basicActivities;
-      activity = activities.find(act => act.id === improvement.improveeId);
-      sub = this.subBasic;
-    }
-    if (type === 'advanced') {
-      activities = this.advancedActivities;
-      activity = activities.find(act => act.id === improvement.improveeId);
-      sub = this.subAdvanced;
-    }
-    activity[improvement.improves] = activity[improvement.improves] * improvement.improvesBy;
-    sub.next(activities);
+  buyActivityImprovement(improvement: Improvementbasic) {
+    this.activities.find(act => act.id === improvement.improveeId)[improvement.improves] *= improvement.improvesBy;
+    this.sub.next(this.activities);
   }
 }

@@ -73,7 +73,7 @@ export class MessageService {
   processTrigger(triggerId) {
     switch (triggerId) {
       case 1:
-        this.activityService.toggleVisible(true, 1, 'basic');
+        this.activityService.toggleVisible(true, 1);
         this.itemService.toggleVisible(true, 1);
         this.itemService.forceSetAmount(901, 1);
         break;

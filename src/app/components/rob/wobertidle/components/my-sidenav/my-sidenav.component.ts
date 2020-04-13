@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { Item } from '../../models/item';
 import { ItemService } from '../../services/item.service';
 import { ActivityService } from '../../services/activity.service';
-import { Activitybasic } from '../../models/activitybasic';
+import { Activity } from '../../models/activity';
 import { UtilsService } from '../../services/utils.service';
 import { ImprovementService } from '../../services/improvement.service';
 
@@ -13,7 +13,7 @@ import { ImprovementService } from '../../services/improvement.service';
   styleUrls: ['./my-sidenav.component.scss']
 })
 export class MySidenavComponent implements OnInit, OnDestroy {
-  public basicActivities: Activitybasic[];
+  public activities: Activity[];
   public inventory: Item[];
   public inventoryOpen = false;
   public statsOpen = false;
@@ -37,11 +37,11 @@ export class MySidenavComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.activityService.getBasicActivities();
+    this.activityService.getActivities();
     this.improvementService.getBasicImprovements();
     setTimeout(() => {
-      this.activityService.subscribeBasic().subscribe((activities) => {
-        this.basicActivities = activities;
+      this.activityService.subscriber().subscribe((activities) => {
+        this.activities = activities;
       });
       this.subscriptions.push(this.itemService.subscriber().subscribe((items) => {
         this.inventoryVisible = false;
@@ -68,13 +68,13 @@ export class MySidenavComponent implements OnInit, OnDestroy {
         });
         this.inventory = items;
 
-        if (this.basicActivities) {
-          this.basicActivities.forEach(activity => {
+        if (this.activities) {
+          this.activities.forEach(activity => {
             if (this.mcpItem.amount === activity.mcpTriggerAmount && activity.trigger && !activity.triggered) {
-              this.activityService.triggerActivity(activity.id, 'basic');
+              this.activityService.triggerActivity(activity.id);
             }
             if (this.mcpItem.amount >= activity.mcpDiscoverAmount && !activity.discovered) {
-              this.activityService.discoverActivity(activity.id, 'basic');
+              this.activityService.discoverActivity(activity.id);
               this.inventory.find(item => item.name === activity.produces).visible = true;
             }
           });

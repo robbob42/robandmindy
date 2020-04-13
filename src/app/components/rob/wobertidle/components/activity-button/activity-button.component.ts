@@ -2,8 +2,7 @@ import { Component, OnInit, Input, OnDestroy, OnChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { slide } from './animations';
 import { ActivityService } from '../../services/activity.service';
-import { Activitybasic } from '../../models/activitybasic';
-import { Activityadvanced } from '../../models/activityadvanced';
+import { Activity } from '../../models/activity';
 import initialItems from '../../assets/items';
 
 @Component({
@@ -18,12 +17,11 @@ export class ActivityButtonComponent implements OnInit, OnChanges, OnDestroy {
   @Input() activityId: number;
   @Input() type: string;
 
-  public basicActivities: Activitybasic[] = [];
-  public advancedActivities: Activityadvanced[] = [];
+  public activities: Activity[] = [];
 
   public subscriptions: Subscription[] = [];
 
-  public activity: Activitybasic = new Activitybasic({
+  public activity: Activity = new Activity({
     id: 0,
     name: '',
     color: '',
@@ -46,27 +44,22 @@ export class ActivityButtonComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.activityService.getBasicActivities();
-    this.activityService.getAdvancedActivities();
+    this.activityService.getActivities();
 
     setTimeout(() => {
-      this.subscriptions.push(this.activityService.subscribeBasic().subscribe((activities) => {
-        this.basicActivities = activities;
+      this.subscriptions.push(this.activityService.subscriber().subscribe((activities) => {
+        this.activities = activities;
         this.activity = activities.find(act => act.id === this.activityId);
-      }));
-      this.subscriptions.push(this.activityService.subscribeAdvanced().subscribe((activities) => {
-        this.advancedActivities = activities;
       }));
     });
   }
 
   ngOnChanges() {
-    this.activityService.getBasicActivities();
-    this.activityService.getAdvancedActivities();
+    this.activityService.getActivities();
   }
 
   toggleActivity(activityId, type) {
-    this.activityService.toggleActivity(activityId, type);
+    this.activityService.toggleActivity(activityId);
   }
 
   ngOnDestroy() {

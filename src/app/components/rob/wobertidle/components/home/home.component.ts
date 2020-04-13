@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ItemService } from '../../services/item.service';
 import { Item } from '../../models/item';
-import { Activitybasic } from '../../models/activitybasic';
+import { Activity } from '../../models/activity';
 import { ActivityService } from '../../services/activity.service';
-import { Activityadvanced } from '../../models/activityadvanced';
 import { Improvementbasic } from '../../models/improvementbasic';
 import { Subscription } from 'rxjs';
 import initialItems from '../../assets/items';
@@ -15,8 +14,7 @@ import initialItems from '../../assets/items';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   public inventory: Item[] = [];
-  public basicActivities: Activitybasic[];
-  public advancedActivities: Activityadvanced[] = [];
+  public activities: Activity[];
   public basicImprovements: Improvementbasic[] = [];
 
   public subscriptions: Subscription[] = [];
@@ -45,7 +43,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }));
 
     // Activity subscriptions
-    this.subscriptions.push(this.activityService.subscribeBasic().subscribe((activities) => {
+    this.subscriptions.push(this.activityService.subscriber().subscribe((activities) => {
       this.obtainRawVisible = false;
       activities.forEach(activity => {
         if (activity.visible) {
@@ -53,24 +51,12 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       });
 
-      this.basicActivities = activities;
-    }));
-
-    this.subscriptions.push(activityService.subscribeAdvanced().subscribe((activities) => {
-      this.refineVisible = false;
-      activities.forEach(activity => {
-        if (activity.visible) {
-          this.refineVisible = true;
-        }
-      });
-
-      this.advancedActivities = activities;
+      this.activities = activities;
     }));
   }
 
   ngOnInit() {
-    this.activityService.getBasicActivities();
-    this.activityService.getAdvancedActivities();
+    this.activityService.getActivities();
     this.itemService.getItemInventory();
   }
 

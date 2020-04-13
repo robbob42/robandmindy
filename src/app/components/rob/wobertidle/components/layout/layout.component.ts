@@ -4,7 +4,7 @@ import { Message } from '../../models/message';
 import { pulse } from './animations';
 import { ActivityService } from '../../services/activity.service';
 import { ItemService } from '../../services/item.service';
-import { Activitybasic } from '../../models/activitybasic';
+import { Activity } from '../../models/activity';
 import { UtilsService } from '../../services/utils.service';
 import { ImprovementService } from '../../services/improvement.service';
 
@@ -29,7 +29,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   public advanceDropdownOpen = false;
   public canSkip = true;
   public highlightArrow = false;
-  public basicActivities = [new Activitybasic({
+  public activities = [new Activity({
     id: 0,
     name: '',
     active: false,
@@ -94,14 +94,13 @@ export class LayoutComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.navigation = 'home';
-    this.activityService.initializeAdvancedActivities();
     this.improvementService.initializeBasicImprovements();
     this.utilsService.initialize();
 
     setTimeout(() => {
-      this.activityService.initializeBasicActivities();
-      this.activityService.subscribeBasic().subscribe((activities) => {
-        this.basicActivities = activities;
+      this.activityService.initializeActivities();
+      this.activityService.subscriber().subscribe((activities) => {
+        this.activities = activities;
       });
       this.itemService.initializeItems();
       this.itemService.subscriber().subscribe((items) => {
