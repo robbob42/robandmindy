@@ -15,7 +15,6 @@ export class ActivitySliderComponent implements OnInit, OnDestroy {
   @Input() activityId: number;
   @Input() type: string;
 
-  public inventory: Item[];
   public advancedActivities: Activityadvanced[];
 
   public subscriptions: Subscription[] = [];
@@ -25,7 +24,6 @@ export class ActivitySliderComponent implements OnInit, OnDestroy {
   public actionTime: string;
   public activityWidthNum = 0;
   public activityWidth = this.activityWidthNum.toString() + '%';
-  public invenItem: Item;
   public activityInterval: number;
 
   constructor(
@@ -44,11 +42,11 @@ export class ActivitySliderComponent implements OnInit, OnDestroy {
         }
         clearInterval(this.activityInterval);
         this.activityInterval = window.setInterval(() => {
-          if (this.activity && this.activity.active) {
+          if (this.activity && this.activity.active && !this.itemService.limitReached(this.activity.producesId)) {
             this.activityWidthNum += 1000 / this.activity.actionTime;
             if (this.activityWidthNum >= 100) {
               this.activityWidthNum = 0;
-              this.itemService.incrementItem(this.invenItem.id, this.activity.produceAmount, this.activity.mcProficiency);
+              this.itemService.incrementItem(this.activity.producesId, this.activity.produceAmount, this.activity.mcProficiency);
             }
             this.activityWidth = this.activityWidthNum.toString() + '%';
           }
@@ -56,14 +54,6 @@ export class ActivitySliderComponent implements OnInit, OnDestroy {
       }));
       this.subscriptions.push(this.activityService.subscribeAdvanced().subscribe((activities) => {
         this.advancedActivities = activities;
-      }));
-      this.subscriptions.push(this.itemService.subscriber().subscribe((items) => {
-        this.inventory = items;
-        items.forEach(inventoryItem => {
-          if (this.activity && inventoryItem.name === this.activity.produces) {
-            this.invenItem = inventoryItem;
-          }
-        });
       }));
     });
   }

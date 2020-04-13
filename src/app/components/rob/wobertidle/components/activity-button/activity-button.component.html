@@ -4,15 +4,5 @@
   class="btn"
   (click)="toggleActivity(activity.id, activity.type)">
   <span *ngIf="activity.active">Stop</span>
-  <span *ngIf="!activity.active">Start</span>
-  {{activity.name}}
+  <span *ngIf="!activity.active">{{activity.name}}</span>
 </button>
-<span *ngIf="!activity.active">
-  (
-    {{activity.produceAmount}}
-    <ng-container *ngFor="let item of initialItems">
-      <clr-icon *ngIf="activity.producesId == item.id" attr.shape="{{item.icon}}" size="18" [ngStyle]="{'color': item.color}"></clr-icon>
-    </ng-container>
-    ,{{activity.mcProficiency}}<clr-icon shape="crown" size="18" [ngStyle]="{'color': '#621f8f'}"></clr-icon>
-  )
-</span>

@@ -6,6 +6,8 @@ export class Activitybase {
   color: string;
   produces: string;
   produceAmount: number;
+  decrements: string;
+  decrementsAmount: number;
   producesId: number;
   actionTime: number;
   mcProficiency: number;
@@ -24,6 +26,8 @@ export class Activitybase {
     color: string,
     produces: string,
     produceAmount: number,
+    decrements?: string,
+    decrementsAmount?: number,
     producesId: number,
     actionTime: number,
     mcProficiency?: number,
@@ -41,6 +45,8 @@ export class Activitybase {
     this.color = options.color;
     this.produces = options.produces;
     this.produceAmount = options.produceAmount;
+    this.decrements = options.decrements || '';
+    this.decrementsAmount = options.decrementsAmount || 0;
     this.producesId = options.producesId;
     this.actionTime = options.actionTime;
     this.mcProficiency = options.mcProficiency || 1;

@@ -5,8 +5,6 @@ import { Activityadvanced } from '../models/activityadvanced';
 import { Improvementbasic } from '../models/improvementbasic';
 import basicActivitySetup from '../assets/basicactivities';
 import advancedActivitySetup from '../assets/advancedactivities';
-import basicImprovementSetup from '../assets/basicimprovements';
-import { ItemService } from './item.service';
 import { Activitybase } from '../models/activitybase';
 
 @Injectable({
@@ -49,10 +47,8 @@ export class ActivityService {
   })]);
   private advancedActivities: Activityadvanced[] = [];
 
-  private subBasicImprovements = new Subject<Improvementbasic[]>();
-  private basicImprovements: Improvementbasic[] = [];
 
-  constructor(private itemService: ItemService) { }
+  constructor() { }
 
   subscribeBasic() {
     return this.subBasic;
@@ -60,10 +56,6 @@ export class ActivityService {
 
   subscribeAdvanced() {
     return this.subAdvanced;
-  }
-
-  subscribeBasicImprovement() {
-    return this.subBasicImprovements;
   }
 
   toggleActivity(activityId: number, type: string) {
@@ -163,51 +155,21 @@ export class ActivityService {
     sub.next(activities);
   }
 
-  initializeBasicImprovements() {
-    basicImprovementSetup.forEach(improvement => {
-      this.basicImprovements.push(new Improvementbasic(improvement));
-    });
-    this.subBasicImprovements.next(this.basicImprovements);
-  }
-
-  getBasicImprovements() {
-    this.subBasicImprovements.next(this.basicImprovements);
-  }
-
-  buyImprovement(type: string, improvementId: number) {
-    const improvements = type === 'basic' ? this.basicImprovements : this.basicImprovements;
-    const improvement = improvements.find(imp => imp.id === improvementId);
-    const impSub = type === 'basic' ? this.subBasicImprovements : this.subBasicImprovements;
-    let sufficientFunds = true;
-    improvement.itemsCost.forEach(impCostItem => {
-      if (!this.itemService.sufficientFunds(impCostItem.itemId, impCostItem.itemAmount)) {
-        sufficientFunds = false;
-      }
-    });
-
-    if (sufficientFunds) {
-      let activities: Activitybase[];
-      let activity: Activitybase;
-      let sub: BehaviorSubject<Activitybase[]>;
-      if (type === 'basic') {
-        activities = this.basicActivities;
-        activity = activities.find(act => act.id === improvement.activityId);
-        sub = this.subBasic;
-      }
-      if (type === 'advanced') {
-        activities = this.advancedActivities;
-        activity = activities.find(act => act.id === improvement.activityId);
-        sub = this.subAdvanced;
-      }
-      activity[improvement.improves] = activity[improvement.improves] * improvement.improvesBy;
-
-      improvement.itemsCost.forEach(impCostItem => {
-        this.itemService.incrementItem(impCostItem.itemId, -impCostItem.itemAmount);
-        impCostItem.itemAmount = impCostItem.itemAmount * improvement.costMultiplyer;
-      });
-
-      impSub.next(improvements);
-      sub.next(activities);
+  buyActivityImprovement(type: string, improvement: Improvementbasic) {
+    let activities: Activitybase[];
+    let activity: Activitybase;
+    let sub: BehaviorSubject<Activitybase[]>;
+    if (type === 'basic') {
+      activities = this.basicActivities;
+      activity = activities.find(act => act.id === improvement.improveeId);
+      sub = this.subBasic;
     }
+    if (type === 'advanced') {
+      activities = this.advancedActivities;
+      activity = activities.find(act => act.id === improvement.improveeId);
+      sub = this.subAdvanced;
+    }
+    activity[improvement.improves] = activity[improvement.improves] * improvement.improvesBy;
+    sub.next(activities);
   }
 }

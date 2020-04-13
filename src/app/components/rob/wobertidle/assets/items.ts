@@ -5,6 +5,7 @@ export default [
     icon: 'crown',
     color: '#621f8f',
     amount: 0,
+    limit: 0,
     visible: false
   },
   {
@@ -13,6 +14,7 @@ export default [
     icon: 'user',
     color: '#b4a802',
     amount: 0,
+    limit: 0,
     visible: false
   },
   {
@@ -21,6 +23,7 @@ export default [
     icon: 'coin-bag',
     color: '#aaaa00',
     amount: 10,
+    limit: 0,
     visible: false
   },
   {
@@ -30,6 +33,7 @@ export default [
     color: '#555555',
     value: .01,
     amount: 0,
+    limit: 10,
     visible: true
   },
   {
@@ -39,6 +43,7 @@ export default [
     color: '#425f0b',
     value: .1,
     amount: 0,
+    limit: 10,
     visible: false
   },
   {
@@ -48,6 +53,7 @@ export default [
     color: '#84b0f1',
     value: .5,
     amount: 0,
+    limit: 10,
     visible: false
   },
   {
@@ -57,6 +63,7 @@ export default [
     color: '#aa5555',
     value: 0,
     amount: 0,
+    limit: 10,
     visible: false
   },
   {
@@ -66,6 +73,7 @@ export default [
     color: '#423821',
     value: 0,
     amount: 0,
+    limit: 10,
     visible: false
   },
   {
@@ -75,6 +83,7 @@ export default [
     color: '#be6868',
     value: 0,
     amount: 0,
+    limit: 10,
     visible: false
   },
 ];

@@ -21,6 +21,7 @@ import { ActivitySliderComponent } from './components/rob/wobertidle/components/
 import { ActivityButtonComponent } from './components/rob/wobertidle/components/activity-button/activity-button.component';
 import { ShopComponent } from './components/rob/wobertidle/components/shop/shop.component';
 import { MySidenavComponent } from './components/rob/wobertidle/components/my-sidenav/my-sidenav.component';
+import { PulsingTextComponent } from './components/rob/wobertidle/components/pulsing-text/pulsing-text.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { MySidenavComponent } from './components/rob/wobertidle/components/my-si
     ActivitySliderComponent,
     ActivityButtonComponent,
     ShopComponent,
-    MySidenavComponent
+    MySidenavComponent,
+    PulsingTextComponent
   ],
   imports: [
     BrowserModule,

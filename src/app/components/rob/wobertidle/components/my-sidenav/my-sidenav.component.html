@@ -12,10 +12,15 @@
 
     <clr-accordion-panel [(clrAccordionPanelOpen)]="activitiesOpen" [clrAccordionPanelDisabled]="true">
       <clr-accordion-title>Inventory</clr-accordion-title>
-      <div *ngIf="coinsItem"><clr-icon attr.shape="{{coinsItem.icon}}" shape="" size="24" [ngStyle]="{'color': coinsItem.color}"></clr-icon>: {{formatCurrency(coinsItem.amount)}}</div>
+      <div *ngIf="coinsItem"><clr-icon attr.shape="{{coinsItem.icon}}" shape="" size="24" [ngStyle]="{'color': coinsItem.color}"></clr-icon>
+        : <app-pulsing-text [text]="formatCurrency(coinsItem.amount)"></app-pulsing-text>
+      </div>
       <div *ngFor="let item of inventory">
         <ng-container *ngIf="item.visible">
-          <div><clr-icon attr.shape="{{item.icon}}" shape="" size="24" [ngStyle]="{'color': item.color}"></clr-icon>: {{item.amount}}</div>
+          <div><clr-icon attr.shape="{{item.icon}}" shape="" size="24" [ngStyle]="{'color': item.color}"></clr-icon>
+            : <app-pulsing-text [text]="item.amount"></app-pulsing-text>
+            / <app-pulsing-text [text]="item.limit"></app-pulsing-text>
+          </div>
         </ng-container>
       </div>
     </clr-accordion-panel>
@@ -25,13 +30,13 @@
       <div id="mcpDiv">
         <span *ngIf="mcpItem">
           <clr-icon attr.shape="{{mcpItem.icon}}" size="18" [ngStyle]="{'color': mcpItem.color, 'margin-bottom': '6px'}"></clr-icon>
-          {{mcpItem.name}} : {{mcpItem.amount}}
+          {{mcpItem.name}} : <app-pulsing-text [text]="mcpItem.amount"></app-pulsing-text>
         </span>
       </div>
       <div id="humanDiv" *ngIf="humanItem">
         <span>
           <clr-icon attr.shape="{{humanItem.icon}}" size="18" [ngStyle]="{'color': humanItem.color, 'margin-bottom': '6px'}"></clr-icon>
-          {{humanItem.name}} : {{humanItem.amount}}
+          {{humanItem.name}} : <app-pulsing-text [text]="humanItem.amount"></app-pulsing-text>
         </span>
       </div>
     </clr-accordion-panel>

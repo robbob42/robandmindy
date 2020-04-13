@@ -6,9 +6,9 @@ import { countries } from 'country-data';
 })
 export class UtilsService {
   constructor() { }
-  private languageCode: string;
+  private languageCode = 'US';
   private countryCode: string;
-  private currencyCode: string;
+  private currencyCode = 'USD';
 
   initialize() {
     fetch('https://api.ipify.org?format=json')

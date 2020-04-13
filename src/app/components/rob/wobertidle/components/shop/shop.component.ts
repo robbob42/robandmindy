@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { Improvementbasic } from '../../models/improvementbasic';
 import itemsModel from '../../assets/items';
 import { UtilsService } from '../../services/utils.service';
+import { ImprovementService } from '../../services/improvement.service';
 
 @Component({
   selector: 'app-shop',
@@ -21,12 +22,12 @@ export class ShopComponent implements OnInit, OnDestroy {
   public itemsModel = itemsModel;
 
   constructor(
-    private activityService: ActivityService,
+    private improvementService: ImprovementService,
     private itemService: ItemService,
     private utilsService: UtilsService
     ) {
     // Activity subscriptions
-    this.subscriptions.push(activityService.subscribeBasicImprovement().subscribe((improvements) => {
+    this.subscriptions.push(improvementService.subscribeBasicImprovement().subscribe((improvements) => {
       this.basicImprovements = improvements;
     }));
 
@@ -37,12 +38,12 @@ export class ShopComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.activityService.getBasicImprovements();
+    this.improvementService.getBasicImprovements();
     this.itemService.getItemInventory();
   }
 
   buyBasicImprovement(improvementId: number) {
-    this.activityService.buyImprovement('basic', improvementId);
+    this.improvementService.buyImprovement('basic', improvementId);
   }
 
   sell(itemId: number, percent: number) {

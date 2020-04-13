@@ -6,6 +6,7 @@ import { ActivityService } from '../../services/activity.service';
 import { ItemService } from '../../services/item.service';
 import { Activitybasic } from '../../models/activitybasic';
 import { UtilsService } from '../../services/utils.service';
+import { ImprovementService } from '../../services/improvement.service';
 
 @Component({
   selector: 'app-layout',
@@ -47,6 +48,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   constructor(
     private messageService: MessageService,
     private activityService: ActivityService,
+    private improvementService: ImprovementService,
     private itemService: ItemService,
     private utilsService: UtilsService
   ) {
@@ -93,7 +95,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.navigation = 'home';
     this.activityService.initializeAdvancedActivities();
-    this.activityService.initializeBasicImprovements();
+    this.improvementService.initializeBasicImprovements();
     this.utilsService.initialize();
 
     setTimeout(() => {
@@ -106,12 +108,16 @@ export class LayoutComponent implements OnInit, AfterViewInit {
         this.inventory = items;
       });
     });
+
+    setTimeout(() => {
+      this.skipIntro();
+    }, 50);
   }
 
   ngAfterViewInit() {
   }
 
-  setNav(nav) {
+  setNav(nav: string) {
     this.navigation = nav;
   }
 

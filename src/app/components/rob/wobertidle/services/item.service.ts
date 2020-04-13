@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Item } from '../models/item';
 import items from '../assets/items';
+import { Improvementbasic } from '../models/improvementbasic';
 
 @Injectable({
   providedIn: 'root'
@@ -28,9 +29,13 @@ export class ItemService {
   }
 
   incrementItem(itemId, amount, mcp = 0) {
-    this.inventory.find(item => item.id === itemId).amount += amount;
+    const incItem = this.inventory.find(item => item.id === itemId);
+    incItem.amount += amount;
     if (mcp) {
       this.inventory.find(item => item.id === 900).amount += mcp;
+    }
+    if (incItem.amount > incItem.limit) {
+      incItem.amount = incItem.limit;
     }
     this.sub.next(this.inventory);
   }
@@ -60,5 +65,17 @@ export class ItemService {
 
       this.sub.next(this.inventory);
     }
+  }
+
+  limitReached(itemId: number) {
+    const item = this.inventory.find(invItem => invItem.id === itemId);
+    return item.amount >= item.limit;
+  }
+
+  buyItemImprovement(type: string, improvement: Improvementbasic) {
+    const item = this.inventory.find(invItem => invItem.id === improvement.improveeId);
+    item[improvement.improves] = item[improvement.improves] * improvement.improvesBy;
+
+    this.sub.next(this.inventory);
   }
 }

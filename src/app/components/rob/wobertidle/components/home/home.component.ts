@@ -6,6 +6,7 @@ import { ActivityService } from '../../services/activity.service';
 import { Activityadvanced } from '../../models/activityadvanced';
 import { Improvementbasic } from '../../models/improvementbasic';
 import { Subscription } from 'rxjs';
+import initialItems from '../../assets/items';
 
 @Component({
   selector: 'app-home',
@@ -24,6 +25,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   public refineVisible = false;
   public mcpItem: Item;
   public humanItem: Item;
+
+  public initialItems = initialItems;
 
   constructor(
     private itemService: ItemService,

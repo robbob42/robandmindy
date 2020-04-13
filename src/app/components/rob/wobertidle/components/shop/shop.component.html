@@ -2,6 +2,52 @@
   <div class="clr-col-9">
     <div class="card">
       <div class="card-header">
+        Limit Improvements
+      </div>
+      <div class="card-block">
+
+        <div class="card-text">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Improvment</th>
+                <th>Cost</th>
+                <th>Improves Limit By</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let improvement of basicImprovements">
+                <tr *ngIf="improvement.improves == 'limit'">
+                  <td>{{improvement.name}}</td>
+                  <td>
+                    <span *ngFor="let costItem of improvement.itemsCost">
+                      <span *ngFor="let item of itemsModel">
+                        <ng-container *ngIf="item.id == costItem.itemId">
+                          <clr-icon attr.shape="{{item.icon}}" size="16" [ngStyle]="{'color': item.color}"></clr-icon>
+                        </ng-container>
+                      </span>
+                      x <app-pulsing-text [text]="costItem.itemAmount"></app-pulsing-text><br />
+                    </span>
+                  </td>
+                  <td>(x {{improvement.improvesBy}})</td>
+                  <td>
+                    <button class="btn btn-sm btn-link" (click)="buyBasicImprovement(improvement.id)">Buy</button>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clr-col-3"></div>
+</div>
+<div class="clr-row">
+  <div class="clr-col-9">
+    <div class="card">
+      <div class="card-header">
         Speed Improvements
       </div>
       <div class="card-block">
@@ -27,7 +73,7 @@
                           <clr-icon attr.shape="{{item.icon}}" size="16" [ngStyle]="{'color': item.color}"></clr-icon>
                         </ng-container>
                       </span>
-                      x {{costItem.itemAmount}}<br />
+                      x <app-pulsing-text [text]="costItem.itemAmount"></app-pulsing-text><br />
                     </span>
                   </td>
                   <td>(x {{improvement.improvesBy}})</td>

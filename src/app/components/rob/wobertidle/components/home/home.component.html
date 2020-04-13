@@ -1,21 +1,44 @@
 <div class="clr-row">
-  <div class="clr-col-4">
+  <div class="clr-col-7">
     <div class="clr-row">
       <div class="clr-col-12">
         <div class="card" *ngIf="obtainRawVisible">
           <div class="card-header">Obtain Raw Materials</div>
           <div class="card-block">
             <div class="card-text">
-              <div *ngFor="let activity of basicActivities">
-                <ng-container *ngIf="activity.discovered">
-                  <app-activity-button
-                    [activityId]="activity.id"
-                    [type]="'basic'"></app-activity-button>
-                </ng-container>
-                <ng-container *ngIf="mcpItem.amount >= activity.mcpTriggerAmount && mcpItem.amount < activity.mcpDiscoverAmount">
-                  <button class="btn btn-outline" disabled>@MCP{{activity.mcpDiscoverAmount}}</button>
-                </ng-container>
-              </div>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Activity</th>
+                    <th colspan="2">Produces</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let activity of basicActivities">
+                    <ng-container *ngIf="activity.discovered">
+                      <td>
+                        <app-activity-button
+                          [activityId]="activity.id"
+                          [type]="'basic'"></app-activity-button>
+                      </td>
+                      <td>
+                        {{activity.produceAmount}} x
+                        <ng-container *ngFor="let item of initialItems">
+                          <clr-icon *ngIf="activity.producesId == item.id" attr.shape="{{item.icon}}" size="18" [ngStyle]="{'color': item.color}"></clr-icon>
+                        </ng-container>
+                      </td>
+                      <td>
+                        {{activity.mcProficiency}} x <clr-icon shape="crown" size="18" [ngStyle]="{'color': '#621f8f'}"></clr-icon>
+                      </td>
+                    </ng-container>
+                  </tr>
+                  <tr *ngFor="let activity of basicActivities">
+                    <td colspan="3" *ngIf="mcpItem.amount >= activity.mcpTriggerAmount && mcpItem.amount < activity.mcpDiscoverAmount">
+                      <button class="btn btn-outline" disabled>@MCP{{activity.mcpDiscoverAmount}}</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

@@ -6,12 +6,13 @@ export class Improvementbasic extends ImprovementBase {
   constructor(options: {
     id: number,
     name: string,
-    activityId: number,
+    improveeId: number,
     itemsCost: {
       itemId: number,
       itemAmount: number,
     }[],
     costMultiplyer: number,
+    improvee: string,
     improves: string,
     improvesBy: number
   }) {

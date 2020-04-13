@@ -5,6 +5,7 @@ import { ItemService } from '../../services/item.service';
 import { ActivityService } from '../../services/activity.service';
 import { Activitybasic } from '../../models/activitybasic';
 import { UtilsService } from '../../services/utils.service';
+import { ImprovementService } from '../../services/improvement.service';
 
 @Component({
   selector: 'app-my-sidenav',
@@ -23,19 +24,21 @@ export class MySidenavComponent implements OnInit, OnDestroy {
   public mcpItem: Item;
   public humanItem: Item;
   public coinsItem: Item;
+  public tester = 0;
 
   public subscriptions: Subscription[] = [];
 
   constructor(
     private itemService: ItemService,
     private activityService: ActivityService,
+    private improvementService: ImprovementService,
     private utilsService: UtilsService
   ) {
   }
 
   ngOnInit(): void {
     this.activityService.getBasicActivities();
-    this.activityService.getBasicImprovements();
+    this.improvementService.getBasicImprovements();
     setTimeout(() => {
       this.activityService.subscribeBasic().subscribe((activities) => {
         this.basicActivities = activities;
