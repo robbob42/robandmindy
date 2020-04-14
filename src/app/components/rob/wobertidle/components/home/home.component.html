@@ -95,3 +95,23 @@
     </div>
   </div>
 </div>
+
+<div class="clr-row">
+  <div class="clr-col-9">
+    <div class="card" *ngIf="!winVisible">
+      <div class="card-header">
+        <button class="btn btn-outline" disabled>Win the Game @MCP {{utilsService.formatNumber(winAmt)}}</button>
+      </div>
+    </div>
+    <div class="card" *ngIf="winVisible">
+      <div class="card-header">
+        Holy Cow!  You won the game!
+      </div>
+      <div class="card-block">
+          <div class="card-text">
+              Unfortunately, that's it for now.  Come back later for more content!
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

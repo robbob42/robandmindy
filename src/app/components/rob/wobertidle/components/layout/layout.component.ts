@@ -8,6 +8,7 @@ import { Activity } from '../../models/activity';
 import { UtilsService } from '../../services/utils.service';
 import { ImprovementService } from '../../services/improvement.service';
 import { Item } from '../../models/item';
+import { Globals } from '../../assets/globals';
 
 @Component({
   selector: 'app-layout',
@@ -55,13 +56,14 @@ export class LayoutComponent implements OnInit, AfterViewInit {
     limit: 0,
     visible: false
   });
+  public shopVisibleAmt = Globals.shopVisibleAmt;
 
   constructor(
     private messageService: MessageService,
     private activityService: ActivityService,
     private improvementService: ImprovementService,
     private itemService: ItemService,
-    private utilsService: UtilsService
+    public utilsService: UtilsService
   ) {
     this.messageService.initializeMessages();
     messageService.subscribeMessages().subscribe((subscribedMessages) => {

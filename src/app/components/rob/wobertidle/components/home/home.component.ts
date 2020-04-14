@@ -21,7 +21,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   public obtainRawVisible = false;
   public refineVisible = false;
+  public winVisible = false;
   public refineVisibleAmt = Globals.refineVisibleAmt;
+  public winAmt = Globals.winAmt;
   public mcpItem: Item;
   public humanItem: Item;
 
@@ -37,9 +39,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       items.forEach(item => {
         if (item.id === 900) {
           this.mcpItem = item;
-          if (item.amount >= this.refineVisibleAmt) {
-            this.refineVisible = true;
-          }
+          this.refineVisible = item.amount >= this.refineVisibleAmt;
+          this.winVisible = item.amount >= this.winAmt;
         }
         if (item.id === 901) {
           this.humanItem = item;

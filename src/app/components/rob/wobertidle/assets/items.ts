@@ -61,7 +61,7 @@ export default [
     name: 'Gems',
     icon: 'objects',
     color: '#aa5555',
-    value: 0,
+    value: 10,
     amount: 0,
     limit: 10,
     visible: false
@@ -71,7 +71,7 @@ export default [
     name: 'Boards',
     icon: 'container',
     color: '#423821',
-    value: 0,
+    value: 50,
     amount: 0,
     limit: 10,
     visible: false
@@ -81,7 +81,7 @@ export default [
     name: 'Cooked Fish',
     icon: 'fish',
     color: '#be6868',
-    value: 0,
+    value: 100,
     amount: 0,
     limit: 10,
     visible: false

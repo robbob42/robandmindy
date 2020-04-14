@@ -6,7 +6,7 @@ export default [
     level: 1,
     itemsCost: [{
       itemId: 1,
-      itemAmount: 10,
+      itemAmount: 5,
     }],
     costMultiplyer: 1.5,
     improvee: 'activity',
@@ -22,11 +22,11 @@ export default [
     itemsCost: [
       {
         itemId: 1,
-        itemAmount: 20,
+        itemAmount: 10,
       },
       {
         itemId: 2,
-        itemAmount: 10,
+        itemAmount: 5,
       }
     ],
     costMultiplyer: 1.5,
@@ -43,15 +43,15 @@ export default [
     itemsCost: [
       {
         itemId: 1,
-        itemAmount: 30,
+        itemAmount: 15,
       },
       {
         itemId: 2,
-        itemAmount: 20,
+        itemAmount: 10,
       },
       {
         itemId: 3,
-        itemAmount: 10,
+        itemAmount: 5,
       }
     ],
     costMultiplyer: 1.5,
@@ -68,7 +68,7 @@ export default [
     itemsCost: [
       {
         itemId: 902,
-        itemAmount: 10
+        itemAmount: 5
       }
     ],
     costMultiplyer: 1.5,
@@ -85,7 +85,7 @@ export default [
     itemsCost: [
       {
         itemId: 902,
-        itemAmount: 20
+        itemAmount: 10
       }
     ],
     costMultiplyer: 1.5,
@@ -102,7 +102,7 @@ export default [
     itemsCost: [
       {
         itemId: 902,
-        itemAmount: 30
+        itemAmount: 15
       }
     ],
     costMultiplyer: 1.5,
