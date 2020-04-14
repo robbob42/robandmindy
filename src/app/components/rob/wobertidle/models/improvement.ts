@@ -2,6 +2,7 @@ export class Improvement {
   id: number;
   name: string;
   type: string;
+  level: number;
   improveeId: number;
   itemsCost: {
     itemId: number,
@@ -16,6 +17,7 @@ export class Improvement {
     id: number,
     name: string,
     type: string,
+    level: number,
     improveeId: number,
     itemsCost: {
       itemId: number,
@@ -28,6 +30,8 @@ export class Improvement {
   }) {
     this.id = options.id;
     this.name = options.name;
+    this.type = options.type;
+    this.level = options.level;
     this.improveeId = options.improveeId;
     this.itemsCost = options.itemsCost;
     this.costMultiplyer = options.costMultiplyer;

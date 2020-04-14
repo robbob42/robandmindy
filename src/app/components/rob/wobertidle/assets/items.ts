@@ -22,7 +22,7 @@ export default [
     name: 'Coins',
     icon: 'coin-bag',
     color: '#aaaa00',
-    amount: 10,
+    amount: 0,
     limit: 0,
     visible: false
   },

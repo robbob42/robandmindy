@@ -11,6 +11,7 @@
             <thead>
               <tr>
                 <th>Improvment</th>
+                <th>Level</th>
                 <th>Cost</th>
                 <th>Improves Limit By</th>
                 <th></th>
@@ -20,6 +21,7 @@
               <ng-container *ngFor="let improvement of basicImprovements">
                 <tr *ngIf="improvement.improves == 'limit'">
                   <td>{{improvement.name}}</td>
+                  <td>{{improvement.level}}</td>
                   <td>
                     <span *ngFor="let costItem of improvement.itemsCost">
                       <span *ngFor="let item of itemsModel">
@@ -27,12 +29,12 @@
                           <clr-icon attr.shape="{{item.icon}}" size="16" [ngStyle]="{'color': item.color}"></clr-icon>
                         </ng-container>
                       </span>
-                      x <app-pulsing-text [text]="costItem.itemAmount"></app-pulsing-text><br />
+                      x <app-pulsing-text [text]="utilsService.formatNumber(costItem.itemAmount)"></app-pulsing-text><br />
                     </span>
                   </td>
                   <td>(x {{improvement.improvesBy}})</td>
                   <td>
-                    <button class="btn btn-sm btn-link" (click)="buyBasicImprovement(improvement.id)">Buy</button>
+                    <button class="btn btn-sm btn-link" (click)="buyImprovement(improvement.id)">Buy</button>
                   </td>
                 </tr>
               </ng-container>
@@ -52,7 +54,7 @@
   <div class="clr-col-9">
     <div class="card">
       <div class="card-header">
-        Speed Improvements
+        Speed Improvements (@MCP {{utilsService.formatNumber(speedImprovementsVisibleAmt)}})
       </div>
       <div class="card-block">
 
@@ -61,6 +63,7 @@
             <thead>
               <tr>
                 <th>Improvment</th>
+                <th>Level</th>
                 <th>Cost</th>
                 <th>Improves Speed By</th>
                 <th></th>
@@ -70,6 +73,7 @@
               <ng-container *ngFor="let improvement of basicImprovements">
                 <tr *ngIf="improvement.improves == 'actionTime'">
                   <td>{{improvement.name}}</td>
+                  <td>{{improvement.level}}</td>
                   <td>
                     <span *ngFor="let costItem of improvement.itemsCost">
                       <span *ngFor="let item of itemsModel">
@@ -77,12 +81,12 @@
                           <clr-icon attr.shape="{{item.icon}}" size="16" [ngStyle]="{'color': item.color}"></clr-icon>
                         </ng-container>
                       </span>
-                      x <app-pulsing-text [text]="costItem.itemAmount"></app-pulsing-text><br />
+                      x <app-pulsing-text [text]="utilsService.formatNumber(costItem.itemAmount)"></app-pulsing-text><br />
                     </span>
                   </td>
                   <td>(x {{improvement.improvesBy}})</td>
                   <td>
-                    <button class="btn btn-sm btn-link" (click)="buyBasicImprovement(improvement.id)">Buy</button>
+                    <button class="btn btn-sm btn-link" (click)="buyImprovement(improvement.id)">Buy</button>
                   </td>
                 </tr>
               </ng-container>
@@ -102,7 +106,7 @@
   <div class="clr-col-9">
     <div class="card">
       <div class="card-header">
-        The Exchange
+        The Exchange (@MCP {{utilsService.formatNumber(moneyImprovementsAmt)}})
       </div>
       <div class="card-block">
         <table class="table">
@@ -138,7 +142,7 @@
   <div class="clr-col-9">
     <div class="card">
       <div class="card-header">
-        Multiplier Improvements
+        Multiplier Improvements (@MCP {{utilsService.formatNumber(moneyImprovementsAmt)}})
       </div>
       <div class="card-block">
 
@@ -147,6 +151,7 @@
             <thead>
               <tr>
                 <th>Improvment</th>
+                <th>Level</th>
                 <th>Cost</th>
                 <th>Improves Amount By</th>
                 <th></th>
@@ -156,6 +161,7 @@
               <ng-container *ngFor="let improvement of basicImprovements">
                 <tr *ngIf="improvement.improves == 'produceAmount'">
                   <td>{{improvement.name}}</td>
+                  <td>{{improvement.level}}</td>
                   <td>
                     <span *ngFor="let costItem of improvement.itemsCost">
                       <span *ngFor="let item of itemsModel">
@@ -168,7 +174,7 @@
                   </td>
                   <td>(x {{improvement.improvesBy}})</td>
                   <td>
-                    <button class="btn btn-sm btn-link" (click)="buyBasicImprovement(improvement.id)">Buy</button>
+                    <button class="btn btn-sm btn-link" (click)="buyImprovement(improvement.id)">Buy</button>
                   </td>
                 </tr>
               </ng-container>

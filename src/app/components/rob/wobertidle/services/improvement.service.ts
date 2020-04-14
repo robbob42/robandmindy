@@ -53,9 +53,9 @@ export class ImprovementService {
 
       improvement.itemsCost.forEach(impCostItem => {
         this.itemService.incrementItem(impCostItem.itemId, -impCostItem.itemAmount);
-        impCostItem.itemAmount = impCostItem.itemAmount * improvement.costMultiplyer;
+        impCostItem.itemAmount = Math.round(impCostItem.itemAmount * improvement.costMultiplyer);
       });
-
+      improvement.level++;
       this.sub.next(this.improvements);
     }
   }

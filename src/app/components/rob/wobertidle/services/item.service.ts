@@ -34,7 +34,7 @@ export class ItemService {
     if (mcp) {
       this.inventory.find(item => item.id === 900).amount += mcp;
     }
-    if (incItem.amount > incItem.limit) {
+    if (incItem.limit && incItem.amount > incItem.limit) {
       incItem.amount = incItem.limit;
     }
     if (decrementId && decrementAmt) {

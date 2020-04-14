@@ -1,10 +1,10 @@
 <div class="card my-card">
   <nav class="subnav">
     <ul class="nav">
-      <li class="nav-item"><a class="nav-link" (click)="setNav('home')">Home</a></li>
+      <li class="nav-item"><a [ngClass]="{'nav-link': true, 'active': navigation === 'home'}" (click)="setNav('home')">Home</a></li>
       <!-- <li class="nav-item"><a class="nav-link" (click)="showLog()">Intro</a></li> -->
       <li class="nav-item" *ngIf="mcpItem.amount > 209">
-        <a class="nav-link" (click)="setNav('shop')">
+        <a [ngClass]="{'nav-link': true, 'active': navigation === 'shop'}" (click)="setNav('shop')">
           <app-pulsing-text [text]="'Shop'" [initialPulse]="true"></app-pulsing-text>
         </a>
       </li>
@@ -14,7 +14,7 @@
     <nav class="sidenav my-sidenav">
       <app-my-sidenav></app-my-sidenav>
     </nav>
-    <div class="content-area">
+    <div class="content-area my-content-area">
       <app-home *ngIf="navigation === 'home'"></app-home>
       <app-shop *ngIf="navigation === 'shop'"></app-shop>
     </div>

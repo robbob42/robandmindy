@@ -65,7 +65,7 @@ export class ShopComponent implements OnInit, OnDestroy {
     this.itemService.getItemInventory();
   }
 
-  buyBasicImprovement(improvementId: number) {
+  buyImprovement(improvementId: number) {
     this.improvementService.buyImprovement(improvementId);
   }
 
