@@ -24,8 +24,24 @@ export class HomeComponent implements OnInit, OnDestroy {
   public winVisible = false;
   public refineVisibleAmt = Globals.refineVisibleAmt;
   public winAmt = Globals.winAmt;
-  public mcpItem: Item;
-  public humanItem: Item;
+  public mcpItem: Item = new Item({
+    id: 0,
+    name: '',
+    icon: '',
+    color: '',
+    value: 0,
+    amount: 0,
+    limit: 0
+  });
+  public humanItem: Item = new Item({
+    id: 0,
+    name: '',
+    icon: '',
+    color: '',
+    value: 0,
+    amount: 0,
+    limit: 0
+  });
 
   public initialItems = initialItems;
 
@@ -71,4 +87,10 @@ export class HomeComponent implements OnInit, OnDestroy {
       subscription.unsubscribe();
     });
   }
+
+
+  tester() {
+    console.log('test');
+  }
+
 }
