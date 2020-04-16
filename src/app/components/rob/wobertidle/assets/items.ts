@@ -4,7 +4,7 @@ export default [
     name: 'MCP',
     icon: 'crown',
     color: '#621f8f',
-    amount: 0,
+    amount: 20000,
     limit: 0,
     visible: false
   },
@@ -29,7 +29,7 @@ export default [
   {
     id: 1,
     name: 'Rocks',
-    icon: 'data-cluster',
+    icon: 'rock',
     color: '#555555',
     value: .01,
     amount: 0,
@@ -37,11 +37,11 @@ export default [
     visible: true
   },
   {
-    id: 2,
-    name: 'Trees',
-    icon: 'tree',
-    color: '#425f0b',
-    value: .1,
+    id: 7,
+    name: 'Clay',
+    icon: 'clay',
+    color: 'brown',
+    value: .05,
     amount: 0,
     limit: 10,
     visible: false
@@ -51,7 +51,27 @@ export default [
     name: 'Fish',
     icon: 'fish',
     color: '#84b0f1',
-    value: .5,
+    value: .25,
+    amount: 0,
+    limit: 10,
+    visible: false
+  },
+  {
+    id: 2,
+    name: 'Trees',
+    icon: 'tree',
+    color: '#425f0b',
+    value: 1,
+    amount: 0,
+    limit: 10,
+    visible: false
+  },
+  {
+    id: 8,
+    name: 'Grain',
+    icon: 'grain',
+    color: 'tan',
+    value: 5,
     amount: 0,
     limit: 10,
     visible: false
@@ -85,5 +105,5 @@ export default [
     amount: 0,
     limit: 10,
     visible: false
-  },
+  }
 ];

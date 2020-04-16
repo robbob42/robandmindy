@@ -1,7 +1,7 @@
 export default [
   {
     id: 1,
-    name: 'Mining++',
+    name: 'Finding++',
     type: 'raw',
     level: 1,
     itemsCost: [{
@@ -15,8 +15,8 @@ export default [
     improvesBy: .9
   },
   {
-    id: 2,
-    name: 'Chopping++',
+    id: 12,
+    name: 'Collecting++',
     type: 'raw',
     level: 1,
     itemsCost: [
@@ -25,13 +25,13 @@ export default [
         itemAmount: 10,
       },
       {
-        itemId: 2,
+        itemId: 7,
         itemAmount: 5,
       }
     ],
     costMultiplyer: 1.5,
     improvee: 'activity',
-    improveeId: 2,
+    improveeId: 7,
     improves: 'actionTime',
     improvesBy: .9
   },
@@ -46,7 +46,7 @@ export default [
         itemAmount: 15,
       },
       {
-        itemId: 2,
+        itemId: 7,
         itemAmount: 10,
       },
       {
@@ -57,6 +57,68 @@ export default [
     costMultiplyer: 1.5,
     improvee: 'activity',
     improveeId: 3,
+    improves: 'actionTime',
+    improvesBy: .9
+  },
+  {
+    id: 2,
+    name: 'Chopping++',
+    type: 'raw',
+    level: 1,
+    itemsCost: [
+      {
+        itemId: 1,
+        itemAmount: 20,
+      },
+      {
+        itemId: 7,
+        itemAmount: 15,
+      },
+      {
+        itemId: 3,
+        itemAmount: 10,
+      },
+      {
+        itemId: 2,
+        itemAmount: 5,
+      }
+    ],
+    costMultiplyer: 1.5,
+    improvee: 'activity',
+    improveeId: 2,
+    improves: 'actionTime',
+    improvesBy: .9
+  },
+  {
+    id: 13,
+    name: 'Harvesting++',
+    type: 'raw',
+    level: 1,
+    itemsCost: [
+      {
+        itemId: 1,
+        itemAmount: 25,
+      },
+      {
+        itemId: 7,
+        itemAmount: 20,
+      },
+      {
+        itemId: 3,
+        itemAmount: 15,
+      },
+      {
+        itemId: 2,
+        itemAmount: 10,
+      },
+      {
+        itemId: 8,
+        itemAmount: 5,
+      }
+    ],
+    costMultiplyer: 1.5,
+    improvee: 'activity',
+    improveeId: 8,
     improves: 'actionTime',
     improvesBy: .9
   },
@@ -129,19 +191,19 @@ export default [
     improvesBy: 2
   },
   {
-    id: 8,
-    name: 'Tree Limit x 2',
+    id: 10,
+    name: 'Clay Limit x 2',
     type: 'raw',
     level: 1,
     itemsCost: [
       {
-        itemId: 2,
+        itemId: 7,
         itemAmount: 10
       }
     ],
     costMultiplyer: 2,
     improvee: 'item',
-    improveeId: 2,
+    improveeId: 7,
     improves: 'limit',
     improvesBy: 2
   },
@@ -161,5 +223,39 @@ export default [
     improveeId: 3,
     improves: 'limit',
     improvesBy: 2
-  }
+  },
+  {
+    id: 8,
+    name: 'Tree Limit x 2',
+    type: 'raw',
+    level: 1,
+    itemsCost: [
+      {
+        itemId: 2,
+        itemAmount: 10
+      }
+    ],
+    costMultiplyer: 2,
+    improvee: 'item',
+    improveeId: 2,
+    improves: 'limit',
+    improvesBy: 2
+  },
+  {
+    id: 11,
+    name: 'Grain Limit x 2',
+    type: 'raw',
+    level: 1,
+    itemsCost: [
+      {
+        itemId: 8,
+        itemAmount: 10
+      }
+    ],
+    costMultiplyer: 2,
+    improvee: 'item',
+    improveeId: 8,
+    improves: 'limit',
+    improvesBy: 2
+  },
 ];

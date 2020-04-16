@@ -1,6 +1,6 @@
-<section class="sidenav-content">
+<section class="sidenav-content" style="padding-bottom: 0;">
   <clr-accordion [clrAccordionMultiPanel]="true">
-    <clr-accordion-panel [(clrAccordionPanelOpen)]="activitiesOpen" [clrAccordionPanelDisabled]="activitiesDisabled">
+    <clr-accordion-panel [clrAccordionPanelOpen]="true">
       <clr-accordion-title>Activities</clr-accordion-title>
       <ng-container *ngIf="activities">
         <app-activity-slider
@@ -10,7 +10,7 @@
       </ng-container>
     </clr-accordion-panel>
 
-    <clr-accordion-panel [(clrAccordionPanelOpen)]="activitiesOpen" [clrAccordionPanelDisabled]="true">
+    <clr-accordion-panel [clrAccordionPanelOpen]="true">
       <clr-accordion-title>Inventory</clr-accordion-title>
       <div *ngIf="moneyImprovementsVisible">
         <clr-icon attr.shape="{{coinsItem.icon}}" shape="" size="24" [ngStyle]="{'color': coinsItem.color}"></clr-icon>
@@ -26,7 +26,7 @@
       </div>
     </clr-accordion-panel>
 
-    <clr-accordion-panel [(clrAccordionPanelOpen)]="activitiesOpen" [clrAccordionPanelDisabled]="true">
+    <clr-accordion-panel [clrAccordionPanelOpen]="true">
       <clr-accordion-title>Demigod Stats</clr-accordion-title>
       <div id="mcpDiv">
         <span *ngIf="mcpItem">

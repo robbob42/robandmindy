@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { countries } from 'country-data';
+import { Subject, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,8 @@ export class UtilsService {
   private languageCode = 'US';
   private countryCode: string;
   private currencyCode = 'USD';
+  private robSubnavPosStylesSub = new BehaviorSubject({position: 'relative', top: 0});
+  private robSubnavPosStyles = {position: 'relative', top: 0};
 
   initialize() {
     fetch('https://api.ipify.org?format=json')
@@ -39,5 +42,14 @@ export class UtilsService {
 
   formatNumber(amt: number): string {
     return Intl.NumberFormat(this.languageCode).format(amt);
+  }
+
+  setNavPosStyles(posStyles: {position: string, top: number}) {
+    this.robSubnavPosStyles = posStyles;
+    this.robSubnavPosStylesSub.next(this.robSubnavPosStyles);
+  }
+
+  navPosStylesSubnavSub() {
+    return this.robSubnavPosStylesSub;
   }
 }

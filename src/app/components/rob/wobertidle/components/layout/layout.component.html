@@ -1,5 +1,5 @@
-<div class="card my-card">
-  <nav class="subnav">
+<div class="card my-card" id="rob-card">
+  <nav class="subnav" id="rob-subnav" [ngStyle]="{'position': subNavPos, 'top': subNavTop}">
     <ul class="nav">
       <li class="nav-item"><a [ngClass]="{'nav-link': true, 'active': navigation === 'home'}" (click)="setNav('home')">Home</a></li>
       <!-- <li class="nav-item"><a class="nav-link" (click)="showLog()">Intro</a></li> -->
@@ -11,11 +11,14 @@
       <li class="nav-item disabled" *ngIf="mcpItem.amount < shopVisibleAmt">@MCP {{utilsService.formatNumber(shopVisibleAmt)}}</li>
     </ul>
   </nav>
+  <nav class="subnav" *ngIf="subNavPos !== 'relative'"></nav>
   <div class="content-container">
-    <nav class="sidenav my-sidenav">
+    <nav class="sidenav my-sidenav" [ngStyle]="{'position': subNavPos, 'top': sidenavTop, 'width': '200px'}">
       <app-my-sidenav></app-my-sidenav>
     </nav>
-    <div class="content-area my-content-area">
+    <nav class="sidenav my-sidenav" *ngIf="subNavPos !== 'relative'">
+    </nav>
+    <div class="content-area my-content-area" style="padding-bottom: 50px;">
       <app-home *ngIf="navigation === 'home'"></app-home>
       <app-shop *ngIf="navigation === 'shop'"></app-shop>
     </div>

@@ -63,7 +63,7 @@ export class ItemService {
     const coinsItem = this.inventory.find(item => item.id === 902);
 
     if (sellingAmount > 0) {
-      // sellingItem.amount -= sellingAmount;
+      sellingItem.amount -= sellingAmount;
       coinsItem.amount += sellingItem.value * sellingAmount;
 
       this.sub.next(this.inventory);

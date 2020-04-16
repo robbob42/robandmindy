@@ -92,6 +92,10 @@ export class MySidenavComponent implements OnInit, OnDestroy {
     return this.utilsService.formatCurrency(amt);
   }
 
+  toggleAccordion(event) {
+    console.log(event);
+  }
+
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => {
       subscription.unsubscribe();
