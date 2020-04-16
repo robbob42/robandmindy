@@ -8,7 +8,10 @@
           <app-pulsing-text [text]="'Shop'" [initialPulse]="true"></app-pulsing-text>
         </a>
       </li>
-      <li class="nav-item disabled" *ngIf="mcpItem.amount < shopVisibleAmt">@MCP {{utilsService.formatNumber(shopVisibleAmt)}}</li>
+      <li class="nav-item disabled" *ngIf="mcpItem.amount < shopVisibleAmt">
+        (@<clr-icon attr.shape="{{mcpItem.icon}}" size="18" [ngStyle]="{'color': mcpItem.color}"></clr-icon>
+        {{utilsService.formatNumber(shopVisibleAmt)}})
+      </li>
     </ul>
   </nav>
   <nav class="subnav" *ngIf="subNavPos !== 'relative'"></nav>

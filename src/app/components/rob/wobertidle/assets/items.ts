@@ -1,10 +1,10 @@
 export default [
   {
     id: 900,
-    name: 'MCP',
+    name: 'Mind Control Power',
     icon: 'crown',
     color: '#621f8f',
-    amount: 20000,
+    amount: 0,
     limit: 0,
     visible: false
   },

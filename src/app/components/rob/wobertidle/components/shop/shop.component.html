@@ -48,13 +48,17 @@
 </div>
 
 <div class="clr-row" *ngIf="!speedImprovementsVisible">
-  <button class="btn btn-outline" disabled>@MCP {{utilsService.formatNumber(speedImprovementsVisibleAmt)}}</button>
+  <button class="btn btn-outline" disabled>
+    @<clr-icon attr.shape="{{mcpItem.icon}}" size="18" [ngStyle]="{'color': mcpItem.color}"></clr-icon>
+    {{utilsService.formatNumber(speedImprovementsVisibleAmt)}}
+  </button>
 </div>
 <div class="clr-row" *ngIf="speedImprovementsVisible">
   <div class="clr-col-9">
     <div class="card">
       <div class="card-header">
-        Speed Improvements (@MCP {{utilsService.formatNumber(speedImprovementsVisibleAmt)}})
+        Speed Improvements (@<clr-icon attr.shape="{{mcpItem.icon}}" size="18" [ngStyle]="{'color': mcpItem.color}"></clr-icon>
+        {{utilsService.formatNumber(speedImprovementsVisibleAmt)}})
       </div>
       <div class="card-block">
 
@@ -100,13 +104,17 @@
 </div>
 
 <div class="clr-row" *ngIf="!moneyImprovementsVisible">
-  <button class="btn btn-outline" disabled>@MCP {{utilsService.formatNumber(moneyImprovementsAmt)}}</button>
+  <button class="btn btn-outline" disabled>
+    @<clr-icon attr.shape="{{mcpItem.icon}}" size="18" [ngStyle]="{'color': mcpItem.color}"></clr-icon>
+    {{utilsService.formatNumber(moneyImprovementsAmt)}}
+  </button>
 </div>
 <div class="clr-row" *ngIf="moneyImprovementsVisible">
   <div class="clr-col-9">
     <div class="card">
       <div class="card-header">
-        The Exchange (@MCP {{utilsService.formatNumber(moneyImprovementsAmt)}})
+        The Exchange (@<clr-icon attr.shape="{{mcpItem.icon}}" size="18" [ngStyle]="{'color': mcpItem.color}"></clr-icon>
+        {{utilsService.formatNumber(moneyImprovementsAmt)}})
       </div>
       <div class="card-block">
         <table class="table">
@@ -136,13 +144,17 @@
 </div>
 
 <div class="clr-row" *ngIf="!moneyImprovementsVisible">
-  <button class="btn btn-outline" disabled>@MCP {{utilsService.formatNumber(moneyImprovementsAmt)}}</button>
+  <button class="btn btn-outline" disabled>
+    @<clr-icon attr.shape="{{mcpItem.icon}}" size="18" [ngStyle]="{'color': mcpItem.color}"></clr-icon>
+    {{utilsService.formatNumber(moneyImprovementsAmt)}}
+  </button>
 </div>
 <div class="clr-row" *ngIf="moneyImprovementsVisible">
   <div class="clr-col-9">
     <div class="card">
       <div class="card-header">
-        Multiplier Improvements (@MCP {{utilsService.formatNumber(moneyImprovementsAmt)}})
+        Multiplier Improvements (@<clr-icon attr.shape="{{mcpItem.icon}}" size="18" [ngStyle]="{'color': mcpItem.color}"></clr-icon>
+        {{utilsService.formatNumber(moneyImprovementsAmt)}})
       </div>
       <div class="card-block">
 

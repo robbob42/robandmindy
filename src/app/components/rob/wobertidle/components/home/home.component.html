@@ -30,7 +30,9 @@
               </tr>
               <tr *ngFor="let activity of activities">
                 <td colspan="3" *ngIf="mcpItem.amount >= activity.mcpTriggerAmount && mcpItem.amount < activity.mcpDiscoverAmount && activity.type == 'raw'">
-                  <button class="btn btn-outline" disabled>@MCP {{activity.mcpDiscoverAmount}}</button>
+                  <button class="btn btn-outline" disabled>
+                    @<clr-icon attr.shape="{{mcpItem.icon}}" size="18" [ngStyle]="{'color': mcpItem.color}"></clr-icon>
+                    {{activity.mcpDiscoverAmount}}</button>
                 </td>
               </tr>
             </tbody>
@@ -45,11 +47,17 @@
   <div class="clr-col-9">
     <div class="card" *ngIf="!refineVisible">
       <div class="card-header">
-        <button class="btn btn-outline" disabled>@MCP {{utilsService.formatNumber(refineVisibleAmt)}}</button>
+        <button class="btn btn-outline" disabled>
+          @<clr-icon attr.shape="{{mcpItem.icon}}" size="18" [ngStyle]="{'color': mcpItem.color}"></clr-icon>
+          {{utilsService.formatNumber(refineVisibleAmt)}}
+        </button>
       </div>
     </div>
     <div class="card" *ngIf="refineVisible">
-      <div class="card-header">Refine Materials (@MCP {{utilsService.formatNumber(refineVisibleAmt)}})</div>
+      <div class="card-header">
+        Refine Materials (@<clr-icon attr.shape="{{mcpItem.icon}}" size="18" [ngStyle]="{'color': mcpItem.color}"></clr-icon>
+        {{utilsService.formatNumber(refineVisibleAmt)}})
+      </div>
       <div class="card-block">
         <div class="card-text">
           <table class="table">
@@ -85,7 +93,10 @@
               </tr>
               <tr *ngFor="let activity of activities">
                 <td colspan="3" *ngIf="mcpItem.amount >= activity.mcpTriggerAmount && mcpItem.amount < activity.mcpDiscoverAmount && activity.type == 'refine'">
-                  <button class="btn btn-outline" disabled>@MCP{{activity.mcpDiscoverAmount}}</button>
+                  <button class="btn btn-outline" disabled>
+                    @<clr-icon attr.shape="{{mcpItem.icon}}" size="18" [ngStyle]="{'color': mcpItem.color}"></clr-icon>
+                    {{activity.mcpDiscoverAmount}}
+                  </button>
                 </td>
               </tr>
             </tbody>
@@ -100,7 +111,10 @@
   <div class="clr-col-9">
     <div class="card" *ngIf="!winVisible">
       <div class="card-header">
-        <button class="btn btn-outline" disabled>Win the Game @MCP {{utilsService.formatNumber(winAmt)}}</button>
+        <button class="btn btn-outline" disabled>
+          Win the Game @<clr-icon attr.shape="{{mcpItem.icon}}" size="18" [ngStyle]="{'color': mcpItem.color}"></clr-icon>
+          {{utilsService.formatNumber(winAmt)}}
+        </button>
       </div>
     </div>
     <div class="card" *ngIf="winVisible">
