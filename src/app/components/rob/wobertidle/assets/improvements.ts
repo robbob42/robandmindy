@@ -6,7 +6,7 @@ export default [
     level: 1,
     itemsCost: [{
       itemId: 1,
-      itemAmount: 5,
+      itemAmount: 2,
     }],
     costMultiplyer: 1.5,
     improvee: 'activity',
@@ -22,11 +22,11 @@ export default [
     itemsCost: [
       {
         itemId: 1,
-        itemAmount: 10,
+        itemAmount: 3,
       },
       {
         itemId: 7,
-        itemAmount: 5,
+        itemAmount: 2,
       }
     ],
     costMultiplyer: 1.5,
@@ -43,15 +43,15 @@ export default [
     itemsCost: [
       {
         itemId: 1,
-        itemAmount: 15,
+        itemAmount: 4,
       },
       {
         itemId: 7,
-        itemAmount: 10,
+        itemAmount: 3,
       },
       {
         itemId: 3,
-        itemAmount: 5,
+        itemAmount: 2,
       }
     ],
     costMultiplyer: 1.5,
@@ -68,19 +68,19 @@ export default [
     itemsCost: [
       {
         itemId: 1,
-        itemAmount: 20,
+        itemAmount: 5,
       },
       {
         itemId: 7,
-        itemAmount: 15,
+        itemAmount: 4,
       },
       {
         itemId: 3,
-        itemAmount: 10,
+        itemAmount: 3,
       },
       {
         itemId: 2,
-        itemAmount: 5,
+        itemAmount: 2,
       }
     ],
     costMultiplyer: 1.5,
@@ -97,23 +97,23 @@ export default [
     itemsCost: [
       {
         itemId: 1,
-        itemAmount: 25,
+        itemAmount: 6,
       },
       {
         itemId: 7,
-        itemAmount: 20,
+        itemAmount: 5,
       },
       {
         itemId: 3,
-        itemAmount: 15,
+        itemAmount: 4,
       },
       {
         itemId: 2,
-        itemAmount: 10,
+        itemAmount: 3,
       },
       {
         itemId: 8,
-        itemAmount: 5,
+        itemAmount: 2,
       }
     ],
     costMultiplyer: 1.5,
@@ -133,15 +133,15 @@ export default [
         itemAmount: 5
       }
     ],
-    costMultiplyer: 1.5,
+    costMultiplyer: 1.6,
     improvee: 'activity',
     improveeId: 1,
     improves: 'produceAmount',
     improvesBy: 2
   },
   {
-    id: 5,
-    name: 'Chopping x 2',
+    id: 14,
+    name: 'Collecting x 2',
     type: 'production',
     level: 1,
     itemsCost: [
@@ -150,9 +150,9 @@ export default [
         itemAmount: 10
       }
     ],
-    costMultiplyer: 1.5,
+    costMultiplyer: 1.7,
     improvee: 'activity',
-    improveeId: 2,
+    improveeId: 7,
     improves: 'produceAmount',
     improvesBy: 2
   },
@@ -167,9 +167,43 @@ export default [
         itemAmount: 15
       }
     ],
-    costMultiplyer: 1.5,
+    costMultiplyer: 1.8,
     improvee: 'activity',
     improveeId: 3,
+    improves: 'produceAmount',
+    improvesBy: 2
+  },
+  {
+    id: 5,
+    name: 'Chopping x 2',
+    type: 'production',
+    level: 1,
+    itemsCost: [
+      {
+        itemId: 902,
+        itemAmount: 20
+      }
+    ],
+    costMultiplyer: 1.9,
+    improvee: 'activity',
+    improveeId: 2,
+    improves: 'produceAmount',
+    improvesBy: 2
+  },
+  {
+    id: 15,
+    name: 'Harvesting x 2',
+    type: 'production',
+    level: 1,
+    itemsCost: [
+      {
+        itemId: 902,
+        itemAmount: 25
+      }
+    ],
+    costMultiplyer: 2,
+    improvee: 'activity',
+    improveeId: 8,
     improves: 'produceAmount',
     improvesBy: 2
   },

@@ -40,7 +40,7 @@ export default [
     id: 7,
     name: 'Clay',
     icon: 'clay',
-    color: 'brown',
+    color: '#ac6100',
     value: .05,
     amount: 0,
     limit: 10,
@@ -79,21 +79,21 @@ export default [
   {
     id: 4,
     name: 'Gems',
-    icon: 'objects',
-    color: '#aa5555',
-    value: 10,
+    icon: 'gem',
+    color: '#176662',
+    value: 0,
     amount: 0,
-    limit: 10,
+    limit: 5,
     visible: false
   },
   {
-    id: 5,
-    name: 'Boards',
-    icon: 'container',
-    color: '#423821',
-    value: 50,
+    id: 9,
+    name: 'Bricks',
+    icon: 'firewall',
+    color: '#aa5555',
+    value: 0,
     amount: 0,
-    limit: 10,
+    limit: 5,
     visible: false
   },
   {
@@ -101,9 +101,29 @@ export default [
     name: 'Cooked Fish',
     icon: 'fish',
     color: '#be6868',
-    value: 100,
+    value: 0,
     amount: 0,
-    limit: 10,
+    limit: 5,
+    visible: false
+  },
+  {
+    id: 5,
+    name: 'Boards',
+    icon: 'container',
+    color: '#563812',
+    value: 0,
+    amount: 0,
+    limit: 5,
+    visible: false
+  },
+  {
+    id: 10,
+    name: 'Bread',
+    icon: 'bread',
+    color: '#91752b',
+    value: 0,
+    amount: 0,
+    limit: 5,
     visible: false
   }
 ];

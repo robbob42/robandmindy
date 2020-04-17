@@ -14,10 +14,10 @@ export class Globals {
     limit: 0,
     speed: 250,
     shop: 150,
-    exchange: 3000,
-    production: 3000,
-    money: 3000,
-    refine: 10000
+    exchange: 1200,
+    production: 1200,
+    money: 1200,
+    refine: 3000
   };
   public static blankItem: Item = {
     id: 0,
