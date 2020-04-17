@@ -1,11 +1,10 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ClarityIcons } from '@clr/icons';
 import { MessageService } from '../../services/message.service';
 import { Message } from '../../models/message';
 import { pulse } from './animations';
 import { ActivityService } from '../../services/activity.service';
 import { ItemService } from '../../services/item.service';
-import { Activity } from '../../models/activity';
 import { UtilsService } from '../../services/utils.service';
 import { ImprovementService } from '../../services/improvement.service';
 import { Item } from '../../models/item';
@@ -35,35 +34,13 @@ export class LayoutComponent implements OnInit {
   public advanceDropdownOpen = false;
   public canSkip = true;
   public highlightArrow = false;
-  public activities = [new Activity({
-    id: 0,
-    name: '',
-    active: false,
-    color: '',
-    produces: '',
-    produceAmount: 0,
-    producesId: 0,
-    actionTime: 0,
-    mcpTriggerAmount: 0,
-    triggered: false,
-    mcpDiscoverAmount: 0,
-    discovered: false
-  })];
-  public inventory;
-  public mcpItem = new Item({
-    id: 0,
-    name: '',
-    icon: '',
-    color: '',
-    value: 0,
-    amount: 0,
-    limit: 0,
-    visible: false
-  });
-  public shopVisibleAmt = Globals.shopVisibleAmt;
+  public activities = [Globals.blankActivity];
+  public inventory: Item[];
+  public mcpItem = new Item(Globals.blankItem);
   public subNavPos = 'relative';
   public subNavTop = '';
   public sidenavTop = '';
+  public Globals = Globals;
 
   constructor(
     private messageService: MessageService,
@@ -121,11 +98,11 @@ export class LayoutComponent implements OnInit {
 
     setTimeout(() => {
       this.activityService.initializeActivities();
-      this.activityService.subscriber().subscribe((activities) => {
+      this.activityService.activities$.subscribe((activities) => {
         this.activities = activities;
       });
       this.itemService.initializeItems();
-      this.itemService.subscriber().subscribe((items) => {
+      this.itemService.items$.subscribe((items) => {
         this.inventory = items;
         this.mcpItem = items.find(invenItem => invenItem.id === 900);
       });

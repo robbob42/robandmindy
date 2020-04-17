@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Item } from '../../models/item';
 import { ItemService } from '../../services/item.service';
@@ -11,7 +11,8 @@ import { Globals } from '../../assets/globals';
 @Component({
   selector: 'app-my-sidenav',
   templateUrl: './my-sidenav.component.html',
-  styleUrls: ['./my-sidenav.component.scss']
+  styleUrls: ['./my-sidenav.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MySidenavComponent implements OnInit, OnDestroy {
   public activities: Activity[];
@@ -25,10 +26,9 @@ export class MySidenavComponent implements OnInit, OnDestroy {
   public mcpItem: Item;
   public humanItem: Item;
   public coinsItem: Item;
-  public tester = 0;
 
   public moneyImprovementsVisible = false;
-  public moneyImprovementsAmt = Globals.moneyImprovementsAmt;
+  public moneyImprovementsAmt = Globals.visibleAmounts.money;
 
   public subscriptions: Subscription[] = [];
 
@@ -44,10 +44,10 @@ export class MySidenavComponent implements OnInit, OnDestroy {
     this.activityService.getActivities();
     this.improvementService.getImprovements();
     setTimeout(() => {
-      this.activityService.subscriber().subscribe((activities) => {
+      this.activityService.activities$.subscribe((activities) => {
         this.activities = activities;
       });
-      this.subscriptions.push(this.itemService.subscriber().subscribe((items) => {
+      this.subscriptions.push(this.itemService.items$.subscribe((items) => {
         this.inventoryVisible = false;
         items.forEach(item => {
           if (item.visible) {

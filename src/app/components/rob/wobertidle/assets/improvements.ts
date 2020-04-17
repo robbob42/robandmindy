@@ -2,7 +2,7 @@ export default [
   {
     id: 1,
     name: 'Finding++',
-    type: 'raw',
+    type: 'speed',
     level: 1,
     itemsCost: [{
       itemId: 1,
@@ -17,7 +17,7 @@ export default [
   {
     id: 12,
     name: 'Collecting++',
-    type: 'raw',
+    type: 'speed',
     level: 1,
     itemsCost: [
       {
@@ -38,7 +38,7 @@ export default [
   {
     id: 3,
     name: 'Fishing++',
-    type: 'raw',
+    type: 'speed',
     level: 1,
     itemsCost: [
       {
@@ -63,7 +63,7 @@ export default [
   {
     id: 2,
     name: 'Chopping++',
-    type: 'raw',
+    type: 'speed',
     level: 1,
     itemsCost: [
       {
@@ -92,7 +92,7 @@ export default [
   {
     id: 13,
     name: 'Harvesting++',
-    type: 'raw',
+    type: 'speed',
     level: 1,
     itemsCost: [
       {
@@ -125,7 +125,7 @@ export default [
   {
     id: 4,
     name: 'Mining x 2',
-    type: 'raw',
+    type: 'production',
     level: 1,
     itemsCost: [
       {
@@ -142,7 +142,7 @@ export default [
   {
     id: 5,
     name: 'Chopping x 2',
-    type: 'raw',
+    type: 'production',
     level: 1,
     itemsCost: [
       {
@@ -159,7 +159,7 @@ export default [
   {
     id: 6,
     name: 'Fishing x 2',
-    type: 'raw',
+    type: 'production',
     level: 1,
     itemsCost: [
       {
@@ -176,7 +176,7 @@ export default [
   {
     id: 7,
     name: 'Rock Limit x 2',
-    type: 'raw',
+    type: 'limit',
     level: 1,
     itemsCost: [
       {
@@ -193,7 +193,7 @@ export default [
   {
     id: 10,
     name: 'Clay Limit x 2',
-    type: 'raw',
+    type: 'limit',
     level: 1,
     itemsCost: [
       {
@@ -210,7 +210,7 @@ export default [
   {
     id: 9,
     name: 'Fish Limit x 2',
-    type: 'raw',
+    type: 'limit',
     level: 1,
     itemsCost: [
       {
@@ -227,7 +227,7 @@ export default [
   {
     id: 8,
     name: 'Tree Limit x 2',
-    type: 'raw',
+    type: 'limit',
     level: 1,
     itemsCost: [
       {
@@ -244,7 +244,7 @@ export default [
   {
     id: 11,
     name: 'Grain Limit x 2',
-    type: 'raw',
+    type: 'limit',
     level: 1,
     itemsCost: [
       {

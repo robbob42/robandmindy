@@ -1,22 +1,21 @@
 import { Injectable } from '@angular/core';
 import improvementSetup from '../assets/improvements';
 import { Improvement } from '../models/improvement';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ItemService } from './item.service';
 import { ActivityService } from './activity.service';
+import { Globals } from '../assets/globals';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ImprovementService {
+  private sub = new BehaviorSubject<Improvement[]>([Globals.blankImprovement]);
+  improvements$: Observable<Improvement[]> = this.sub.asObservable();
+
   private improvements: Improvement[] = [];
-  private sub = new Subject<Improvement[]>();
 
   constructor(private itemService: ItemService, private activityService: ActivityService) { }
-
-  subscriber() {
-    return this.sub;
-  }
 
   initialize() {
     improvementSetup.forEach(improvement => {

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { slide } from './animations';
 import { ActivityService } from '../../services/activity.service';
@@ -9,52 +9,28 @@ import initialItems from '../../assets/items';
   selector: 'app-activity-button',
   templateUrl: './activity-button.component.html',
   styleUrls: ['./activity-button.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     slide
   ]
 })
-export class ActivityButtonComponent implements OnInit, OnChanges, OnDestroy {
+export class ActivityButtonComponent implements OnInit, OnDestroy {
   @Input() activityId: number;
 
-  public activities: Activity[] = [];
-
-  public subscriptions: Subscription[] = [];
-
-  public activity: Activity = new Activity({
-    id: 0,
-    name: '',
-    color: '',
-    produces: '0',
-    produceAmount: 0,
-    producesId: 0,
-    actionTime: 1000,
-    mcpTriggerAmount: 0,
-    triggered: false,
-    mcpDiscoverAmount: 0,
-    discovered: false,
-    active: false
-  });
+  public activitySub: Subscription;
+  public activity: Activity;
 
   public initialItems = initialItems;
 
   constructor(
-    private activityService: ActivityService
+    public activityService: ActivityService
   ) {
   }
 
   ngOnInit(): void {
-    this.activityService.getActivities();
-
-    setTimeout(() => {
-      this.subscriptions.push(this.activityService.subscriber().subscribe((activities) => {
-        this.activities = activities;
-        this.activity = activities.find(act => act.id === this.activityId);
-      }));
+    this.activitySub = this.activityService.activities$.subscribe((activities) => {
+      this.activity = activities.find((act => act.id === this.activityId));
     });
-  }
-
-  ngOnChanges() {
-    this.activityService.getActivities();
   }
 
   toggleActivity(activityId) {
@@ -62,8 +38,6 @@ export class ActivityButtonComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach(subscription => {
-      subscription.unsubscribe();
-    });
+    this.activitySub.unsubscribe();
   }
 }

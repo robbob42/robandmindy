@@ -1,7 +1,7 @@
-<div *ngIf="activity && activity.discovered">
-  <clr-icon *ngIf="!activity.active" shape="play" style="cursor: pointer;" (click)="toggleActivity(activity.id, 'basic')"></clr-icon>
-  <clr-icon *ngIf="activity.active" shape="stop" style="cursor: pointer;" (click)="toggleActivity(activity.id, 'basic')"></clr-icon>
-  <span (click)="toggleActivity(activity.id, 'basic')">
+<div *ngIf="activity && activity.discovered && itemService.items$ | async as activities">
+  <clr-icon *ngIf="!activity.active" shape="play" style="cursor: pointer;" (click)="toggleActivity(activity.id)"></clr-icon>
+  <clr-icon *ngIf="activity.active" shape="stop" style="cursor: pointer;" (click)="toggleActivity(activity.id)"></clr-icon>
+  <span (click)="toggleActivity(activity.id)">
     {{activity.name}} {{activity.produces}}
     (<app-pulsing-text [text]="actionTime"></app-pulsing-text>s)
   </span>

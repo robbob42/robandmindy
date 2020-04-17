@@ -22,6 +22,13 @@ import { ActivityButtonComponent } from './components/rob/wobertidle/components/
 import { ShopComponent } from './components/rob/wobertidle/components/shop/shop.component';
 import { MySidenavComponent } from './components/rob/wobertidle/components/my-sidenav/my-sidenav.component';
 import { PulsingTextComponent } from './components/rob/wobertidle/components/pulsing-text/pulsing-text.component';
+import { ActivityCardComponent } from './components/rob/wobertidle/components/activity-card/activity-card.component';
+import { ImprovementCardComponent } from './components/rob/wobertidle/components/improvement-card/improvement-card.component';
+import { ExchangeComponent } from './components/rob/wobertidle/components/exchange/exchange.component';
+import { ExchangeCardComponent } from './components/rob/wobertidle/components/exchange-card/exchange-card.component';
+import { AccordionActivitiesComponent } from './components/rob/wobertidle/components/accordion-activities/accordion-activities.component';
+import { AccordionInventoryComponent } from './components/rob/wobertidle/components/accordion-inventory/accordion-inventory.component';
+import { AccordionStatsComponent } from './components/rob/wobertidle/components/accordion-stats/accordion-stats.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +47,14 @@ import { PulsingTextComponent } from './components/rob/wobertidle/components/pul
     ActivityButtonComponent,
     ShopComponent,
     MySidenavComponent,
-    PulsingTextComponent
+    PulsingTextComponent,
+    ActivityCardComponent,
+    ImprovementCardComponent,
+    ExchangeComponent,
+    ExchangeCardComponent,
+    AccordionActivitiesComponent,
+    AccordionInventoryComponent,
+    AccordionStatsComponent
   ],
   imports: [
     BrowserModule,

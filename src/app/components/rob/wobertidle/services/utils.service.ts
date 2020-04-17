@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { countries } from 'country-data';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -51,5 +51,9 @@ export class UtilsService {
 
   navPosStylesSubnavSub() {
     return this.robSubnavPosStylesSub;
+  }
+
+  capitalizeFirstLetter(str: string) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
   }
 }

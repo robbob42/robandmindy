@@ -1,36 +1,20 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Activity } from '../models/activity';
 import { Improvement } from '../models/improvement';
 import activitySetup from '../assets/activities';
+import { Globals } from '../assets/globals';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ActivityService {
-  private sub = new BehaviorSubject<Activity[]>([new Activity({
-    id: 0,
-    name: '',
-    active: false,
-    color: '',
-    produces: '',
-    produceAmount: 0,
-    producesId: 0,
-    actionTime: 0,
-    mcpTriggerAmount: 0,
-    triggered: false,
-    mcpDiscoverAmount: 0,
-    discovered: false
-  })]);
+  private sub = new BehaviorSubject<Activity[]>([Globals.blankActivity]);
+  activities$: Observable<Activity[]> = this.sub.asObservable();
 
-  public activitesData = this.sub.asObservable();
   private activities: Activity[] = [];
 
   constructor() { }
-
-  subscriber() {
-    return this.sub;
-  }
 
   toggleActivity(activityId: number) {
     let active: boolean;
