@@ -15,12 +15,23 @@ export class ImprovementService {
 
   private improvements: Improvement[] = [];
 
-  constructor(private itemService: ItemService, private activityService: ActivityService) { }
+  constructor(
+    private itemService: ItemService,
+    private activityService: ActivityService
+    ) { }
 
-  initialize() {
-    improvementSetup.forEach(improvement => {
-      this.improvements.push(new Improvement(improvement));
+  initialize(dontResetIds = []) {
+    const intializeImprovements = [];
+    improvementSetup.forEach((improvementItem) => {
+      let pushImprovement = JSON.parse(JSON.stringify(improvementItem));
+      dontResetIds.forEach((id) => {
+        if (improvementItem.id === id) {
+          pushImprovement = JSON.parse(JSON.stringify(this.improvements.find(findItem => findItem.id === id)));
+        }
+      });
+      intializeImprovements.push(new Improvement(pushImprovement));
     });
+    this.improvements = intializeImprovements;
     this.sub.next(this.improvements);
   }
 
@@ -38,6 +49,13 @@ export class ImprovementService {
     });
 
     if (sufficientFunds) {
+      improvement.itemsCost.forEach(impCostItem => {
+        this.itemService.incrementItem(impCostItem.itemId, -impCostItem.itemAmount);
+        impCostItem.itemAmount = Math.round(impCostItem.itemAmount * improvement.costMultiplyer);
+      });
+      improvement.level++;
+      this.sub.next(this.improvements);
+
       switch (improvement.improvee) {
         case 'activity':
           this.activityService.buyActivityImprovement(improvement);
@@ -48,14 +66,6 @@ export class ImprovementService {
         default:
           break;
       }
-
-
-      improvement.itemsCost.forEach(impCostItem => {
-        this.itemService.incrementItem(impCostItem.itemId, -impCostItem.itemAmount);
-        impCostItem.itemAmount = Math.round(impCostItem.itemAmount * improvement.costMultiplyer);
-      });
-      improvement.level++;
-      this.sub.next(this.improvements);
     }
   }
 

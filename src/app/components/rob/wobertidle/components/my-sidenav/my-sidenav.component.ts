@@ -34,7 +34,7 @@ export class MySidenavComponent implements OnInit, OnDestroy {
 
   constructor(
     private itemService: ItemService,
-    private activityService: ActivityService,
+    public activityService: ActivityService,
     private improvementService: ImprovementService,
     private utilsService: UtilsService
   ) {
@@ -73,7 +73,7 @@ export class MySidenavComponent implements OnInit, OnDestroy {
         });
         this.inventory = items;
 
-        if (this.activities) {
+        if (this.activities && this.mcpItem) {
           this.activities.forEach(activity => {
             if (this.mcpItem.amount === activity.mcpTriggerAmount && activity.trigger && !activity.triggered) {
               this.activityService.triggerActivity(activity.id);

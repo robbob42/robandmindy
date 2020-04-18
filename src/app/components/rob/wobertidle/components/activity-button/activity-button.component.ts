@@ -4,6 +4,9 @@ import { slide } from './animations';
 import { ActivityService } from '../../services/activity.service';
 import { Activity } from '../../models/activity';
 import initialItems from '../../assets/items';
+import { ItemService } from '../../services/item.service';
+import { Item } from '../../models/item';
+import { Globals } from '../../assets/globals';
 
 @Component({
   selector: 'app-activity-button',
@@ -21,9 +24,12 @@ export class ActivityButtonComponent implements OnInit, OnDestroy {
   public activity: Activity;
 
   public initialItems = initialItems;
+  private itemSub: Subscription;
+  private humanItem: Item;
 
   constructor(
-    public activityService: ActivityService
+    public activityService: ActivityService,
+    private itemService: ItemService
   ) {
   }
 
@@ -31,13 +37,18 @@ export class ActivityButtonComponent implements OnInit, OnDestroy {
     this.activitySub = this.activityService.activities$.subscribe((activities) => {
       this.activity = activities.find((act => act.id === this.activityId));
     });
+
+    this.itemSub = this.itemService.items$.subscribe((items) => {
+      this.humanItem = items.find((itm => itm.id === Globals.itemIds.human));
+    });
   }
 
   toggleActivity(activityId) {
-    this.activityService.toggleActivity(activityId);
+    this.activityService.toggleActivity(activityId, this.humanItem.amount);
   }
 
   ngOnDestroy() {
     this.activitySub.unsubscribe();
+    this.itemSub.unsubscribe();
   }
 }

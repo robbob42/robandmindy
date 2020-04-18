@@ -12,6 +12,7 @@ import { Globals } from '../../assets/globals';
 
 import '@clr/icons';
 import '@clr/icons/shapes/all-shapes';
+import { ControlService } from '../../services/control.service';
 
 @Component({
   selector: 'app-layout',
@@ -43,54 +44,54 @@ export class LayoutComponent implements OnInit {
   public Globals = Globals;
 
   constructor(
-    private messageService: MessageService,
+    // private messageService: MessageService,
     private activityService: ActivityService,
     private improvementService: ImprovementService,
-    private itemService: ItemService,
-    public utilsService: UtilsService
+    public itemService: ItemService,
+    public utilsService: UtilsService,
+    public controlService: ControlService
   ) {
-    this.messageService.initializeMessages();
-    messageService.subscribeMessages().subscribe((subscribedMessages) => {
-      this.messages = [];
-      for (let i = 0; i < 4; i++) {
-        if (typeof subscribedMessages[i] !== 'undefined') {
-          this.messages.push(subscribedMessages[i]);
-        }
-      }
-      const latestMessage = subscribedMessages[0];
-      if (latestMessage.triggerId === 1000) {
-        setTimeout(() => {
-          const rect = document.getElementById('mcpDiv').getBoundingClientRect();
-          this.alertTop = `${rect.top}px`;
-          this.alertLeft = `${rect.left - 20}px`;
-          this.alertLeftBounce = `${rect.left - 10}px`;
-          this.highlightArrow = true;
-        }, 10);
-      }
-      if (latestMessage.triggerId === 1001) {
-        setTimeout(() => {
-          const rect = document.getElementById('humanDiv').getBoundingClientRect();
-          this.alertTop = `${rect.top}px`;
-          this.alertLeft = `${rect.left - 20}px`;
-          this.alertLeftBounce = `${rect.left - 10}px`;
-          this.highlightArrow = true;
-        }, 10);
-      }
-      if (latestMessage.triggerId === 1) {
-        this.messagesTop = '14em';
-      }
-    });
-    messageService.getMessages();
+    // this.messageService.initializeMessages();
+    // messageService.subscribeMessages().subscribe((subscribedMessages) => {
+    //   this.messages = [];
+    //   for (let i = 0; i < 4; i++) {
+    //     if (typeof subscribedMessages[i] !== 'undefined') {
+    //       this.messages.push(subscribedMessages[i]);
+    //     }
+    //   }
+    //   const latestMessage = subscribedMessages[0];
+    //   if (latestMessage.triggerId === 1000) {
+    //     setTimeout(() => {
+    //       const rect = document.getElementById('mcpDiv').getBoundingClientRect();
+    //       this.alertTop = `${rect.top}px`;
+    //       this.alertLeft = `${rect.left - 20}px`;
+    //       this.alertLeftBounce = `${rect.left - 10}px`;
+    //       this.highlightArrow = true;
+    //     }, 10);
+    //   }
+    //   if (latestMessage.triggerId === 1001) {
+    //     setTimeout(() => {
+    //       const rect = document.getElementById('humanDiv').getBoundingClientRect();
+    //       this.alertTop = `${rect.top}px`;
+    //       this.alertLeft = `${rect.left - 20}px`;
+    //       this.alertLeftBounce = `${rect.left - 10}px`;
+    //       this.highlightArrow = true;
+    //     }, 10);
+    //   }
+    //   if (latestMessage.triggerId === 1) {
+    //     this.messagesTop = '14em';
+    //   }
+    // });
+    // messageService.getMessages();
 
-    messageService.subscribeAdvance().subscribe((subscribedAdvanceVis) => {
-      this.advanceStorylineVisible = subscribedAdvanceVis;
-    });
-    messageService.getAdvanceVisible();
+    // messageService.subscribeAdvance().subscribe((subscribedAdvanceVis) => {
+    //   this.advanceStorylineVisible = subscribedAdvanceVis;
+    // });
+    // messageService.getAdvanceVisible();
 
   }
 
   ngOnInit(): void {
-    this.navigation = 'home';
     this.improvementService.initialize();
     this.utilsService.initialize();
 
@@ -106,6 +107,9 @@ export class LayoutComponent implements OnInit {
         this.inventory = items;
         this.mcpItem = items.find(invenItem => invenItem.id === 900);
       });
+      this.controlService.controls$.subscribe((controls) => {
+        this.navigation = controls.navigation;
+      });
     });
 
     setTimeout(() => {
@@ -120,11 +124,11 @@ export class LayoutComponent implements OnInit {
   }
 
   setNav(nav: string) {
-    this.navigation = nav;
+    this.controlService.navigate(nav);
   }
 
   advanceStoryline() {
-    this.messageService.advanceStoryline();
+    // this.messageService.advanceStoryline();
   }
 
   showLog() {
@@ -145,7 +149,7 @@ export class LayoutComponent implements OnInit {
     this.logVisible = false;
     if (this.canSkip) {
       this.canSkip = false;
-      this.messageService.processTrigger(1);
+      // this.messageService.processTrigger(1);
     }
   }
 

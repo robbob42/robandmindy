@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { Item } from '../../models/item';
 import { ItemService } from '../../services/item.service';
 import { Globals } from '../../assets/globals';
+import { ControlService } from '../../services/control.service';
 
 @Component({
   selector: 'app-improvement-card',
@@ -24,13 +25,21 @@ export class ImprovementCardComponent implements OnInit, OnDestroy {
   constructor(
     public improvementService: ImprovementService,
     public itemService: ItemService,
-    public utilsService: UtilsService
+    public utilsService: UtilsService,
+    private controlService: ControlService
   ) { }
 
   ngOnInit(): void {
     this.itemsSub = this.itemService.items$.subscribe((items) => {
       this.mcpItem = items.find(item => item.id === Globals.itemIds.mcp);
     });
+  }
+
+  buyImprovement(improvementId: number) {
+    this.improvementService.buyImprovement(improvementId);
+    if (this.improvementType === 'humans') {
+      this.controlService.resetGame();
+    }
   }
 
   ngOnDestroy() {

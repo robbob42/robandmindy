@@ -16,13 +16,16 @@ export class ActivityService {
 
   constructor() { }
 
-  toggleActivity(activityId: number) {
+  toggleActivity(activityId: number, numOfHumans: number) {
+    const activeHumans = this.activities.filter(act => act.active).length;
     let active: boolean;
     this.activities.forEach(activity => {
-      if (activity.id === activityId) {
+      if (activity.id === activityId && !activity.active && numOfHumans > activeHumans) {
         active = !activity.active;
       }
-      activity.active = false;
+      if (activity.id === activityId && activity.active) {
+        active = !activity.active;
+      }
     });
 
     setTimeout(() => {
@@ -59,7 +62,12 @@ export class ActivityService {
   }
 
   buyActivityImprovement(improvement: Improvement) {
-    this.activities.find(act => act.id === improvement.improveeId)[improvement.improves] *= improvement.improvesBy;
+    if (improvement.improvesByMultiplyer) {
+      this.activities.find(act => act.id === improvement.improveeId)[improvement.improves] *= improvement.improvesByMultiplyer;
+    }
+    if (improvement.improvesByAdder) {
+      this.activities.find(act => act.id === improvement.improveeId)[improvement.improves] += improvement.improvesByAdder;
+    }
     this.sub.next(this.activities);
   }
 }

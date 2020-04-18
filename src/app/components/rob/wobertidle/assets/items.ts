@@ -13,7 +13,7 @@ export default [
     name: 'Humans',
     icon: 'user',
     color: '#b4a802',
-    amount: 0,
+    amount: 1,
     limit: 0,
     visible: false
   },

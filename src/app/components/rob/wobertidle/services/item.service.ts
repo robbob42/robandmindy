@@ -15,15 +15,27 @@ export class ItemService {
 
   constructor() { }
 
-  initializeItems() {
+  initializeItems(dontResetIds = []) {
+    const intializeInventory = [];
     items.forEach((inventoryItem) => {
-      this.inventory.push(new Item(inventoryItem));
+      let pushItem = {...inventoryItem};
+      dontResetIds.forEach((id) => {
+        if (inventoryItem.id === id) {
+          pushItem = this.inventory.find(findItem => findItem.id === id);
+        }
+      });
+      intializeInventory.push(new Item(pushItem));
     });
+    this.inventory = intializeInventory;
     this.sub.next(this.inventory);
   }
 
   getItemInventory() {
     this.sub.next(this.inventory);
+  }
+
+  testHumans() {
+    return this.inventory.find(finder => finder.id === 901).amount;
   }
 
   incrementItem(itemId: number, amount: number, decrementId = 0, decrementAmt = 0, mcp = 0) {
@@ -82,8 +94,12 @@ export class ItemService {
   }
 
   buyItemImprovement(improvement: Improvement) {
-    const item = this.inventory.find(invItem => invItem.id === improvement.improveeId);
-    item[improvement.improves] = item[improvement.improves] * improvement.improvesBy;
+    if (improvement.improvesByMultiplyer) {
+      this.inventory.find(invItem => invItem.id === improvement.improveeId)[improvement.improves] *= improvement.improvesByMultiplyer;
+    }
+    if (improvement.improvesByAdder) {
+      this.inventory.find(invItem => invItem.id === improvement.improveeId)[improvement.improves] += improvement.improvesByAdder;
+    }
 
     this.sub.next(this.inventory);
   }

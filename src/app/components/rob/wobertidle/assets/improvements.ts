@@ -1,3 +1,5 @@
+import { Globals } from '../assets/globals';
+
 export default [
   {
     id: 1,
@@ -12,7 +14,7 @@ export default [
     improvee: 'activity',
     improveeId: 1,
     improves: 'actionTime',
-    improvesBy: .9
+    improvesByMultiplyer: .9
   },
   {
     id: 12,
@@ -33,7 +35,7 @@ export default [
     improvee: 'activity',
     improveeId: 7,
     improves: 'actionTime',
-    improvesBy: .9
+    improvesByMultiplyer: .9
   },
   {
     id: 3,
@@ -58,7 +60,7 @@ export default [
     improvee: 'activity',
     improveeId: 3,
     improves: 'actionTime',
-    improvesBy: .9
+    improvesByMultiplyer: .9
   },
   {
     id: 2,
@@ -87,7 +89,7 @@ export default [
     improvee: 'activity',
     improveeId: 2,
     improves: 'actionTime',
-    improvesBy: .9
+    improvesByMultiplyer: .9
   },
   {
     id: 13,
@@ -120,7 +122,7 @@ export default [
     improvee: 'activity',
     improveeId: 8,
     improves: 'actionTime',
-    improvesBy: .9
+    improvesByMultiplyer: .9
   },
   {
     id: 4,
@@ -137,7 +139,7 @@ export default [
     improvee: 'activity',
     improveeId: 1,
     improves: 'produceAmount',
-    improvesBy: 2
+    improvesByMultiplyer: 2
   },
   {
     id: 14,
@@ -154,7 +156,7 @@ export default [
     improvee: 'activity',
     improveeId: 7,
     improves: 'produceAmount',
-    improvesBy: 2
+    improvesByMultiplyer: 2
   },
   {
     id: 6,
@@ -171,7 +173,7 @@ export default [
     improvee: 'activity',
     improveeId: 3,
     improves: 'produceAmount',
-    improvesBy: 2
+    improvesByMultiplyer: 2
   },
   {
     id: 5,
@@ -188,7 +190,7 @@ export default [
     improvee: 'activity',
     improveeId: 2,
     improves: 'produceAmount',
-    improvesBy: 2
+    improvesByMultiplyer: 2
   },
   {
     id: 15,
@@ -205,7 +207,7 @@ export default [
     improvee: 'activity',
     improveeId: 8,
     improves: 'produceAmount',
-    improvesBy: 2
+    improvesByMultiplyer: 2
   },
   {
     id: 7,
@@ -222,7 +224,7 @@ export default [
     improvee: 'item',
     improveeId: 1,
     improves: 'limit',
-    improvesBy: 2
+    improvesByMultiplyer: 2
   },
   {
     id: 10,
@@ -239,7 +241,7 @@ export default [
     improvee: 'item',
     improveeId: 7,
     improves: 'limit',
-    improvesBy: 2
+    improvesByMultiplyer: 2
   },
   {
     id: 9,
@@ -256,7 +258,7 @@ export default [
     improvee: 'item',
     improveeId: 3,
     improves: 'limit',
-    improvesBy: 2
+    improvesByMultiplyer: 2
   },
   {
     id: 8,
@@ -273,7 +275,7 @@ export default [
     improvee: 'item',
     improveeId: 2,
     improves: 'limit',
-    improvesBy: 2
+    improvesByMultiplyer: 2
   },
   {
     id: 11,
@@ -290,6 +292,24 @@ export default [
     improvee: 'item',
     improveeId: 8,
     improves: 'limit',
-    improvesBy: 2
+    improvesByMultiplyer: 2
   },
+  {
+    id: 16,
+    name: 'Human + 1',
+    type: 'humans',
+    level: 1,
+    itemsCost: [
+      {
+        itemId: Globals.itemIds.mcp,
+        itemAmount: 20000
+      }
+    ],
+    costMultiplyer: 2,
+    improvee: 'item',
+    improveeId: Globals.itemIds.human,
+    improves: 'amount',
+    improvesByMultiplyer: 0,
+    improvesByAdder: 1
+  }
 ];

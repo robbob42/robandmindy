@@ -3,6 +3,8 @@ import { Activity } from '../../models/activity';
 import { ItemService } from '../../services/item.service';
 import { Subscription } from 'rxjs';
 import { ActivityService } from '../../services/activity.service';
+import { Item } from '../../models/item';
+import { Globals } from '../../assets/globals';
 
 @Component({
   selector: 'app-activity-slider',
@@ -21,6 +23,9 @@ export class ActivitySliderComponent implements OnInit, OnDestroy {
   public activityWidth = this.activityWidthNum.toString() + '%';
   public activityInterval: number;
 
+  private itemSub: Subscription;
+  private humanItem: Item;
+
   constructor(
     public itemService: ItemService,
     public activityService: ActivityService,
@@ -33,13 +38,13 @@ export class ActivitySliderComponent implements OnInit, OnDestroy {
       this.actionTime = (this.activity.actionTime / 1000).toFixed(3);
 
       clearInterval(this.activityInterval);
-      this.activityInterval = window.setInterval(() => {
-        if (
-          this.activity &&
-          this.activity.active &&
-          !this.itemService.limitReached(this.activity.producesId) &&
-          this.itemService.amountAvailable(this.activity.decrementId, this.activity.decrementAmount)
-        ) {
+      if (
+        this.activity &&
+        this.activity.active &&
+        !this.itemService.limitReached(this.activity.producesId) &&
+        this.itemService.amountAvailable(this.activity.decrementId, this.activity.decrementAmount)
+      ) {
+        this.activityInterval = window.setInterval(() => {
           this.activityWidthNum += 1000 / this.activity.actionTime;
           if (this.activityWidthNum >= 100) {
             this.activityWidthNum = 0;
@@ -53,16 +58,21 @@ export class ActivitySliderComponent implements OnInit, OnDestroy {
           }
           this.activityWidth = this.activityWidthNum.toString() + '%';
           this.ref.detectChanges();
-        }
-      }, 10);
+        }, 10);
+      }
+    });
+
+    this.itemSub = this.itemService.items$.subscribe((items) => {
+      this.humanItem = items.find((itm => itm.id === Globals.itemIds.human));
     });
   }
 
   toggleActivity(activityId: number) {
-    this.activityService.toggleActivity(activityId);
+    this.activityService.toggleActivity(activityId, this.humanItem.amount);
   }
 
   ngOnDestroy() {
     this.activitySubscription.unsubscribe();
+    this.itemSub.unsubscribe();
   }
 }

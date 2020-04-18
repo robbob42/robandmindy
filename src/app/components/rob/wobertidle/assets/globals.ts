@@ -17,7 +17,9 @@ export class Globals {
     exchange: 1200,
     production: 1200,
     money: 1200,
-    refine: 3000
+    refine: 3000,
+    powers: 10000,
+    humans: 10000,
   };
   public static blankItem: Item = {
     id: 0,
@@ -55,7 +57,7 @@ export class Globals {
     improvee: '',
     improveeId: 0,
     improves: '',
-    improvesBy: 0,
+    improvesByMultiplyer: 0,
     itemsCost: [{
       itemId: 0,
       itemAmount: 0

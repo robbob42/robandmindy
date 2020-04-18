@@ -1,4 +1,4 @@
-<section class="sidenav-content" style="padding-bottom: 0;">
+<section class="sidenav-content" style="padding-bottom: 0;" *ngIf="activityService.activities$ | async as activities">
   <clr-accordion [clrAccordionMultiPanel]="true">
     <clr-accordion-panel [clrAccordionPanelOpen]="true">
       <clr-accordion-title>Activities</clr-accordion-title>

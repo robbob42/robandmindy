@@ -11,7 +11,8 @@ export class Improvement {
   costMultiplyer: number;
   improvee: string;
   improves: string;
-  improvesBy: number;
+  improvesByMultiplyer: number;
+  improvesByAdder?: number;
 
   constructor(options: {
     id: number,
@@ -26,7 +27,8 @@ export class Improvement {
     costMultiplyer: number,
     improvee: string,
     improves: string,
-    improvesBy: number
+    improvesByMultiplyer: number,
+    improvesByAdder?: number
   }) {
     this.id = options.id;
     this.name = options.name;
@@ -37,6 +39,7 @@ export class Improvement {
     this.costMultiplyer = options.costMultiplyer;
     this.improvee = options.improvee;
     this.improves = options.improves;
-    this.improvesBy = options.improvesBy;
+    this.improvesByMultiplyer = options.improvesByMultiplyer;
+    this.improvesByAdder = options.improvesByAdder || 0;
   }
 }

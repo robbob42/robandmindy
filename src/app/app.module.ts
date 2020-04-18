@@ -29,6 +29,7 @@ import { ExchangeCardComponent } from './components/rob/wobertidle/components/ex
 import { AccordionActivitiesComponent } from './components/rob/wobertidle/components/accordion-activities/accordion-activities.component';
 import { AccordionInventoryComponent } from './components/rob/wobertidle/components/accordion-inventory/accordion-inventory.component';
 import { AccordionStatsComponent } from './components/rob/wobertidle/components/accordion-stats/accordion-stats.component';
+import { PowersComponent } from './components/rob/wobertidle/components/powers/powers.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { AccordionStatsComponent } from './components/rob/wobertidle/components/
     ExchangeCardComponent,
     AccordionActivitiesComponent,
     AccordionInventoryComponent,
-    AccordionStatsComponent
+    AccordionStatsComponent,
+    PowersComponent
   ],
   imports: [
     BrowserModule,
